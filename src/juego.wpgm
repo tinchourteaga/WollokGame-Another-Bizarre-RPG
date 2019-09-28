@@ -1,5 +1,13 @@
 import wollok.game.*
 
-program nombreDeSuJuego {
+program NombreDeSuJuego {
+    
+    game.title("NombreDeSuJuego")
+//	game.height(10)
+//	game.width(10)
+//	game.boardGround("fondo.jpg") aca va el nombre de la imagen de fondo
+
+//    nivel.iniciar() 
+    
 	game.start()
 }
