@@ -1,13 +1,18 @@
 import wollok.game.*
+import items.*
+import nivel.*
+import personajes.*
+import enemigos.*
 
 program NombreDeSuJuego {
     
     game.title("NombreDeSuJuego")
-//	game.height(10)
-//	game.width(10)
-//	game.boardGround("fondo.jpg") aca va el nombre de la imagen de fondo
+	game.height(12)
+	game.width(13)
+	game.boardGround("mazeSewer.jpg") //aca va el nombre de la imagen de fondo
 
-//    nivel.iniciar() 
-    
+    nivel1.iniciar() 
+	
 	game.start()
+	
 }

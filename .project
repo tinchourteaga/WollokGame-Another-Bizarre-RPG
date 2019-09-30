@@ -32,4 +32,26 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.uqbar.project.wollok.wollokNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets/mazeDungeon.jpeg</name>
+			<type>1</type>
+			<location>C:/Users/tinch/Documents/PARADIGMAS DE PROGRAMACION 2019/mazeDungeon.jpeg</location>
+		</link>
+		<link>
+			<name>assets/mazeSewer.jpg</name>
+			<type>1</type>
+			<location>C:/Users/tinch/Documents/PARADIGMAS DE PROGRAMACION 2019/WOLLOK GAME ASSETS/mazeSewer.jpg</location>
+		</link>
+		<link>
+			<name>assets/scorpion2.png</name>
+			<type>1</type>
+			<location>C:/Users/tinch/Documents/PARADIGMAS DE PROGRAMACION 2019/scorpion2.png</location>
+		</link>
+		<link>
+			<name>assets/storageRoom.jpg</name>
+			<type>1</type>
+			<location>C:/Users/tinch/Documents/PARADIGMAS DE PROGRAMACION 2019/WOLLOK GAME ASSETS/storageRoom.jpg</location>
+		</link>
+	</linkedResources>
 </projectDescription>
