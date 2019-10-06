@@ -1,12 +1,15 @@
 import wollok.game.*
 import items.*
+import personajes.*
 
-class Enemigo {
-	var vida = 0
-	var ataque = 0
-	var velocidad = 0
-	const item
-	const property ataques = #{}
+object enemigo1 { // cambiar nombre tambien
+	var vida = 300
+	var ataque = 50
+	var velocidad = 30
+	const item = espada
+	var property position = game.at(8,8)
+	
+	method itemDePaso() = "" // item que deja el enemigo al morir y que nos permite avanzar en el juego
 	
 	method image() = ""
 	
@@ -24,11 +27,11 @@ class Enemigo {
 	method morir() {
 		if(vida <= 0){
 			game.removeVisual(self)
-			game.addVisual(item)
+			game.addVisual(itemDePaso)
 		}
 	}
 	
-	method atacar(estadistica,enemigo) {
-		// no se definio todavia como van a ser los ataques
+	method pelear(enemigo) {
+		item.ataques().danioQueProvoca(enemigo)
 	}
 }
