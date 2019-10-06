@@ -1,17 +1,23 @@
 import wollok.game.*
 import personajes.*
 import enemigos.*
+import ataques.*
 
-class Item {
-	var property poder = 0 // mayor poder, mejor item (los mejores items pueden ser usados si se tiene mucha dignidad)
-	                       // poder seria como dignidad necesaria minima para llevarlo
-	const property danioQueProvoca 
+object espada {
+	var poder = 75 // mayor poder, mejor item (los mejores items pueden ser usados si se tiene mucha dignidad en el caso del personaje)
+	                       // poder seria como dignidad necesaria minima para llevarlo si lo lleva un personaje (no enemigo) ?????? 
+	const ataques = #{ataqueDeEspada} 
 	
-	method aumentarEstadistica(personaje,estadistica) {
-		return personaje.estadistica() + poder
+	method poder() = poder
+	
+	method cambiarPoder(nuevoPoder) = (poder = nuevoPoder)
+		
+	method aumentarEstadistica(personaje) {  // para el que lo usa ( solo personajes ?? )
+		return personaje.dignidad() + poder
 	}
 	
 	method agregarAtaque(nuevoAtaque,personaje) {
 		personaje.ataques().add(nuevoAtaque)
 	}
 }
+

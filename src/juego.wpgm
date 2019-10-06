@@ -9,10 +9,9 @@ program NombreDeSuJuego {
     game.title("NombreDeSuJuego")
 	game.height(12)
 	game.width(13)
-	game.ground("scorpion2.png") //aca va el nombre de la imagen de fondo
+	game.boardGround("mazeDungeon.jpeg") //aca va el nombre de la imagen de fondo
 
-//    nivel1.iniciar() 
-//esto es un comentario para el branch de prueba
+    nivel.iniciar() 
 	game.start()
 	
 }

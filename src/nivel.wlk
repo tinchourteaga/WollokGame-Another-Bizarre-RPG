@@ -4,10 +4,7 @@ import enemigos.*
 import items.*
 /*
 object nivel {
-	var unItem = new Item(poder = 500)                                                                            // ejemplos
-	var unPersonaje = new Personaje(ataque = 100, vida = 100, dignidad = 100, velocidad = 150, item = unItem)
-	var unEnemigo = new Enemigo(ataque = 200, vida = 100, velocidad = 90, item = unItem)
-	
+* 
 	method iniciar() {
 		
 	}
@@ -40,18 +37,26 @@ object config {
 }
 */
 
-object nivel1 {
+object nivel {
 	
 	method iniciar() {
-		
 		self.agregarPersonajes()
 		config.configurarTeclas()
+		config.configurarColisiones()
 			
 	}
 	
 	method agregarPersonajes() {
 		game.addVisual(scorpion)
+		game.addVisual(enemigo1)
+		game.showAttributes(scorpion)
+		game.showAttributes(enemigo1)
 	}
+	
+	method configurarAcciones() {
+		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
+	}
+	
 }
 
 object config {
@@ -65,8 +70,8 @@ object config {
 	}
 	
 	method configurarColisiones() {
-		
-		
+		game.whenCollideDo(scorpion, { enemigo1 => enemigo1.pelear() })
+		game.whenCollideDo(enemigo1, { scorpion => scorpion.pelear() })
 	}
 }
 
