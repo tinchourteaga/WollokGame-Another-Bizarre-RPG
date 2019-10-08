@@ -41,38 +41,44 @@ object nivel {
 	
 	method iniciar() {
 		self.agregarPersonajes()
+		self.agregarExtras()
 		config.configurarTeclas()
-		config.configurarColisiones()
+		//config.configurarColisiones()
 			
 	}
 	
 	method agregarPersonajes() {
 		game.addVisual(scorpion)
-		game.addVisual(enemigo1)
+		//game.addVisual(enemigo1)
 		game.showAttributes(scorpion)
-		game.showAttributes(enemigo1)
+		//game.showAttributes(enemigo1)
 	}
 	
-	method configurarAcciones() {
+	method agregarExtras() {
+		game.addVisual(magmaSword)
+	}
+	
+/* 	method configurarAcciones() {
 		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
 	}
-	
+*/
 }
 
 object config {
 	
-	method configurarTeclas() {
-		
+	method configurarTeclas() { 
+	// Despues scorpion es reemplazado por 'personaje' (cuando metamos que se pueda elegir pj)	
 		keyboard.left().onPressDo({ scorpion.moverse(scorpion.position().left(1))})
 		keyboard.right().onPressDo({ scorpion.moverse(scorpion.position().right(1))})
 		keyboard.up().onPressDo({ scorpion.moverse(scorpion.position().up(1))})
 		keyboard.down().onPressDo({ scorpion.moverse(scorpion.position().down(1))})
+		keyboard.q().onPressDo({ scorpion.ponerItemSiguienteEnMano()})
 	}
-	
+	/*
 	method configurarColisiones() {
 		game.whenCollideDo(scorpion, { enemigo1 => enemigo1.pelear() })
 		game.whenCollideDo(enemigo1, { scorpion => scorpion.pelear() })
-	}
+	} */
 }
 
 

@@ -13,12 +13,12 @@ object robarItemConMasPoder {
 		return personaje.items().max({item => item.poder()})
 	}
 }
-
+/*
 object ataqueDeEspada() { // cambiar nombre dsp pq no se me ocurre nada :)
 	const danio = 15
 	
 	method danioQueProvoca(personaje) {
 		personaje.vida() -= danio
 	}
-	
 }
+ */	

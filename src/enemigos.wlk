@@ -27,11 +27,12 @@ object enemigo1 { // cambiar nombre tambien
 	method morir() {
 		if(vida <= 0){
 			game.removeVisual(self)
-			game.addVisual(itemDePaso)
+			//game.addVisual(itemDePaso)
+			
 		}
 	}
 	
-	method pelear(enemigo) {
-		item.ataques().danioQueProvoca(enemigo)
-	}
+	//method pelear(enemigo) {
+	//	item.ataques().danioQueProvoca(enemigo)
+	//}
 }
