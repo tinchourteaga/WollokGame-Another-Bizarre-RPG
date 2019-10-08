@@ -3,11 +3,13 @@ import personajes.*
 import enemigos.*
 import ataques.*
 
-class Arma { // Ver a futuro si realmente quiero una super clase Arma
-	
+class Arma {
+	var atravesable = true
+
+	method esAtravesable() = atravesable
 }
 
-class Espada {
+class Espada inherits Arma {
 	var position = game.at(3,3)
 	
 	method position() = position

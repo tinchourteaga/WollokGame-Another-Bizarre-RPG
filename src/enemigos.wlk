@@ -6,7 +6,6 @@ object enemigo1 { // cambiar nombre tambien
 	var vida = 300
 	var ataque = 50
 	var velocidad = 30
-	const item = espada
 	var property position = game.at(8,8)
 	
 	method itemDePaso() = "" // item que deja el enemigo al morir y que nos permite avanzar en el juego

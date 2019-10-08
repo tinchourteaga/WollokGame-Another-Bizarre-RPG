@@ -1,6 +1,7 @@
 import wollok.game.*
 import items.*
 import nivel.*
+import extras.*
 
 class Personaje {
 	
@@ -10,20 +11,28 @@ class Personaje {
 	var items = []
 	var itemEnMano
 	var killsCounter = 0
-	var position = game.at(3,3)
+	var position = game.at(1,1)
 	
 	method position() = position
 	
-	method modificarPosicion(nuevaPosicion) = (position = nuevaPosicion)
-	
 	method image()
 	
+	method moverse(nuevaPosicion,orientacion) {
+		if(self.puedeMoverse(orientacion)) {
+			position = nuevaPosicion	
+		}// else no se mueve
+	}
+	
+	method puedeMoverse(orientacion) {
+		return orientacion.posicionEnEsaDireccion().allElements().all({ objeto => objeto.esAtravesable() })
+	}
+	/*
 	method moverse(nuevaPosicion) { // De esta forma no se va mas alla de los bordes de la ventana
 		if(nuevaPosicion.x().between(-1,10) && nuevaPosicion.y().between(-2,9)){
 			position = nuevaPosicion	
 		}	
 	}
-	
+	*/
 	method ponerItemSiguienteEnMano() {
 		if(!items.isEmpty()) {
 			var item = items.head()

@@ -2,6 +2,8 @@ import wollok.game.*
 import personajes.*
 import enemigos.*
 import items.*
+import extras.*
+
 /*
 object nivel {
 * 
@@ -56,6 +58,8 @@ object nivel {
 	
 	method agregarExtras() {
 		game.addVisual(magmaSword)
+		muroHorizontal.generarMuroHorizontal()
+		muroVertical.generarMuroVertical()
 	}
 	
 /* 	method configurarAcciones() {
@@ -68,10 +72,10 @@ object config {
 	
 	method configurarTeclas() { 
 	// Despues scorpion es reemplazado por 'personaje' (cuando metamos que se pueda elegir pj)	
-		keyboard.left().onPressDo({ scorpion.moverse(scorpion.position().left(1))})
-		keyboard.right().onPressDo({ scorpion.moverse(scorpion.position().right(1))})
-		keyboard.up().onPressDo({ scorpion.moverse(scorpion.position().up(1))})
-		keyboard.down().onPressDo({ scorpion.moverse(scorpion.position().down(1))})
+		keyboard.left().onPressDo({ scorpion.moverse(scorpion.position().left(1),izquierda)})
+		keyboard.right().onPressDo({ scorpion.moverse(scorpion.position().right(1),derecha)})
+		keyboard.up().onPressDo({ scorpion.moverse(scorpion.position().up(1),arriba)})
+		keyboard.down().onPressDo({ scorpion.moverse(scorpion.position().down(1),abajo)})
 		keyboard.q().onPressDo({ scorpion.ponerItemSiguienteEnMano()})
 	}
 	/*
