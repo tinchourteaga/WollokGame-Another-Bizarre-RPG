@@ -11,7 +11,7 @@ class Personaje {
 	var items = []
 	var itemEnMano
 	var killsCounter = 0
-	var position = game.at(1,1)
+	var position = game.at(12,2)
 	
 	method position() = position
 	
@@ -72,7 +72,7 @@ class Personaje {
 
 object scorpion inherits Personaje {
 	
-	override method image() = "scorpion2.png"
+	override method image() = "scorpion (1).png"
 	
 	
 	

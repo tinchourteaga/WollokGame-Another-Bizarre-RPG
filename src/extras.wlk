@@ -13,13 +13,14 @@ class Muro {
 
 class MuroVertical inherits Muro {
 
-	override method image() = "muroVertical.png" // Hay que achicar la img
+	override method image() = "muro_achicado.png" // Hay que achicar la img
+
 
 }
 
 class MuroHorizontal inherits Muro {
 
-	override method image() = "muroHorizontalResized.png" // Hay que achicar la img
+	override method image() = "muro_achicado.png" // Hay que achicar la img
 
 }
 

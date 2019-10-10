@@ -25,5 +25,5 @@ class Pocion {
 
 object magmaSword inherits Espada {
 	
-	override method image() = "magmaSword.png"
+//	override method image() = "magmaSword.png"
 }

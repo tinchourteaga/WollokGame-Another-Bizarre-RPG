@@ -51,8 +51,8 @@ object nivel {
 	}
 
 	method disenioNivel() {
-		self.generarMuroHorizontal()
 		self.generarMuroVertical()
+		self.generarMuroHorizontal()
 		game.addVisual(pinchos1)
 		game.addVisual(pinchos2)
 		game.addVisual(button) // hay que achicarlo
@@ -66,17 +66,29 @@ object nivel {
 	}
 
 	method agregarExtras() {
-		game.addVisual(magmaSword)
+	// game.addVisual(magmaSword)
 	}
 
 	method generarMuroVertical() {
-		const posicionesParaGenerarMuros = [ game.at(0,5), game.at(5,0) ] // A manopla o hay alguna forma mas eficiente que no veo??
+		const posicionesParaGenerarMuros = (1 .. 12).map({ n => game.at(0, n) }) // A manopla o hay alguna forma mas eficiente que no veo??
 		posicionesParaGenerarMuros.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
+		const posicionesParaGenerarMuros2 = (1 .. 12).map({ n => game.at(24, n) }) // A manopla o hay alguna forma mas eficiente que no veo??
+		posicionesParaGenerarMuros2.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
+		const posicionesAMano = [ game.at(11,2), game.at(13,2), game.at(2,5), game.at(3,5), game.at(4,5), game.at(5,5), game.at(6,5), game.at(6,4), game.at(6,3), game.at(6,2) ]
+		posicionesAMano.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
+		const segundaEtapa = [ game.at(15,8), game.at(15,10), game.at(15,11) ]
+		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		const terceraEtapa = (3 .. 12).map({ n => game.at(17, n) })
+		terceraEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
 	}
 
 	method generarMuroHorizontal() {
-		const posicionesParaGenerarMuros = [ game.at(3,4), game.at(0,0) ] // A manopla o hay alguna forma mas eficiente que no veo??
+		const posicionesParaGenerarMuros = (1 .. 25).map({ n => game.at(n, 1) })
 		posicionesParaGenerarMuros.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		const posicionesParaGenerarMuros2 = (1 .. 25).map({ n => game.at(n, 12) })
+		posicionesParaGenerarMuros2.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		const segundaEtapa = (1 .. 15).map({ n => game.at(n, 7) })
+		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
 	}
 
 /* 	method configurarAcciones() {
