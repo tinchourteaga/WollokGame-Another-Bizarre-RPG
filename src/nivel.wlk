@@ -38,35 +38,49 @@ import extras.*
  * 	}
  * }
  */
-object nivel {
-	const pinchos1 = new Pinchos(position = game.at(2,8))
-	const pinchos2 = new Pinchos(position = game.at(2,9)) // cambiar posiciones, se superponen
+object seleccionDePersonaje {
 
 	method iniciar() {
-		self.agregarExtras()
+		game.boardGround("seleccionDePersonaje.jpg")
+		config.seleccionarPersonajes()		
+	}
+
+}
+
+object nivel1 {
+
+	const pinchos1 = new Pinchos(position = game.at(2, 8))
+	const pinchos2 = new Pinchos(position = game.at(2, 9)) // cambiar posiciones, se superponen
+
+	method iniciar(personaje) {
+		game.ground("piso.png") // aca va el nombre de la imagen de fondo
 		self.disenioNivel()
-		self.agregarPersonajes()
-		config.configurarTeclas()
+		self.agregarPersonajes(personaje)
+		config.configurarTeclas(personaje)
 	// config.configurarColisiones()
 	}
 
 	method disenioNivel() {
 		self.generarMuroVertical()
 		self.generarMuroHorizontal()
-		game.addVisual(pinchos1)
-		game.addVisual(pinchos2)
-		game.addVisual(button) // hay que achicarlo
+		self.agregarVisualesExtras()
 	}
 
-	method agregarPersonajes() {
-		game.addVisual(scorpion)
-			// game.addVisual(enemigo1)
-		game.showAttributes(scorpion)
+	method agregarPersonajes(personaje) {
+		game.addVisual(personaje)
+//		game.addVisual(enemigo1)
+		game.showAttributes(personaje)
 	// game.showAttributes(enemigo1)
 	}
 
-	method agregarExtras() {
-	// game.addVisual(magmaSword)
+	method agregarVisualesExtras() {
+		self.posicionPinchos()
+		game.addVisualIn(button, game.at(3, 3)) // hay que achicarlo
+	}
+
+	method posicionPinchos() {
+		const posicionesParaGenerarPinchos = (8 .. 11).map({ n => game.at(14, n) }) // A manopla o hay alguna forma mas eficiente que no veo??
+		posicionesParaGenerarPinchos.forEach{ posicion => game.addVisualIn(new Pinchos(), posicion)}
 	}
 
 	method generarMuroVertical() {
@@ -99,19 +113,25 @@ object nivel {
 
 object config {
 
-	method configurarTeclas() {
+	method seleccionarPersonajes() {
+		keyboard.num0().onPressDo({ nivel1.iniciar(scorpion)})
+		keyboard.num1().onPressDo({ nivel1.iniciar(gandalf) })
+	}
+
+	method configurarTeclas(personaje) {
 		// Despues scorpion es reemplazado por 'personaje' (cuando metamos que se pueda elegir pj)	
-		keyboard.left().onPressDo({ scorpion.moverse(scorpion.position().left(1), izquierda)})
-		keyboard.right().onPressDo({ scorpion.moverse(scorpion.position().right(1), derecha)})
-		keyboard.up().onPressDo({ scorpion.moverse(scorpion.position().up(1), arriba)})
-		keyboard.down().onPressDo({ scorpion.moverse(scorpion.position().down(1), abajo)})
-		keyboard.q().onPressDo({ scorpion.ponerItemSiguienteEnMano()})
-		keyboard.k().onPressDo({game.colliders(scorpion).head().accionarBoton(scorpion)})
+		keyboard.left().onPressDo({ personaje.moverse(personaje.position().left(1), izquierda,personaje)})
+		keyboard.right().onPressDo({ personaje.moverse(personaje.position().right(1), derecha,personaje)})
+		keyboard.up().onPressDo({ personaje.moverse(personaje.position().up(1), arriba,personaje)})
+		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo,personaje)})
+		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano()})
+		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
 	}
+
 /*	
-	method configurarColisiones() {
-		
-	}
-*/
+ * 	method configurarColisiones() {
+ * 		
+ * 	}
+ */
 }
 

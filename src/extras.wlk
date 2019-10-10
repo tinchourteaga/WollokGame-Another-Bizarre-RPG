@@ -15,7 +15,6 @@ class MuroVertical inherits Muro {
 
 	override method image() = "muro_achicado.png" // Hay que achicar la img
 
-
 }
 
 class MuroHorizontal inherits Muro {
@@ -26,56 +25,59 @@ class MuroHorizontal inherits Muro {
 
 object arriba {
 
-	method posicionEnEsaDireccion() = scorpion.position().up(1)
+	method posicionEnEsaDireccion(personaje) = personaje.position().up(1)
 
 }
 
 object abajo {
 
-	method posicionEnEsaDireccion() = scorpion.position().down(1)
+	method posicionEnEsaDireccion(personaje) = personaje.position().down(1)
 
 }
 
 object derecha {
 
-	method posicionEnEsaDireccion() = scorpion.position().right(1)
+	method posicionEnEsaDireccion(personaje) = personaje.position().right(1)
 
 }
 
 object izquierda {
 
-	method posicionEnEsaDireccion() = scorpion.position().left(1)
+	method posicionEnEsaDireccion(personaje) = personaje.position().left(1)
 
 }
 
 class Pinchos {
+
 	var position
-	
+
 	method position() = position
-	
+
 	method image() = "Pinchos.png"
+
 }
 
 object button {
+
 	var estaEncendido = true
-	const position = game.at(9,7)
-	
+
 	method image() {
-		return if(estaEncendido) "ButtonOn.png" else "ButtonOff.png"
+		return if (estaEncendido) "ButtonOn.png" else "ButtonOff.png"
 	}
-	
+
 	method esAtravesable() = true
-	
-	method position() = position
-	
-	method cambiarEncendido(cambioEncendido) { estaEncendido = cambioEncendido }
+
+	method cambiarEncendido(cambioEncendido) {
+		estaEncendido = cambioEncendido
+	}
 
 	method accionarBoton(personaje) {
-		if(estaEncendido) {
+		if (estaEncendido) {
 			self.cambiarEncendido(false)
-		} else{
-		    self.cambiarEncendido(true)
+		} else {
+			self.cambiarEncendido(true)
 		}
 	}
 
 }
+
