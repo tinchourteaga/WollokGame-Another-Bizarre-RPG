@@ -10,7 +10,7 @@ program NombreDeSuJuego {
     game.title("NombreDeSuJuego")
 	game.height(13)
 	game.width(25)
-	game.boardGround("background3.jpg") //aca va el nombre de la imagen de fondo
+	game.ground("piso.png") //aca va el nombre de la imagen de fondo
 
     nivel.iniciar() 
 	game.start()
