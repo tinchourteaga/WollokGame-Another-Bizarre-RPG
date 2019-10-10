@@ -47,3 +47,34 @@ object izquierda {
 
 }
 
+class Pinchos {
+	var position
+	
+	method position() = position
+	
+	method image() = "Pinchos.png"
+}
+
+object button {
+	var estaEncendido = true
+	const position = game.at(9,7)
+	
+	method image() {
+		return if(estaEncendido) "ButtonOn.png" else "ButtonOff.png"
+	}
+	
+	method esAtravesable() = true
+	
+	method position() = position
+	
+	method cambiarEncendido(cambioEncendido) { estaEncendido = cambioEncendido }
+
+	method accionarBoton(personaje) {
+		if(estaEncendido) {
+			self.cambiarEncendido(false)
+		} else{
+		    self.cambiarEncendido(true)
+		}
+	}
+
+}

@@ -39,6 +39,8 @@ import extras.*
  * }
  */
 object nivel {
+	const pinchos1 = new Pinchos(position = game.at(2,8))
+	const pinchos2 = new Pinchos(position = game.at(2,9)) // cambiar posiciones, se superponen
 
 	method iniciar() {
 		self.agregarExtras()
@@ -51,6 +53,9 @@ object nivel {
 	method disenioNivel() {
 		self.generarMuroHorizontal()
 		self.generarMuroVertical()
+		game.addVisual(pinchos1)
+		game.addVisual(pinchos2)
+		game.addVisual(button) // hay que achicarlo
 	}
 
 	method agregarPersonajes() {
@@ -89,12 +94,12 @@ object config {
 		keyboard.up().onPressDo({ scorpion.moverse(scorpion.position().up(1), arriba)})
 		keyboard.down().onPressDo({ scorpion.moverse(scorpion.position().down(1), abajo)})
 		keyboard.q().onPressDo({ scorpion.ponerItemSiguienteEnMano()})
+		keyboard.k().onPressDo({game.colliders(scorpion).head().accionarBoton(scorpion)})
 	}
-
-/*
- * method configurarColisiones() {
- * 	game.whenCollideDo(scorpion, { enemigo1 => enemigo1.pelear() })
- * 	game.whenCollideDo(enemigo1, { scorpion => scorpion.pelear() })
- } */
+/*	
+	method configurarColisiones() {
+		
+	}
+*/
 }
 
