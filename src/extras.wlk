@@ -81,3 +81,10 @@ object button {
 
 }
 
+object escalera{
+	
+	method image()= "escaleras.png"
+	
+	method esAtravesable() = true
+}
+

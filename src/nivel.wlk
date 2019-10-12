@@ -42,22 +42,18 @@ object seleccionDePersonaje {
 
 	method iniciar() {
 		game.boardGround("seleccionDePersonaje.jpg")
-		config.seleccionarPersonajes()		
+		config.seleccionarPersonajes()
 	}
 
 }
 
 object nivel1 {
 
-	const pinchos1 = new Pinchos(position = game.at(2, 8))
-	const pinchos2 = new Pinchos(position = game.at(2, 9)) // cambiar posiciones, se superponen
-
 	method iniciar(personaje) {
 		game.ground("piso.png") // aca va el nombre de la imagen de fondo
-		self.disenioNivel()
 		self.agregarPersonajes(personaje)
+		self.disenioNivel()
 		config.configurarTeclas(personaje)
-	// config.configurarColisiones()
 	}
 
 	method disenioNivel() {
@@ -70,6 +66,7 @@ object nivel1 {
 		game.addVisual(personaje)
 //		game.addVisual(enemigo1)
 		game.showAttributes(personaje)
+		game.addVisualIn(escalera, game.at(12, 2))
 	// game.showAttributes(enemigo1)
 	}
 
@@ -111,27 +108,63 @@ object nivel1 {
  */
 }
 
+object nivel2 {
+
+	method iniciar(personaje) {
+		game.ground("piso.png") // aca va el nombre de la imagen de fondo
+		self.agregarPersonajes(personaje)
+		self.disenioNivel()
+		config.configurarTeclas(personaje)
+		config.configurarColisionesNivel1(personaje)
+	}
+
+	method disenioNivel() {
+		self.generarMuroVertical()
+		self.generarMuroHorizontal()
+	}
+
+	method agregarPersonajes(personaje) {
+		game.addVisual(personaje)
+		game.showAttributes(personaje)
+	}
+
+	method generarMuroVertical() {
+		const posicionesParaGenerarMuros = (1 .. 12).map({ n => game.at(0, n) }) // A manopla o hay alguna forma mas eficiente que no veo??
+		posicionesParaGenerarMuros.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
+		const posicionesParaGenerarMuros2 = (1 .. 12).map({ n => game.at(24, n) }) // A manopla o hay alguna forma mas eficiente que no veo??
+		posicionesParaGenerarMuros2.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
+	}
+
+	method generarMuroHorizontal() {
+		const posicionesParaGenerarMuros = (1 .. 25).map({ n => game.at(n, 1) })
+		posicionesParaGenerarMuros.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		const posicionesParaGenerarMuros2 = (1 .. 25).map({ n => game.at(n, 12) })
+		posicionesParaGenerarMuros2.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+	}
+
+}
+
 object config {
 
 	method seleccionarPersonajes() {
 		keyboard.num0().onPressDo({ nivel1.iniciar(scorpion)})
-		keyboard.num1().onPressDo({ nivel1.iniciar(gandalf) })
+		keyboard.num1().onPressDo({ nivel1.iniciar(gandalf)})
 	}
 
 	method configurarTeclas(personaje) {
 		// Despues scorpion es reemplazado por 'personaje' (cuando metamos que se pueda elegir pj)	
-		keyboard.left().onPressDo({ personaje.moverse(personaje.position().left(1), izquierda,personaje)})
-		keyboard.right().onPressDo({ personaje.moverse(personaje.position().right(1), derecha,personaje)})
-		keyboard.up().onPressDo({ personaje.moverse(personaje.position().up(1), arriba,personaje)})
-		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo,personaje)})
+		keyboard.left().onPressDo({ personaje.moverse(personaje.position().left(1), izquierda, personaje)})
+		keyboard.right().onPressDo({ personaje.moverse(personaje.position().right(1), derecha, personaje)})
+		keyboard.up().onPressDo({ personaje.moverse(personaje.position().up(1), arriba, personaje)})
+		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo, personaje)})
 		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano()})
 		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
 	}
 
-/*	
- * 	method configurarColisiones() {
- * 		
- * 	}
- */
+	method configurarColisionesNivel1(personaje) {
+		game.whenCollideDo(personaje, { escalera => game.clear()})
+		game.whenCollideDo(personaje, { escalera => nivel2.iniciar(personaje)})
+	}
+
 }
 
