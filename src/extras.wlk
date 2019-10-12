@@ -3,24 +3,25 @@ import personajes.*
 
 class Muro {
 
-	var atravesable = false
-
-	method esAtravesable() = atravesable
-
-	method image()
+	method esAtravesable() = false
 
 }
 
 class MuroVertical inherits Muro {
 
-	override method image() = "muro_achicado.png" // Hay que achicar la img
+	method image() = "muro_achicado.png" // Hay que achicar la img
 
 }
 
 class MuroHorizontal inherits Muro {
 
-	override method image() = "muro_achicado.png" // Hay que achicar la img
+	method image() = "muro_achicado.png" // Hay que achicar la img
 
+}
+
+class BloqueInventario {
+	
+	method image() = "minecraftSlot.png"
 }
 
 object arriba {

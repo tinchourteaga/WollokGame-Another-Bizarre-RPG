@@ -32,21 +32,32 @@ class Personaje {
 			var item = items.head()
 			items.remove(item)
 			items.add(item)
-			itemEnMano = items.head() // poner que se actualice la img cuando esten hechos los items
+			itemEnMano = items.head() // Poner que se actualice la img cuando esten hechos los items
 		} // else "inventario vacio"
 	}
 
 	method dejarItemEnMano() {
 		items.remove(itemEnMano)
+		game.removeVisual(itemEnMano) // Lo destruye, no lo dropea
 	}
 
-	method agarrarItem(nuevoItem) {
-		if (self.position() == nuevoItem.position()) {
-			if (items.size() < 3) {
-				items.add(nuevoItem)
-				game.removeVisual(nuevoItem)
-			} // else "inventario lleno"	
-		}
+	method agarrarItem() {
+		if (items.size() < 5) {
+			if (!items.isEmpty()) {
+				self.agregarAInventario()
+			} 
+			else {
+				self.agregarAInventario()
+				itemEnMano = items.head()
+			}
+		} // else "inventario lleno"	
+	}
+
+	method agregarAInventario() {
+		var nuevoItem = game.colliders(self).head()
+		items.add(nuevoItem)
+		game.removeVisual(nuevoItem)
+		game.addVisualIn(nuevoItem, game.at(0, 0)) // Habria que ponerlo en la pocion de inventario que corresponda
 	}
 
 	method mejorarEstadisticas() {

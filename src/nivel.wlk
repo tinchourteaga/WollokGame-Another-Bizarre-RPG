@@ -63,6 +63,7 @@ object nivel1 {
 	method disenioNivel() {
 		self.generarMuroVertical()
 		self.generarMuroHorizontal()
+		self.generarSlotInventario()
 		self.agregarVisualesExtras()
 	}
 
@@ -76,6 +77,7 @@ object nivel1 {
 	method agregarVisualesExtras() {
 		self.posicionPinchos()
 		game.addVisualIn(button, game.at(3, 3)) // hay que achicarlo
+		game.addVisualIn(new PocionSalud(), game.at(8,5))
 	}
 
 	method posicionPinchos() {
@@ -104,6 +106,11 @@ object nivel1 {
 		const segundaEtapa = (1 .. 15).map({ n => game.at(n, 7) })
 		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
 	}
+	
+	method generarSlotInventario() {
+		const posicionesInventario = [ game.at(0,0), game.at(1,0), game.at(2,0), game.at(3,0), game.at(4,0) ]
+		posicionesInventario.forEach{ posicion => game.addVisualIn(new BloqueInventario(), posicion)}
+	}
 
 /* 	method configurarAcciones() {
  * 		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
@@ -126,6 +133,8 @@ object config {
 		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo,personaje)})
 		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano()})
 		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
+		keyboard.f().onPressDo({ personaje.agarrarItem() })
+		keyboard.g().onPressDo({ personaje.dejarItemEnMano() })
 	}
 
 /*	
