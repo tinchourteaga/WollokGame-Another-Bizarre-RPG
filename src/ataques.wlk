@@ -1,24 +1,28 @@
 import wollok.game.*
 import personajes.*
 import enemigos.*
-// los ataques pueden ser objetos que provoquen distinto danio y asignarles distintos a los personajes y/o enemigos
-object robarItemConMasPoder {
+
+class Ataque {
+	var property danio = 0
 	
-	method danioQueProvoca(personajeAfectado,personajeBeneficiado) {
+	method ataque(personaje)
+}
+
+object robarItemConMasPoder inherits Ataque {
+	
+	override method ataque(personajeAfectado) {
 		personajeAfectado.items().remove(self.itemConMasPoder(personajeAfectado))
-		personajeBeneficiado.items().add(self.itemConMasPoder(personajeAfectado))
 	}
 	
 	method itemConMasPoder(personaje) {
 		return personaje.items().max({item => item.poder()})
 	}
 }
-/*
-object ataqueDeEspada() { // cambiar nombre dsp pq no se me ocurre nada :)
-	const danio = 15
+
+object robarItemEnMano inherits Ataque {
 	
-	method danioQueProvoca(personaje) {
-		personaje.vida() -= danio
+	override method ataque(personaje) {
+		
+		personaje.ponerItemSiguienteEnMano()	
 	}
 }
- */	

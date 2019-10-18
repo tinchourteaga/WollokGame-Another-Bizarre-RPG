@@ -2,86 +2,120 @@ import wollok.game.*
 import personajes.*
 import enemigos.*
 import ataques.*
-
+// armas
 class Arma {
+
+	var property danio
+	
+	method image()
+	
+	method ataque()
+	
+	method aumentarEstadisticas(personaje)
+
 	method esAgarrable() = true
 	
 	method esAtravesable() = true
+
 }
 
-class Espada inherits Arma {
-	var position = game.at(3,3)
+object espada inherits Arma {
+	override method danio() = 50
 	
-	method position() = position
+	override method ataque(personaje) {
+		personaje.disminuirVida(danio)
+	}
 	
-	method image()
+	override method image() = "magmaSword.png"
+	
+	override method aumentarEstadisticas(personaje) { 
+		personaje.velocidad(personaje.velocidad() * 2)
+	}
+
 }
 
-class Item {
+object bastonMagico inherits Arma {
+	override method danio() = 90
 	
+	override method image() = "" //Hay que buscar alguna imagen
+	
+	override method ataque(personaje) {
+		personaje.disminuirVida(danio * 2)
+	}
+	
+	override method aumentarEstadisticas(personaje) {
+		personaje.aumentarVida(15)
+	}
+}
+// pociones 
+class Pocion {
+
 	method esAtravesable() = true
 	
 	method esAgarrable() = true
 } 
 
-class PocionSalud inherits Item {
+    method image() 
+    
+	method efecto(personaje)
+}
 
-	method image() = "pocionSalud.png"
+object pocionSalud inherits Pocion {
+	
+	override method image() = "pocionSalud.png"
 
-	method efecto(personaje) {
+	override method efecto(personaje) {
 		var nuevaVida = personaje.vida() + personaje.vida() * 0.2
 		personaje.vida(100.min(nuevaVida))
 	}
-
 }
 
-class PocionMana inherits Item  {
+object pocionMana inherits Pocion {
 
-	method image() = ""
+	override method image() = ""
 
-	method efecto(personaje) {
-		personaje.mana(300.min(50))
+	override method efecto(personaje) {
+		personaje.mana(300.min(50))     // mana es un atributo de personaje? si lo es, hay que agregarlo
 	}
 
 }
 
-class PocionVeneno inherits Item  {
+object pocionVeneno inherits Pocion {
 
-	method image() = ""
+	override method image() = ""
 
-	method efecto(personaje) {
+	override method efecto(personaje) {
 	// hace que los ataques envenenen al enemigo (pierda "x" vida por turno)
 	}
 
 }
 
-class PocionDefensa inherits Item  {
+object pocionDefensa inherits Pocion {
 
-	method image() = ""
+	override method image() = ""
 
-	method efecto(personaje) {
+	override method efecto(personaje) {
 	// reduce el daño recibido 
 	}
 
 }
 
-class PocionFuerza inherits Item  {
+object pocionFuerza inherits Pocion {
 
-	method image() = ""
+	override method image() = ""
 
-	method efecto(personaje) {
+	override method efecto(personaje) {
 	// aumenta el ataque 
 	}
 
 }
 
-class PocionInmortalidad inherits Item  {
+object pocionInmortalidad inherits Pocion {
 
-	method image() = ""
+	override method image() = ""
 
-	method efecto(personaje) {
-		personaje.vida(0)
+	override method efecto(personaje) {
+		personaje.vida(10000)
 	}
-
 }
 
