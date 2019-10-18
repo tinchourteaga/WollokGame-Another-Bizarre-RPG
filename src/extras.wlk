@@ -20,8 +20,9 @@ class MuroHorizontal inherits Muro {
 }
 
 class BloqueInventario {
-	
+
 	method image() = "minecraftSlot.png"
+
 }
 
 object arriba {
@@ -58,9 +59,29 @@ class Pinchos {
 
 }
 
+object fireBall {
+
+	var position
+
+	method image() = "fireball.png"
+
+	method position() = position
+
+	method esAtravesable() = true
+
+	method hacerDanioLetal() = true
+
+	method posicionFireball() {
+		position = [11,10,9,8].map({ n => game.at(11, n) })
+	}
+
+}
+
 object button {
 
 	var estaEncendido = true
+
+	method esAgarrable() = false
 
 	method image() {
 		return if (estaEncendido) "ButtonOn.png" else "ButtonOff.png"
@@ -82,10 +103,11 @@ object button {
 
 }
 
-object escalera{
-	
-	method image()= "escaleras.png"
-	
+object escalera {
+
+	method image() = "escaleras.png"
+
 	method esAtravesable() = true
+
 }
 

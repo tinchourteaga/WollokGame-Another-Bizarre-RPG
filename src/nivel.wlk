@@ -21,6 +21,7 @@ object nivel {
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
 		config.configurarTeclas(personaje)
+		self.agregarPersonajes(personaje)
 	}
 
 	method disenioNivel() {
@@ -45,13 +46,20 @@ object nivel {
 		game.addVisualIn(gato, game.at(19,8))
 		// personaje
 		game.addVisual(personaje)
+
 	}
 
 	method agregarVisualesExtras() {
 		self.posicionPinchos()
 		game.addVisualIn(button, game.at(5,3)) 
 		game.addVisualIn(pocionSalud, game.at(8,5))
-		game.addVisualIn(escalera, game.at(12, 2))
+    game.addVisual(enemigo1)
+		game.showAttributes(personaje)
+	  game.showAttributes(enemigo1)
+		game.addVisual(fireBall)
+		game.schedule(3000, { fireBall.posicionFireball()})
+		//game.addVisualIn(button, game.at(3, 3)) // hay que achicarlo
+		//game.addVisualIn(new PocionSalud(	), game.at(8, 5))
 	}
 
 	method posicionPinchos() {
@@ -80,11 +88,17 @@ object nivel {
 		const segundaEtapa = (1 .. 15).map({ n => game.at(n, 7) })
 		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
 	}
-	
+
 	method generarSlotInventario() {
 		const posicionesInventario = [ game.at(0,0), game.at(1,0), game.at(2,0), game.at(3,0), game.at(4,0) ]
 		posicionesInventario.forEach{ posicion => game.addVisualIn(new BloqueInventario(), posicion)}
 	}
+
+
+/* 	method configurarAcciones() {
+ * 		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
+ * 	}
+ */
 
 }
 
@@ -102,7 +116,7 @@ object config {
 		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo, personaje) })
 		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano() })
 		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje) })
-		keyboard.k().onPressDo({  })
+		//keyboard.k().onPressDo({  })
 		keyboard.f().onPressDo({ personaje.agarrarItem() })
 		keyboard.g().onPressDo({ personaje.dejarItemEnMano() })
 		keyboard.r().onPressDo({ personaje.pelear(game.colliders(personaje).head()) })
@@ -110,7 +124,42 @@ object config {
 
 	method configurarColisiones(personaje) {
 		game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
+		game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
 	}
 
 }
 
+/*
+ * object nivel {
+ * 
+ * 	method iniciar() {
+ * 		
+ * 	}
+ * 	
+ * 	method ganar() {
+ * 		game.clear()
+ * 	}
+ * }
+
+ * object config {
+ * 	var unItem = new Item(poder = 500)
+ *     var unPersonaje = new Personaje(ataque = 100, vida = 100, dignidad = 100, velocidad = 150, item = unItem)
+ * 	var unEnemigo = new Enemigo(ataque = 200, vida = 100, velocidad = 90, item = unItem)
+ * 	
+ * 	method configurarTeclas() {	
+ * 		keyboard.left().onPressDo({ unPersonaje.irA(unPersonaje.position().left(1)) })
+ * 		keyboard.right().onPressDo({ unPersonaje.irA(unPersonaje.position().right(1)) })
+ * 		keyboard.up().onPressDo({ unPersonaje.irA(unPersonaje.position().up(1)) })
+ * 		keyboard.down().onPressDo({ unPersonaje.irA(unPersonaje.position().down(1)) })
+ * 	}
+ * 	
+ * 	method configurarColisiones() {
+ * 		//game.whenCollideDo(unPersonaje, { enemigo => unPersonaje.atacar() })
+ * 		//game.whenCollideDo(unEnemigo, { personaje => unEnemigo.atacar() })
+ * 	}
+
+ * 	method configurarAcciones() {
+ * 		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
+ * 	}
+ * }
+ */

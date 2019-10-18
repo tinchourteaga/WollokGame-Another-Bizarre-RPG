@@ -4,6 +4,7 @@ import enemigos.*
 import ataques.*
 // armas
 class Arma {
+
 	var property danio
 	
 	method image()
@@ -11,6 +12,11 @@ class Arma {
 	method ataque()
 	
 	method aumentarEstadisticas(personaje)
+
+	method esAgarrable() = true
+	
+	method esAtravesable() = true
+
 }
 
 object espada inherits Arma {
@@ -43,6 +49,11 @@ object bastonMagico inherits Arma {
 }
 // pociones 
 class Pocion {
+
+	method esAtravesable() = true
+	
+	method esAgarrable() = true
+} 
 
     method image() 
     

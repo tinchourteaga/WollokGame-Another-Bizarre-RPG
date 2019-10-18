@@ -39,7 +39,7 @@ class Personaje {
 	}
 
 	method agarrarItem() {
-		if (items.size() < 5) {
+		if (items.size() < 5 && game.colliders(self).head().esAgarrable()) {
 			if (!items.isEmpty()) {
 				self.agregarAInventario()
 			} 
@@ -57,6 +57,12 @@ class Personaje {
 		items.add(nuevoItem)
 		game.removeVisual(nuevoItem)
 		game.addVisualIn(nuevoItem, game.at(0,0)) // Habria que ponerlo en la pocion de inventario que corresponda
+	}
+	
+	method morir(extra){
+		if(extra.hacerDanioLetal()){
+			game.say(self,"mori")
+		}
 	}
 
 	method mejorarEstadisticas() {
