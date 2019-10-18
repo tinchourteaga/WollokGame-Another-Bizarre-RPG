@@ -4,18 +4,15 @@ import nivel.*
 import extras.*
 
 class Personaje {
-
-	var ataque
-	var vida
-	var velocidad
-	var items = []
-	var itemEnMano
+	var property vida = 500
+    var itemEnMano 
+    var items = []
 	var killsCounter = 0
-	var position = game.at(12, 4)
+    var position = game.at(12, 4)
+    
+    method image()
 
-	method position() = position
-
-	method image()
+    method position() = position
 
 	method moverse(nuevaPosicion, orientacion,personaje) {
 		if (self.puedeMoverse(orientacion,personaje)) {
@@ -50,71 +47,55 @@ class Personaje {
 				self.agregarAInventario()
 				itemEnMano = items.head()
 			}
-		} // else "inventario lleno"	
+		} else{
+			game.say(self,"Inventario Lleno!")
+		}	
 	}
 
 	method agregarAInventario() {
 		var nuevoItem = game.colliders(self).head()
 		items.add(nuevoItem)
 		game.removeVisual(nuevoItem)
-		game.addVisualIn(nuevoItem, game.at(0, 0)) // Habria que ponerlo en la pocion de inventario que corresponda
+		game.addVisualIn(nuevoItem, game.at(0,0)) // Habria que ponerlo en la pocion de inventario que corresponda
 	}
 
 	method mejorarEstadisticas() {
 		itemEnMano.aumentarEstadistica(self)
 	}
 
-	method dignidad() {
-		return 100 * killsCounter
-	}
-
 	method matar(enemigo) {
 		enemigo.morir()
 		killsCounter++
 	}
-
+	
+	method llevarItemEnMano() {            // para que muestre el item en el personaje y se mueva a la par
+		itemEnMano.position(self.position())
+	} 
+	
+	method disminuirVida(valorNuevo) {
+		vida = vida - valorNuevo
+	}
+	
+	method aumentarVida(valorNuevo) {
+		vida = valorNuevo
+	}
+	
+	method pelear(enemigo) {
+		items.forEach({item => item.ataque(enemigo)})
+	}
 }
 
 object scorpion inherits Personaje {
+    var ataque = 80
+    var velocidad = 30
 
 	override method image() = "scorpion.png"
-
 }
 
 object gandalf inherits Personaje {
+    var ataque = 120
+    var velocidad = 15
 
 	override method image() = "gandalf.png"
 
 }
-
-/* 
- * object scorpion inherits Personaje { 
- * 	
- * 	override method image() = "scorpion2.png"
- * 	
- * 	method dignidad() {                          // la dignidad se la da el poder de los items
- * 		return items.sum({item => item.poder()})
- * 	}
- * 	
- * 	method mejorarEstadisticas() {
- * 		items.forEach({item => item.aumentarEstadistica(self)})
- * 	}
- * 	 
- * 	method pelear(enemigo) {
- * 		item.ataques().danioQueProvoca(enemigo)
- * 	}
- * 	
- * 	method agregarItem(nuevoItem) {    // deberia poder elegir el item que deja????
- * 		if(items.size() >= 3){
- * 			self.dejarItemDeMenorPoder()
- * 			items.add(nuevoItem)
- * 		} else{
- * 			items.add(nuevoItem)
- * 		}
- * 	}
- * 	
- * 	method dejarItemDeMenorPoder(){
- * 		items.remove(items.min({item => item.poder()}))
- * 	}
- * }
- */
