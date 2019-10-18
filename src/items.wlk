@@ -4,7 +4,8 @@ import enemigos.*
 import ataques.*
 
 class Arma {
-
+	method esAgarrable() = true
+	
 	method esAtravesable() = true
 }
 
@@ -19,6 +20,8 @@ class Espada inherits Arma {
 class Item {
 	
 	method esAtravesable() = true
+	
+	method esAgarrable() = true
 } 
 
 class PocionSalud inherits Item {
