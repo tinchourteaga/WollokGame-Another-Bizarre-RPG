@@ -59,10 +59,8 @@ class Personaje {
 		game.addVisualIn(nuevoItem, game.at(0,0)) // Habria que ponerlo en la pocion de inventario que corresponda
 	}
 	
-	method morir(extra){
-		if(extra.hacerDanioLetal()){
-			game.say(self,"mori")
-		}
+	method morir(){
+		
 	}
 
 	method mejorarEstadisticas() {
