@@ -72,7 +72,7 @@ object fireBall {
 	method hacerDanioLetal() = true
 
 	method posicionFireball() {
-		position = [11,10,9,8].map({ n => game.at(11, n) })
+		//position = [11,10,9,8].map({ n => game.at(11, n) })
 	}
 
 }

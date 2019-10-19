@@ -17,11 +17,9 @@ object seleccionDePersonaje {
 object nivel {
 
 	method iniciar(personaje) {
-		game.ground("piso.png") // aca va el nombre de la imagen de fondo
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
 		config.configurarTeclas(personaje)
-		self.agregarPersonajes(personaje)
 	}
 
 	method disenioNivel() {
@@ -52,13 +50,9 @@ object nivel {
 	method agregarVisualesExtras() {
 		self.posicionPinchos()
 		game.addVisualIn(button, game.at(5,3)) 
-		game.addVisualIn(pocionSalud, game.at(8,5))
-    game.addVisual(enemigo1)
-		game.showAttributes(personaje)
-	  game.showAttributes(enemigo1)
-		game.addVisual(fireBall)
-		game.schedule(3000, { fireBall.posicionFireball()})
-		//game.addVisualIn(button, game.at(3, 3)) // hay que achicarlo
+		game.addVisualIn(pocionSalud, game.at(8,5))	
+		//game.addVisual(fireBall)
+		//game.schedule(3000, { fireBall.posicionFireball()})
 		//game.addVisualIn(new PocionSalud(	), game.at(8, 5))
 	}
 
@@ -116,14 +110,13 @@ object config {
 		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo, personaje) })
 		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano() })
 		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje) })
-		//keyboard.k().onPressDo({  })
 		keyboard.f().onPressDo({ personaje.agarrarItem() })
 		keyboard.g().onPressDo({ personaje.dejarItemEnMano() })
 		keyboard.r().onPressDo({ personaje.pelear(game.colliders(personaje).head()) })
 	}
 
 	method configurarColisiones(personaje) {
-		game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
+		//game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
 		game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
 	}
 

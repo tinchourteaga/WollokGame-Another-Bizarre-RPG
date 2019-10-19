@@ -9,7 +9,7 @@ class Arma {
 	
 	method image()
 	
-	method ataque()
+	method ataque(personaje)
 	
 	method aumentarEstadisticas(personaje)
 
@@ -19,7 +19,7 @@ class Arma {
 
 }
 
-object espada inherits Arma {
+class Espada inherits Arma {
 	override method danio() = 50
 	
 	override method ataque(personaje) {
@@ -34,7 +34,7 @@ object espada inherits Arma {
 
 }
 
-object bastonMagico inherits Arma {
+class BastonMagico inherits Arma {
 	override method danio() = 90
 	
 	override method image() = "" //Hay que buscar alguna imagen
@@ -53,7 +53,6 @@ class Pocion {
 	method esAtravesable() = true
 	
 	method esAgarrable() = true
-} 
 
     method image() 
     

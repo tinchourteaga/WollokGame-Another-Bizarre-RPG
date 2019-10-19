@@ -12,7 +12,7 @@ program NombreDeSuJuego {
 	game.width(25)
 
 
-	nivel.iniciar(scorpion)
+	seleccionDePersonaje.iniciar()
 	game.start()
 	
 }
