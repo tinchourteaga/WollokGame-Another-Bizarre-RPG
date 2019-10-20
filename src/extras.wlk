@@ -61,18 +61,60 @@ class Pinchos {
 
 object fireBall {
 
-	var position
+	var property position = game.at(11, 11)
 
 	method image() = "fireball.png"
 
-	method position() = position
+	method esAtravesable() = false
 
-	method esAtravesable() = true
+	//method quemarPersonaje() 
 
-	method hacerDanioLetal() = true
+	method moverFireball() {
+		if (position.y() >= 9) {
+			position = position.down(1)
+		} else {
+			position = game.at(11, 11)
+		}
+	}
 
-	method posicionFireball() {
-		//position = [11,10,9,8].map({ n => game.at(11, n) })
+}
+
+object arrow {
+
+	var property position = game.at(8, 8)
+
+	method image() = "arrow.png"
+
+	method esAtravesable() = false
+
+	//method daniarPersonaje() = 
+
+	method moverArrow(){
+		if (position.y() <= 10) {
+			position = position.up(1)
+		} else {
+			position = game.at(8, 8)
+		}
+	}
+
+}
+
+object spike {
+
+	var property position = game.at(5, 8)
+
+	method image() = "spike.png"
+
+	method esAtravesable() = false
+
+	//method daniarPersonaje() = 
+
+	method moverSpike(){
+		if (position.y() <= 10) {
+			position = position.up(1)
+		} else {
+			position = game.at(5, 8)
+		}
 	}
 
 }

@@ -8,7 +8,7 @@ import extras.*
 object seleccionDePersonaje {
 
 	method iniciar() {
-		game.boardGround("seleccionDePersonaje.jpg")
+		game.ground("piso.jpg")
 		config.seleccionarPersonajes()
 	}
 
@@ -48,13 +48,18 @@ object nivel {
 	}
 
 	method agregarVisualesExtras() {
-		self.posicionPinchos()
+		//self.posicionPinchos()
 		game.addVisualIn(button, game.at(5,3)) 
 		game.addVisualIn(pocionSalud, game.at(8,5))	
-		//game.addVisual(fireBall)
-		//game.schedule(3000, { fireBall.posicionFireball()})
+		game.addVisual(fireBall)
+		game.addVisual(arrow)
+		game.addVisual(spike)
+		game.onTick(350, "movete",{ arrow.moverArrow()})
+		game.onTick(250,"movete",{ fireBall.moverFireball()})
+		game.onTick(150,"movete",{spike.moverSpike()})
 		//game.addVisualIn(new PocionSalud(	), game.at(8, 5))
 	}
+	
 
 	method posicionPinchos() {
 		const posicionesParaGenerarPinchos = (8 .. 11).map({ n => game.at(14, n) })
