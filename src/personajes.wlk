@@ -26,20 +26,28 @@ class Personaje {
 
 	method ponerItemSiguienteEnMano() {
 		if (!items.isEmpty()) {
-			var item = items.head()
-			items.remove(item)
-			items.add(item)
-			itemEnMano = items.head() // Poner que se actualice la img cuando esten hechos los items
+			self.moverInventario()
+			itemEnMano = items.head() 
 		} else{
 			game.say(self,"Inventario Vacio!")
 		}
 	}
 
-	method dejarItemEnMano() {
-		var slot = game.colliders(itemEnMano).head()
-		slot.liberarSlot()
-		items.remove(itemEnMano)
-		game.removeVisual(itemEnMano) // Lo destruye, no lo dropea
+	method dejarItemEnMano() { // Lo destruye, no lo dropea
+		self.ponerItemSiguienteEnMano()
+		var item = items.last()
+		items.remove(item)
+		game.removeVisual(item)
+		
+	}
+	
+	method moverInventario() {
+		var listaSlots = items.map({ item => game.colliders(item).head() })
+			listaSlots.forEach({ slot => slot.liberarSlot() })
+			items.forEach({ item => game.removeVisual(item) })
+			items.remove(itemEnMano)
+			items.add(itemEnMano)
+			items.forEach({ item => self.posicionEnInventario(item,0) })
 	}
 
 	method agarrarItem() {

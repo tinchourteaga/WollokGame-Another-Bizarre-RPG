@@ -59,14 +59,16 @@ object nivel {
 		game.addVisualIn(gato, game.at(19,8))
 		// personaje
 		game.addVisual(personaje)
+		game.showAttributes(personaje)
 
 	}
 
 	method agregarVisualesExtras() {
 		//self.posicionPinchos()
 		game.addVisualIn(button, game.at(5,3)) 
-		game.addVisualIn(pocionSalud, game.at(8,5))
-		game.addVisualIn(pocionMana, game.at(8,3))		
+		game.addVisualIn(new PocionSalud(), game.at(8,5))
+		game.addVisualIn(new PocionMana(), game.at(8,3))
+		game.addVisualIn(new PocionVeneno(), game.at(9,4))		
 		game.addVisual(fireBall)
 		game.addVisual(arrow)
 		game.addVisual(spike)

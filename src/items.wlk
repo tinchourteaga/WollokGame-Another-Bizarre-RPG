@@ -59,7 +59,7 @@ class Pocion {
 	method efecto(personaje)
 }
 
-object pocionSalud inherits Pocion {
+class PocionSalud inherits Pocion {
 	
 	override method image() = "pocionSalud.png"
 
@@ -69,7 +69,7 @@ object pocionSalud inherits Pocion {
 	}
 }
 
-object pocionMana inherits Pocion {
+class PocionMana inherits Pocion {
 
 	override method image() = "pocionMana.png"
 
@@ -79,9 +79,9 @@ object pocionMana inherits Pocion {
 
 }
 
-object pocionVeneno inherits Pocion {
+class PocionVeneno inherits Pocion {
 
-	override method image() = ""
+	override method image() = "pocionVeneno.png"
 
 	override method efecto(personaje) {
 	// hace que los ataques envenenen al enemigo (pierda "x" vida por turno)
@@ -89,7 +89,7 @@ object pocionVeneno inherits Pocion {
 
 }
 
-object pocionDefensa inherits Pocion {
+class PocionDefensa inherits Pocion {
 
 	override method image() = ""
 
@@ -99,7 +99,7 @@ object pocionDefensa inherits Pocion {
 
 }
 
-object pocionFuerza inherits Pocion {
+class PocionFuerza inherits Pocion {
 
 	override method image() = ""
 
