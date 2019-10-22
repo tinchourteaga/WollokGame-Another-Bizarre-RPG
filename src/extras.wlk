@@ -153,3 +153,46 @@ object escalera {
 
 }
 
+object scorpionSeleccion {
+	
+	method image() = "scorpionSeleccion.png"
+	
+	method position() = game.at(3,0)
+}
+
+object gandalfSeleccion {
+	
+	method image() = "gandalfSeleccion.png"
+	
+	method position() = game.at(18,0)
+}
+
+object seleccionPersonajeTextBox {
+	
+	method image() = "seleccionPersonajeText.png"
+	
+	method position() = game.at(10,10)
+}
+
+object gandalfTextBox {
+	
+	method image() = "gandalfText.png"
+	
+	method position() = game.at(14,6)
+}
+
+object scorpionTextBox {
+	
+	method image() = "scorpionText.png"
+	
+	method position() = game.at(7,6)
+}
+
+
+
+
+
+
+
+
+

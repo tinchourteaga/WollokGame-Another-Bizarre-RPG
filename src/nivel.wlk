@@ -10,13 +10,28 @@ object seleccionDePersonaje {
 	method iniciar() {
 		game.ground("piso.jpg")
 		config.seleccionarPersonajes()
+		self.dibujarPersonajesEnSeleccion()
+		self.dibujarTextos()
 	}
+	
+	method dibujarPersonajesEnSeleccion() {
+		game.addVisual(scorpionSeleccion)
+		game.addVisual(gandalfSeleccion)
+	}
+	
+	method dibujarTextos() {
+		game.addVisual(seleccionPersonajeTextBox)
+		game.addVisual(scorpionTextBox)
+		game.addVisual(gandalfTextBox)
+	}
+	
 
 }
 
 object nivel {
 
 	method iniciar(personaje) {
+		game.clear()
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
 		config.configurarTeclas(personaje)
@@ -104,8 +119,8 @@ object nivel {
 object config {
 
 	method seleccionarPersonajes() {
-		keyboard.num0().onPressDo({ nivel.iniciar(scorpion)})
-		keyboard.num1().onPressDo({ nivel.iniciar(gandalf)})
+		keyboard.num0().onPressDo({ nivel.iniciar(scorpion) })
+		keyboard.num1().onPressDo({ nivel.iniciar(gandalf) })
 	}
 
 	method configurarTeclas(personaje) {	
