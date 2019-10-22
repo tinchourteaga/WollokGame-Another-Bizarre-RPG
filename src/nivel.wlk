@@ -66,7 +66,8 @@ object nivel {
 
 	method agregarVisualesExtras() {
 		//self.posicionPinchos()
-		game.addVisualIn(button, game.at(5,3)) 
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta1), game.at(12,5))
+		game.addVisualIn(puerta1,game.at(10,5)) 
 		game.addVisualIn(new PocionSalud(), game.at(8,5))
 		game.addVisualIn(new PocionMana(), game.at(8,3))
 		game.addVisualIn(new PocionVeneno(), game.at(9,4))		

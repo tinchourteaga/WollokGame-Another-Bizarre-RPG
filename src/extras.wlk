@@ -9,13 +9,13 @@ class Muro {
 
 class MuroVertical inherits Muro {
 
-	method image() = "muro_achicado.png" // Hay que achicar la img
+	method image() = "muro.png" // Hay que achicar la img
 
 }
 
 class MuroHorizontal inherits Muro {
 
-	method image() = "muro_achicado.png" // Hay que achicar la img
+	method image() = "muro.png" // Hay que achicar la img
 
 }
 
@@ -59,7 +59,16 @@ object izquierda {
 
 }
 
-class Pinchos {
+class Extra {
+	
+	method esAtravesable() = true
+
+	method esAgarrable() = false
+	
+	method esEnemigo() = false
+}
+
+class Pinchos inherits Extra {
 
 	var position
 
@@ -69,18 +78,14 @@ class Pinchos {
 
 }
 
-object fireBall {
+object fireBall inherits Extra {
 
 	var property position = game.at(11, 11)
 
 	method image() = "fireball.png"
 
-	method esAtravesable() = true
-	
-	method esEnemigo() = false
-
 	method daniarPersonaje(personaje) {
-		personaje.disminuirVida(20)
+		personaje.disminuirVida(10)
 	}  
 
 	method moverFireball() {
@@ -93,16 +98,14 @@ object fireBall {
 
 }
 
-object arrow {
+object arrow inherits Extra {
 
 	var property position = game.at(8, 8)
 
 	method image() = "arrow.png"
 
-	method esAtravesable() = true
-
 	method daniarPersonaje(personaje) {
-		personaje.disminuirVida(20)
+		personaje.disminuirVida(10)
 	} 
 
 	method moverArrow(){
@@ -115,16 +118,14 @@ object arrow {
 
 }
 
-object spike {
+object spike inherits Extra {
 
 	var property position = game.at(5, 8)
 
 	method image() = "spike.png"
 
-	method esAtravesable() = false
-
 	method daniarPersonaje(personaje) {
-		personaje.disminuirVida(20)
+		personaje.disminuirVida(10)
 	} 
 
 	method moverSpike(){
@@ -137,15 +138,15 @@ object spike {
 
 }
 
-object button {
+object escalera inherits Extra {
 
-	var estaEncendido = true
-	
-	method esAtravesable() = true
+	method image() = "escaleras.png"
+}
 
-	method esAgarrable() = false
-	
-	method esEnemigo() = false
+class Boton inherits Extra {
+
+	var estaEncendido = false
+	var puertaQueAcciona //cuando creamos el boton le ponemos que puerta maneja
 
 	method image() {
 		return if (estaEncendido) "ButtonOn.png" else "ButtonOff.png"
@@ -158,20 +159,49 @@ object button {
 	method accionarBoton(personaje) {
 		if (estaEncendido) {
 			self.cambiarEncendido(false)
+			puertaQueAcciona.abrirOCerrarPuerta()
 		} else {
 			self.cambiarEncendido(true)
+			puertaQueAcciona.abrirOCerrarPuerta()
 		}
 	}
 
 }
 
-object escalera {
-
-	method image() = "escaleras.png"
-
-	method esAtravesable() = true
-
+class Puerta inherits Extra {
+	
+	var cerrada = true
+	
+	method image() {
+		return if (cerrada) "puertaCerrada.png" else "puertaAbierta.png"
+	}
+	
+	override method esAtravesable() {
+		return !cerrada
+	}
+	
+	method cambiarEstadoPuerta(estado) {
+		cerrada = estado
+	}
+	
+	method abrirOCerrarPuerta() {
+		if(cerrada) {
+			self.cambiarEstadoPuerta(false)
+		} else {
+			self.cambiarEstadoPuerta(true)
+		}
+	}
 }
+
+// No se si es la mejor manera pero...funciona
+object puerta1 inherits Puerta {}
+object puerta2 inherits Puerta {}
+object puerta3 inherits Puerta {}
+object puerta4 inherits Puerta {}
+object puerta5 inherits Puerta {}
+object puerta6 inherits Puerta {}
+//object puertaBoss (que se abre cuando todos los botones estan activados)
+
 
 object scorpionSeleccion {
 	
