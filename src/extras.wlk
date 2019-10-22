@@ -20,8 +20,18 @@ class MuroHorizontal inherits Muro {
 }
 
 class BloqueInventario {
+	
+	var property slotOcupado = false
 
 	method image() = "minecraftSlot.png"
+	
+	method ocuparSlot() {
+		slotOcupado = true
+	}
+	
+	method liberarSlot() {
+		slotOcupado = false
+	} 
 
 }
 

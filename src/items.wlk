@@ -71,10 +71,10 @@ object pocionSalud inherits Pocion {
 
 object pocionMana inherits Pocion {
 
-	override method image() = ""
+	override method image() = "pocionMana.png"
 
 	override method efecto(personaje) {
-		personaje.mana(300.min(50))     // mana es un atributo de personaje? si lo es, hay que agregarlo
+		personaje.mana(300.min(50))  // mana es un atributo de personaje? si lo es, hay que agregarlo -> Es un atributo solo de gandalf
 	}
 
 }

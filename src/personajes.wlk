@@ -30,10 +30,14 @@ class Personaje {
 			items.remove(item)
 			items.add(item)
 			itemEnMano = items.head() // Poner que se actualice la img cuando esten hechos los items
-		} // else "inventario vacio"
+		} else{
+			game.say(self,"Inventario Vacio!")
+		}
 	}
 
 	method dejarItemEnMano() {
+		var slot = game.colliders(itemEnMano).head()
+		slot.liberarSlot()
 		items.remove(itemEnMano)
 		game.removeVisual(itemEnMano) // Lo destruye, no lo dropea
 	}
@@ -56,7 +60,20 @@ class Personaje {
 		var nuevoItem = game.colliders(self).head()
 		items.add(nuevoItem)
 		game.removeVisual(nuevoItem)
-		game.addVisualIn(nuevoItem, game.at(0,0)) // Habria que ponerlo en la pocion de inventario que corresponda
+		self.posicionEnInventario(nuevoItem, 0)
+	}
+	
+	method posicionEnInventario(nuevoItem, posicionEnX) {
+		var slot = game.getObjectsIn(game.at(posicionEnX,0)).head()
+		
+		if(!slot.slotOcupado()) {
+			game.addVisualIn(nuevoItem, game.at(posicionEnX,0))
+			slot.ocuparSlot()
+		} else {
+			var nuevaPosicionEnX = posicionEnX + 1
+			self.posicionEnInventario(nuevoItem, nuevaPosicionEnX) //si explota todo a la mierda es por la recursividad (pero no lo hizo)
+		}
+		
 	}
 	
 	method morir(){
