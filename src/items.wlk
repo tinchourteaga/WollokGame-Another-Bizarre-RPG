@@ -16,6 +16,8 @@ class Arma {
 	method esAgarrable() = true
 	
 	method esAtravesable() = true
+	
+	method esEnemigo() = false
 
 }
 
@@ -53,6 +55,8 @@ class Pocion {
 	method esAtravesable() = true
 	
 	method esAgarrable() = true
+	
+	method esEnemigo() = false
 
     method image() 
     
@@ -64,8 +68,8 @@ class PocionSalud inherits Pocion {
 	override method image() = "pocionSalud.png"
 
 	override method efecto(personaje) {
-		var nuevaVida = personaje.vida() + personaje.vida() * 0.2
-		personaje.vida(100.min(nuevaVida))
+		var valorCuracion = personaje.vida() * 0.2
+		personaje.aumentarVida(valorCuracion)
 	}
 }
 

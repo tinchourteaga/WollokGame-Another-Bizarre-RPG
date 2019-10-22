@@ -101,16 +101,21 @@ class Personaje {
 		itemEnMano.position(self.position())
 	} 
 	
-	method disminuirVida(valorNuevo) {
-		vida = vida - valorNuevo
+	method disminuirVida(valor) {
+		vida = 0.max(vida - valor)
+		
 	}
 	
-	method aumentarVida(valorNuevo) {
-		vida = valorNuevo
+	method aumentarVida(valor) {
+		vida = 100.min(vida + valor)
 	}
 	
 	method pelear(enemigo) {
-		items.forEach({item => item.ataque(enemigo)})
+		if(enemigo.esEnemigo()) {
+			game.say(self, "Estoy colisionando con un enemigo")
+			// aca triggereamos la interfaz de pelea
+		}
+		
 	}
 }
 
@@ -124,6 +129,7 @@ object scorpion inherits Personaje {
 object gandalf inherits Personaje {
     var ataque = 120
     var velocidad = 15
+    var mana = 500
 
 	override method image() = "gandalf.png"
 

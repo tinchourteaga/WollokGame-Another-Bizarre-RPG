@@ -35,6 +35,7 @@ object nivel {
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
 		config.configurarTeclas(personaje)
+		config.configurarColisiones(personaje)
 	}
 
 	method disenioNivel() {
@@ -140,7 +141,10 @@ object config {
 
 	method configurarColisiones(personaje) {
 		//game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
-		game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
+		//game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
+		game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo) })
+		game.whenCollideDo(fireBall, { personaje => fireBall.daniarPersonaje(personaje) })
+		
 	}
 
 }

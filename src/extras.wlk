@@ -75,9 +75,13 @@ object fireBall {
 
 	method image() = "fireball.png"
 
-	method esAtravesable() = false
+	method esAtravesable() = true
+	
+	method esEnemigo() = false
 
-	//method quemarPersonaje() 
+	method daniarPersonaje(personaje) {
+		personaje.disminuirVida(20)
+	}  
 
 	method moverFireball() {
 		if (position.y() >= 9) {
@@ -95,9 +99,11 @@ object arrow {
 
 	method image() = "arrow.png"
 
-	method esAtravesable() = false
+	method esAtravesable() = true
 
-	//method daniarPersonaje() = 
+	method daniarPersonaje(personaje) {
+		personaje.disminuirVida(20)
+	} 
 
 	method moverArrow(){
 		if (position.y() <= 10) {
@@ -117,7 +123,9 @@ object spike {
 
 	method esAtravesable() = false
 
-	//method daniarPersonaje() = 
+	method daniarPersonaje(personaje) {
+		personaje.disminuirVida(20)
+	} 
 
 	method moverSpike(){
 		if (position.y() <= 10) {
@@ -132,14 +140,16 @@ object spike {
 object button {
 
 	var estaEncendido = true
+	
+	method esAtravesable() = true
 
 	method esAgarrable() = false
+	
+	method esEnemigo() = false
 
 	method image() {
 		return if (estaEncendido) "ButtonOn.png" else "ButtonOff.png"
 	}
-
-	method esAtravesable() = true
 
 	method cambiarEncendido(cambioEncendido) {
 		estaEncendido = cambioEncendido

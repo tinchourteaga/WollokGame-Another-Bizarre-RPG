@@ -9,6 +9,10 @@ class Enemigo {
 	var velocidad // la velocidad podria servir para decir cada cuanto golpea a nuestro personaje	
 	var property image
 
+	method esEnemigo() = true
+	
+	method esAtravesable() = true
+	
 	method morir() {
 		if (vida <= 0) {
 			game.removeVisual(self)
@@ -16,9 +20,8 @@ class Enemigo {
 		}
 	}
 
-	method pelear(enemigo)
+	method atacar(personaje)
 
-	method esAtravesable() = true
 
 	method velocidad() = velocidad
 
@@ -26,16 +29,16 @@ class Enemigo {
 
 class Troll inherits Enemigo {
 
-	override method pelear(enemigo) {
-		enemigo.disminuirVida(10 * velocidad)
+	override method atacar(personaje) {
+		personaje.disminuirVida(10 * velocidad)
 	}
 
 }
 
 class Dragon inherits Enemigo {
 
-	override method pelear(enemigo) {
-		enemigo.disminuirVida(100)
+	override method atacar(personaje) {
+		personaje.disminuirVida(100)
 	}
 
 }
@@ -48,8 +51,8 @@ object mago inherits Enemigo {
 
 	override method image() = "mago.png"
 
-	override method pelear(enemigo) {
-	// robarItemConMasPoder.ataque(enemigo) // o podria robar alguna pocion
+	override method atacar(personaje) {
+	// robarItemConMasPoder.ataque(personaje) // o podria robar alguna pocion
 	}
 
 }
@@ -62,9 +65,9 @@ object gato inherits Enemigo {
 
 	override method image() = "gato.png"
 
-	override method pelear(enemigo) {
-		// robarItemEnMano.ataque(enemigo)
-		enemigo.disminuirVida(2 * poderEspada)
+	override method atacar(personaje) {
+		// robarItemEnMano.ataque(personaje)
+		personaje.disminuirVida(2 * poderEspada)
 	}
 
 }
@@ -73,16 +76,16 @@ class Gigante inherits Enemigo {
 
 	var peso = 1000
 
-	override method pelear(enemigo) {
-		enemigo.disminuirVida(peso / 8)
+	override method atacar(personaje) {
+		personaje.disminuirVida(peso / 8)
 	}
 
 }
 
 class PerroDeTresCabezas inherits Enemigo {
 
-	override method pelear(enemigo) {
-		enemigo.disminuirVida(3 * velocidad)
+	override method atacar(personaje) {
+		personaje.disminuirVida(3 * velocidad)
 	}
 
 }
