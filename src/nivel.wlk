@@ -47,8 +47,8 @@ object nivel {
 
 	method agregarPersonajes(personaje) {
 		// enemigos
-		game.addVisualIn(new Troll(vida = 300, velocidad = 5, image = "trollDePiedra.png"), game.at(15,9))
-		game.addVisualIn(new Troll(vida = 450, velocidad = 5, image = "trollDemonio.png"), game.at(16,7))
+		game.addVisualIn(new Troll(vida = 300, velocidad = 5, image = "trollDePiedra.png"), game.at(16,9))
+		game.addVisualIn(new Troll(vida = 450, velocidad = 5, image = "trollDemonio.png"), game.at(16,5))
 		game.addVisualIn(new Gigante(vida = 550, velocidad = 2, image = "giganteDePiedra.png"), game.at(3,4))
 		game.addVisualIn(new Gigante(vida = 500, velocidad = 2, image = "giganteDeHielo.png"), game.at(3,2))
 		game.addVisualIn(new Gigante(vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png"), game.at(2,3))
@@ -66,8 +66,14 @@ object nivel {
 
 	method agregarVisualesExtras() {
 		//self.posicionPinchos()
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta1), game.at(12,5))
-		game.addVisualIn(puerta1,game.at(10,5)) 
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta1), game.at(7,2))
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta2), game.at(1,8))
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta3), game.at(16,11))
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta4), game.at(5,3))
+		game.addVisualIn(puerta1,game.at(1,5))
+		game.addVisualIn(puerta2,game.at(17,2))
+		game.addVisualIn(puerta3,game.at(15,9))
+		game.addVisualIn(puerta4,game.at(16,7)) 
 		game.addVisualIn(new PocionSalud(), game.at(8,5))
 		game.addVisualIn(new PocionMana(), game.at(8,3))
 		game.addVisualIn(new PocionVeneno(), game.at(9,4))		

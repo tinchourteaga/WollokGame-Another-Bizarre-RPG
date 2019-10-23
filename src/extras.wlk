@@ -172,10 +172,6 @@ class Puerta inherits Extra {
 	
 	var cerrada = true
 	
-	method image() {
-		return if (cerrada) "puertaCerrada.png" else "puertaAbierta.png"
-	}
-	
 	override method esAtravesable() {
 		return !cerrada
 	}
@@ -193,13 +189,26 @@ class Puerta inherits Extra {
 	}
 }
 
+class PuertaHorizontal inherits Puerta {
+	
+	method image() {
+		return if (cerrada) "puertaCerrada.png" else "puertaAbierta.png"
+	}
+}
+
+class PuertaVertical inherits Puerta {
+	
+	method image() {
+		return if (cerrada) "puertaCerradaVertical.png" else "puertaAbiertaVertical.png"
+	}
+}
+
 // No se si es la mejor manera pero...funciona
-object puerta1 inherits Puerta {}
-object puerta2 inherits Puerta {}
-object puerta3 inherits Puerta {}
-object puerta4 inherits Puerta {}
-object puerta5 inherits Puerta {}
-object puerta6 inherits Puerta {}
+object puerta1 inherits PuertaHorizontal {}
+object puerta2 inherits PuertaVertical {}
+object puerta3 inherits PuertaVertical {}
+object puerta4 inherits PuertaHorizontal {}
+
 //object puertaBoss (que se abre cuando todos los botones estan activados)
 
 
