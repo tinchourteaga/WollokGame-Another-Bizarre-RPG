@@ -2,12 +2,14 @@ import wollok.game.*
 import items.*
 import personajes.*
 
-class Enemigo {
-
-	var vida = 500
-	// var itemQueDropea = #{} // puede dropear pociones
-	var velocidad // la velocidad podria servir para decir cada cuanto golpea a nuestro personaje	
+class Enemigo { 
+	var x
+	var y
+	var vida
+	var velocidad
 	var property image
+
+    method position() = game.at(x,y)
 
 	method esEnemigo() = true
 	
@@ -16,12 +18,14 @@ class Enemigo {
 	method morir() {
 		if (vida <= 0) {
 			game.removeVisual(self)
-		// game.addVisual(itemQueDropea)
 		}
+	}
+	
+	method cambiarPosicionEnX(posicion) {
+		x = posicion
 	}
 
 	method atacar(personaje)
-
 
 	method velocidad() = velocidad
 
@@ -38,38 +42,27 @@ class Troll inherits Enemigo {
 class Dragon inherits Enemigo {
 
 	override method atacar(personaje) {
-		personaje.disminuirVida(100)
+		personaje.disminuirVida(300)
 	}
-
 }
 
 // TANTO EL MAGO COMO EL GATO PODRIAN MOVERSE ALEATORIAMENTE EN UN DETERMINADO ESPACIO, SI COLISIONA CON NOSOTROS (HAY QUE EVTARLO)
 // NOS ROBA UN ITEM
-object mago inherits Enemigo {
-
-	override method velocidad() = 25
-
-	override method image() = "mago.png"
+class Mago inherits Enemigo {
 
 	override method atacar(personaje) {
-	// robarItemConMasPoder.ataque(personaje) // o podria robar alguna pocion
+	// robarItemConMasPoder.ataque(personaje)
 	}
-
 }
 
-object gato inherits Enemigo {
+class Gato inherits Enemigo {
 
-	var poderEspada = 60
-
-	override method velocidad() = 50
-
-	override method image() = "gato.png"
+	var poderEspada = 70
 
 	override method atacar(personaje) {
 		// robarItemEnMano.ataque(personaje)
 		personaje.disminuirVida(2 * poderEspada)
 	}
-
 }
 
 class Gigante inherits Enemigo {
@@ -79,14 +72,12 @@ class Gigante inherits Enemigo {
 	override method atacar(personaje) {
 		personaje.disminuirVida(peso / 8)
 	}
-
 }
 
 class PerroDeTresCabezas inherits Enemigo {
 
 	override method atacar(personaje) {
-		personaje.disminuirVida(3 * velocidad)
+		personaje.disminuirVida(4 * velocidad)
 	}
-
 }
 

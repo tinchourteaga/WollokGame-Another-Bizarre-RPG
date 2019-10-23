@@ -1,6 +1,73 @@
+import wollok.game.*
+import personajes.*
+import enemigos.*
+import items.*
+import extras.*
+import ataques.*
+import nivel.*
 
-test "¡sep, vale hacer tests también!" {
-
-	assert.that(false)
-
+describe "Tests del juego" {
+	
+	var trollDePiedra = new Troll(x = 15, y = 9, vida = 300, velocidad = 5, image = "trollDePiedra.png")
+    var trollDemonio = new Troll(x = 16, y = 7, vida = 450, velocidad = 35, image = "trollDemonio.png")
+    var giganteDePiedra = new Gigante(x = 3, y = 4, vida = 550, velocidad = 2, image = "giganteDePiedra.png")
+    var giganteDeHielo = new Gigante(x = 3, y = 2, vida = 500, velocidad = 2, image = "giganteDeHielo.png")
+    var giganteVioleta = new Gigante(x = 2, y = 3, vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png")
+    var dragonVerde = new Dragon(x = 21, y = 6, vida = 800, velocidad = 55, image = "dragonVerde.png")
+    var dragonVioleta = new Dragon(x = 20, y = 5, vida = 800, velocidad = 55, image = "dragonVioleta.png")
+    var perroDeTresCabezasDeHielo = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, velocidad = 40, image = "perroDe3CabezasDeHielo.png")
+    var perroDeTresCabezasDeFuego = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, velocidad = 45, image = "perroDe3CabezasDeFuego.png")
+    var mago = new Mago(x = 18, y = 7, vida = 500, velocidad = 25, image = "mago.png")
+    var gato = new Gato(x = 19, y = 8, vida = 500, velocidad = 50, image = "gato.png")
+	// tests
+	test "El troll de piedra ataca a Scorpion" {
+		trollDePiedra.atacar(scorpion)
+		assert.equals(950,scorpion.vida())
+	}
+	test "El troll demonio ataca a Scorpion" {
+		trollDemonio.atacar(scorpion)
+		assert.equals(650,scorpion.vida())
+	}
+	test "El gigante de piedra ataca a Scorpion" {
+		giganteDePiedra.atacar(scorpion)
+		assert.equals(875,scorpion.vida())
+	}
+	test "El gigante de hielo ataca a Scorpion" {
+		giganteDeHielo.atacar(scorpion)
+		assert.equals(875,scorpion.vida())
+	}
+	test "El gigante violeta ataca a Scorpion" {
+		giganteVioleta.atacar(scorpion)
+		assert.equals(875,scorpion.vida())
+	}
+	test "El dragon verde ataca a Scorpion" {
+		dragonVerde.atacar(scorpion)
+		assert.equals(700,scorpion.vida())
+	}
+	test "El dragon violeta ataca a Scorpion" {
+		dragonVioleta.atacar(scorpion)
+		assert.equals(700,scorpion.vida())
+	}
+	test "El perro de 3 cabezas de hielo ataca a Scorpion" {
+		perroDeTresCabezasDeHielo.atacar(scorpion)
+		assert.equals(840,scorpion.vida())
+	}
+	test "El perro de 3 cabezas de fuego ataca a Scorpion" {
+		perroDeTresCabezasDeFuego.atacar(scorpion)
+		assert.equals(820,scorpion.vida())
+	}
+	/*                                    Al comentar el ataque de robar item no puedo probar nada
+	test "El mago ataca a Scorpion" {
+		mago.atacar(scorpion)
+		assert.equals(???,scorpion.vida())
+	} */ 
+	test "El gato ataca a Scorpion" {
+		gato.atacar(scorpion)
+		assert.equals(860,scorpion.vida())
+	}
+	
+	test "gandalf al matar al mago aumenta su kills counter" {
+		gandalf.matar(mago)
+		assert.equals(1,gandalf.killsCounter())
+	}
 }

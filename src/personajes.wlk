@@ -4,13 +4,23 @@ import nivel.*
 import extras.*
 
 class Personaje {
-	var property vida = 500
+	var vida = 1000
     var itemEnMano 
     var items = []
-	var killsCounter = 0
-    var position = game.at(12, 4)
+	var property killsCounter = 0
+    var position = game.at(12,4)
     
     method image()
+    
+    method vida() = vida
+    	
+	method disminuirVida(valor) {
+		vida = 0.max(vida - valor)
+	}
+	
+	method aumentarVida(valor) {
+		vida = 100.min(vida + valor)
+	}
 
     method position() = position
 
@@ -84,9 +94,7 @@ class Personaje {
 		
 	}
 	
-	method morir(){
-		
-	}
+	method morir()
 
 	method mejorarEstadisticas() {
 		itemEnMano.aumentarEstadistica(self)
@@ -100,16 +108,7 @@ class Personaje {
 	method llevarItemEnMano() {            // para que muestre el item en el personaje y se mueva a la par
 		itemEnMano.position(self.position())
 	} 
-	
-	method disminuirVida(valor) {
-		vida = 0.max(vida - valor)
-		
-	}
-	
-	method aumentarVida(valor) {
-		vida = 100.min(vida + valor)
-	}
-	
+
 	method pelear(enemigo) {
 		if(enemigo.esEnemigo()) {
 			game.say(self, "Estoy colisionando con un enemigo")
@@ -124,13 +123,16 @@ object scorpion inherits Personaje {
     var velocidad = 30
 
 	override method image() = "scorpion.png"
+	
+	override method morir() = vida == 0 
 }
 
 object gandalf inherits Personaje {
     var ataque = 120
     var velocidad = 15
-    var mana = 500
+    var mana = 500 // no coincide con los ataques del enemigo porque los metodos atacar esperan el mensaje vida() no mana()
 
 	override method image() = "gandalf.png"
-
+    
+    override method morir() = mana == 0 
 }
