@@ -68,16 +68,6 @@ class Extra {
 	method esEnemigo() = false
 }
 
-class Pinchos inherits Extra {
-
-	var position
-
-	method position() = position
-
-	method image() = "Pinchos.png"
-
-}
-
 object fireBall inherits Extra {
 
 	var property position = game.at(11, 11)
@@ -168,6 +158,23 @@ class Boton inherits Extra {
 
 }
 
+object botonTrampa inherits Boton {
+	
+	var trampasQueActiva = [trampaPinchos1,trampaPinchos2,trampaPinchos3,trampaPinchos4]
+	
+	override method accionarBoton(personaje) {
+		if (estaEncendido) {
+			self.cambiarEncendido(false)
+			puerta1.abrirOCerrarPuerta()
+			trampasQueActiva.forEach({ trampa => trampa.armarODesarmarTrampa() })
+		} else {
+			self.cambiarEncendido(true)
+			puerta1.abrirOCerrarPuerta()
+			trampasQueActiva.forEach({ trampa => trampa.armarODesarmarTrampa() })
+		}
+	}
+}
+
 class Puerta inherits Extra {
 	
 	var cerrada = true
@@ -208,8 +215,38 @@ object puerta1 inherits PuertaHorizontal {}
 object puerta2 inherits PuertaVertical {}
 object puerta3 inherits PuertaVertical {}
 object puerta4 inherits PuertaHorizontal {}
+object puertaBoss inherits PuertaHorizontal {} // que se abre cuando todos los botones estan activados
 
-//object puertaBoss (que se abre cuando todos los botones estan activados)
+class TrampaPinchos inherits Extra {
+	
+	var armada = false
+	
+	method image() {
+		return if (armada) "trampaConPinchos.png" else "trampaSinPinchos.png"
+	}
+	
+	override method esAtravesable() {
+		return !armada
+	}
+	
+	method cambiarEstadoTrampa(estado) {
+		armada = estado
+	}
+	
+	method armarODesarmarTrampa() {
+		if(armada) {
+			self.cambiarEstadoTrampa(false)
+		} else {
+			self.cambiarEstadoTrampa(true)
+		}
+	}
+}
+
+object trampaPinchos1 inherits TrampaPinchos {}
+object trampaPinchos2 inherits TrampaPinchos {}
+object trampaPinchos3 inherits TrampaPinchos {}
+object trampaPinchos4 inherits TrampaPinchos {}
+
 
 
 object scorpionSeleccion {

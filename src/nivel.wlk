@@ -66,14 +66,18 @@ object nivel {
 
 	method agregarVisualesExtras() {
 		//self.posicionPinchos()
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta1), game.at(7,2))
+		game.addVisualIn(botonTrampa, game.at(7,2))
 		game.addVisualIn(new Boton(puertaQueAcciona = puerta2), game.at(1,8))
 		game.addVisualIn(new Boton(puertaQueAcciona = puerta3), game.at(16,11))
 		game.addVisualIn(new Boton(puertaQueAcciona = puerta4), game.at(5,3))
 		game.addVisualIn(puerta1,game.at(1,5))
 		game.addVisualIn(puerta2,game.at(17,2))
 		game.addVisualIn(puerta3,game.at(15,9))
-		game.addVisualIn(puerta4,game.at(16,7)) 
+		game.addVisualIn(puerta4,game.at(16,7))
+		game.addVisualIn(trampaPinchos1,game.at(3,8))
+		game.addVisualIn(trampaPinchos2,game.at(3,9))
+		game.addVisualIn(trampaPinchos3,game.at(3,10))
+		game.addVisualIn(trampaPinchos4,game.at(3,11))  
 		game.addVisualIn(new PocionSalud(), game.at(8,5))
 		game.addVisualIn(new PocionMana(), game.at(8,3))
 		game.addVisualIn(new PocionVeneno(), game.at(9,4))		
@@ -83,13 +87,13 @@ object nivel {
 		game.onTick(350, "movete",{ arrow.moverArrow()})
 		game.onTick(250,"movete",{ fireBall.moverFireball()})
 		game.onTick(150,"movete",{spike.moverSpike()})
-		//game.addVisualIn(new PocionSalud(	), game.at(8, 5))
+	
 	}
 	
 
 	method posicionPinchos() {
-		const posicionesParaGenerarPinchos = (8 .. 11).map({ n => game.at(14, n) })
-		posicionesParaGenerarPinchos.forEach{ posicion => game.addVisualIn(new Pinchos(), posicion)}
+		const posicionesParaGenerarPinchos = (8 .. 11).map({ n => game.at(3, n) })
+		posicionesParaGenerarPinchos.forEach{ posicion => game.addVisualIn(new TrampaPinchos(), posicion)}
 	}
 
 	method generarMuroVertical() {
