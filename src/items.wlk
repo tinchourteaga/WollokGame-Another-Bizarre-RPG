@@ -31,7 +31,7 @@ class Espada inherits Arma {
 	override method image() = "magmaSword.png"
 
 	override method efecto(personaje) {
-		personaje.velocidad(personaje.velocidad() * 1.1)
+		//personaje.velocidad(personaje.velocidad() * 1.1)
 	}
 
 }

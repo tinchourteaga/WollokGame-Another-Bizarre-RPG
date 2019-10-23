@@ -124,7 +124,7 @@ object scorpion inherits Personaje {
 	override method image() = "scorpion.png"
 	
 	override method morir() = vida == 0 
-}
+
 
   method aumentarDanio(valor) {
 		danio = danio + valor
