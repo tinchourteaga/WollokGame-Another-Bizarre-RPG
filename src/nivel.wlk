@@ -81,6 +81,7 @@ object nivel {
 		game.addVisualIn(new PocionSalud(), game.at(8, 5))
 		game.addVisualIn(new PocionMana(), game.at(8, 3))
 		game.addVisualIn(new PocionVeneno(), game.at(9, 4))
+		game.addVisualIn(new EspadaDiamante() ,game.at(9,5))
 		game.addVisual(fireBall)
 		game.addVisual(arrow)
 		game.addVisual(spike)

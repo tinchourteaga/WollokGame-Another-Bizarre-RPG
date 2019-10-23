@@ -2,75 +2,107 @@ import wollok.game.*
 import personajes.*
 import enemigos.*
 import ataques.*
+
 // armas
 class Arma {
 
 	var property danio
-	
+
 	method image()
-	
+
 	method ataque(personaje)
-	
-	method aumentarEstadisticas(personaje)
+
+	method efecto(personaje)
 
 	method esAgarrable() = true
-	
+
 	method esAtravesable() = true
-	
+
 	method esEnemigo() = false
 
 }
 
 class Espada inherits Arma {
-	override method danio() = 50
-	
+
 	override method ataque(personaje) {
-		personaje.disminuirVida(danio)
+		personaje.disminuirVida(100)
 	}
-	
+
 	override method image() = "magmaSword.png"
-	
-	override method aumentarEstadisticas(personaje) { 
-		personaje.velocidad(personaje.velocidad() * 2)
+
+	override method efecto(personaje) {
+		personaje.velocidad(personaje.velocidad() * 1.1)
+	}
+
+}
+
+class EspadaDiamante inherits Arma {
+
+	override method image() = "espadaDiamante.png"
+
+	override method ataque(personaje) {
+		personaje.disminuirVida(personaje.vida() * 0.3)
+	}
+
+	override method efecto(personaje) {
+		personaje.aumentarVida(50)
+		personaje.aumentarDanio(20)
 	}
 
 }
 
 class BastonMagico inherits Arma {
-	override method danio() = 90
-	
-	override method image() = "" //Hay que buscar alguna imagen
-	
+
+	override method image() = "vara.png"
+
 	override method ataque(personaje) {
-		personaje.disminuirVida(danio * 2)
+		personaje.disminuirVida(personaje.danio())
 	}
-	
-	override method aumentarEstadisticas(personaje) {
-		personaje.aumentarVida(15)
+
+	override method efecto(personaje) {
+		personaje.aumentarVida(150)
 	}
+
 }
+
+class Arco inherits Arma {
+
+	override method image() = "arco.png"
+
+	override method ataque(personaje) {
+		personaje.disminuirVida(personaje.danio())
+	}
+
+	override method efecto(personaje) {
+		personaje.aumentarDanio(10)
+	}
+
+}
+
 // pociones 
 class Pocion {
 
 	method esAtravesable() = true
-	
+
 	method esAgarrable() = true
-	
+
 	method esEnemigo() = false
 
-    method image() 
-    
+	method image()
+
 	method efecto(personaje)
+
 }
 
 class PocionSalud inherits Pocion {
-	
+
 	override method image() = "pocionSalud.png"
 
 	override method efecto(personaje) {
 		var valorCuracion = personaje.vida() * 0.2
 		personaje.aumentarVida(valorCuracion)
 	}
+
 }
 
 class PocionMana inherits Pocion {
@@ -78,7 +110,7 @@ class PocionMana inherits Pocion {
 	override method image() = "pocionMana.png"
 
 	override method efecto(personaje) {
-		personaje.mana(300.min(50))  // mana es un atributo de personaje? si lo es, hay que agregarlo -> Es un atributo solo de gandalf
+		personaje.mana(300.min(50)) // mana es un atributo de personaje? si lo es, hay que agregarlo -> Es un atributo solo de gandalf
 	}
 
 }
@@ -120,5 +152,6 @@ object pocionInmortalidad inherits Pocion {
 	override method efecto(personaje) {
 		personaje.vida(10000)
 	}
+
 }
 

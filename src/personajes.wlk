@@ -4,32 +4,33 @@ import nivel.*
 import extras.*
 
 class Personaje {
-	var property vida = 500
-    var itemEnMano 
-    var items = []
+
+	var vida = 500
+	var itemEnMano
+	var items = []
 	var killsCounter = 0
-    var position = game.at(12, 4)
-    
-    method image()
+	var position = game.at(12, 4)
 
-    method position() = position
+	method image()
 
-	method moverse(nuevaPosicion, orientacion,personaje) {
-		if (self.puedeMoverse(orientacion,personaje)) {
+	method position() = position
+
+	method moverse(nuevaPosicion, orientacion, personaje) {
+		if (self.puedeMoverse(orientacion, personaje)) {
 			position = nuevaPosicion
 		} // else no se mueve
 	}
 
-	method puedeMoverse(orientacion,personaje) {
+	method puedeMoverse(orientacion, personaje) {
 		return orientacion.posicionEnEsaDireccion(personaje).allElements().all({ objeto => objeto.esAtravesable() })
 	}
 
 	method ponerItemSiguienteEnMano() {
 		if (!items.isEmpty()) {
 			self.moverInventario()
-			itemEnMano = items.head() 
-		} else{
-			game.say(self,"Inventario Vacio!")
+			itemEnMano = items.head()
+		} else {
+			game.say(self, "Inventario Vacio!")
 		}
 	}
 
@@ -38,30 +39,28 @@ class Personaje {
 		var item = items.last()
 		items.remove(item)
 		game.removeVisual(item)
-		
 	}
-	
+
 	method moverInventario() {
 		var listaSlots = items.map({ item => game.colliders(item).head() })
-			listaSlots.forEach({ slot => slot.liberarSlot() })
-			items.forEach({ item => game.removeVisual(item) })
-			items.remove(itemEnMano)
-			items.add(itemEnMano)
-			items.forEach({ item => self.posicionEnInventario(item,0) })
+		listaSlots.forEach({ slot => slot.liberarSlot()})
+		items.forEach({ item => game.removeVisual(item)})
+		items.remove(itemEnMano)
+		items.add(itemEnMano)
+		items.forEach({ item => self.posicionEnInventario(item, 0)})
 	}
 
 	method agarrarItem() {
 		if (items.size() < 5 && game.colliders(self).head().esAgarrable()) {
 			if (!items.isEmpty()) {
 				self.agregarAInventario()
-			} 
-			else {
+			} else {
 				self.agregarAInventario()
 				itemEnMano = items.head()
 			}
-		} else{
-			game.say(self,"Inventario Lleno!")
-		}	
+		} else {
+			game.say(self, "Inventario Lleno!")
+		}
 	}
 
 	method agregarAInventario() {
@@ -69,23 +68,21 @@ class Personaje {
 		items.add(nuevoItem)
 		game.removeVisual(nuevoItem)
 		self.posicionEnInventario(nuevoItem, 0)
+		nuevoItem.efecto(self)
 	}
-	
+
 	method posicionEnInventario(nuevoItem, posicionEnX) {
-		var slot = game.getObjectsIn(game.at(posicionEnX,0)).head()
-		
-		if(!slot.slotOcupado()) {
-			game.addVisualIn(nuevoItem, game.at(posicionEnX,0))
+		var slot = game.getObjectsIn(game.at(posicionEnX, 0)).head()
+		if (!slot.slotOcupado()) {
+			game.addVisualIn(nuevoItem, game.at(posicionEnX, 0))
 			slot.ocuparSlot()
 		} else {
 			var nuevaPosicionEnX = posicionEnX + 1
-			self.posicionEnInventario(nuevoItem, nuevaPosicionEnX) //si explota todo a la mierda es por la recursividad (pero no lo hizo)
+			self.posicionEnInventario(nuevoItem, nuevaPosicionEnX) // si explota todo a la mierda es por la recursividad (pero no lo hizo)
 		}
-		
 	}
-	
-	method morir(){
-		
+
+	method morir() {
 	}
 
 	method mejorarEstadisticas() {
@@ -96,41 +93,52 @@ class Personaje {
 		enemigo.morir()
 		killsCounter++
 	}
-	
-	method llevarItemEnMano() {            // para que muestre el item en el personaje y se mueva a la par
+
+	method llevarItemEnMano() { // para que muestre el item en el personaje y se mueva a la par
 		itemEnMano.position(self.position())
-	} 
-	
+	}
+
 	method disminuirVida(valor) {
 		vida = 0.max(vida - valor)
-		
 	}
-	
+
 	method aumentarVida(valor) {
 		vida = 100.min(vida + valor)
 	}
-	
+
 	method pelear(enemigo) {
-		if(enemigo.esEnemigo()) {
+		if (enemigo.esEnemigo()) {
 			game.say(self, "Estoy colisionando con un enemigo")
-			// aca triggereamos la interfaz de pelea
+		// aca triggereamos la interfaz de pelea
 		}
-		
 	}
+
 }
 
 object scorpion inherits Personaje {
-    var ataque = 80
-    var velocidad = 30
+
+	var danio = 40
+	var velocidad = 30
 
 	override method image() = "scorpion.png"
+
+	method aumentarDanio(valor) {
+		danio = danio + valor
+	}
+
 }
 
 object gandalf inherits Personaje {
-    var ataque = 120
-    var velocidad = 15
-    var mana = 500
+
+	var danio = 30
+	var velocidad = 30
+	var property mana = 500
 
 	override method image() = "gandalf.png"
 
+	method aumentarDanio(valor) {
+		danio = danio + valor
+	}
+
 }
+
