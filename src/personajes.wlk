@@ -5,16 +5,17 @@ import extras.*
 
 class Personaje {
 
-	var vida = 500
+
+	var vida = 1000
 	var itemEnMano
 	var items = []
-	var killsCounter = 0
+	var property killsCounter = 0
 	var position = game.at(12, 4)
 
 	method image()
 
-	method position() = position
-
+  method position() = position
+ method vida() = vida
 	method moverse(nuevaPosicion, orientacion, personaje) {
 		if (self.puedeMoverse(orientacion, personaje)) {
 			position = nuevaPosicion
@@ -82,8 +83,7 @@ class Personaje {
 		}
 	}
 
-	method morir() {
-	}
+	method morir() 
 
 	method mejorarEstadisticas() {
 		itemEnMano.aumentarEstadistica(self)
@@ -106,6 +106,7 @@ class Personaje {
 		vida = 100.min(vida + valor)
 	}
 
+
 	method pelear(enemigo) {
 		if (enemigo.esEnemigo()) {
 			game.say(self, "Estoy colisionando con un enemigo")
@@ -121,24 +122,29 @@ object scorpion inherits Personaje {
 	var velocidad = 30
 
 	override method image() = "scorpion.png"
+	
+	override method morir() = vida == 0 
+}
 
-	method aumentarDanio(valor) {
+  method aumentarDanio(valor) {
 		danio = danio + valor
 	}
 
 }
 
 object gandalf inherits Personaje {
-
+  //var ataque = 120 esto estaba en la rama, probablemente haya que cambiar algo
 	var danio = 30
 	var velocidad = 30
-	var property mana = 500
+	var property mana = 500// no coincide con los ataques del enemigo porque los metodos atacar esperan el mensaje vida() no mana()
 
 	override method image() = "gandalf.png"
 
 	method aumentarDanio(valor) {
 		danio = danio + valor
 	}
+
+    override method morir() = mana == 0 
 
 }
 

@@ -27,7 +27,19 @@ object seleccionDePersonaje {
 }
 
 object nivel {
-
+	
+	var trollDePiedra = new Troll(x = 15, y = 9, vida = 300, velocidad = 5, image = "trollDePiedra.png")
+    var trollDemonio = new Troll(x = 16, y = 7, vida = 450, velocidad = 35, image = "trollDemonio.png")
+    var giganteDePiedra = new Gigante(x = 3, y = 4, vida = 550, velocidad = 2, image = "giganteDePiedra.png")
+    var giganteDeHielo = new Gigante(x = 3, y = 2, vida = 500, velocidad = 2, image = "giganteDeHielo.png")
+    var giganteVioleta = new Gigante(x = 2, y = 3, vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png")
+    var dragonVerde = new Dragon(x = 21, y = 6, vida = 800, velocidad = 55, image = "dragonVerde.png")
+    var dragonVioleta = new Dragon(x = 20, y = 5, vida = 800, velocidad = 55, image = "dragonVioleta.png")
+    var perroDeTresCabezasDeHielo = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, velocidad = 40, image = "perroDe3CabezasDeHielo.png")
+    var perroDeTresCabezasDeFuego = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, velocidad = 45, image = "perroDe3CabezasDeFuego.png")
+    var mago = new Mago(x = 18, y = 7, vida = 500, velocidad = 25, image = "mago.png")
+    var gato = new Gato(x = 19, y = 8, vida = 500, velocidad = 50, image = "gato.png")
+ 
 	method iniciar(personaje) {
 		game.clear()
 		self.disenioNivel()
@@ -45,6 +57,27 @@ object nivel {
 
 	method agregarPersonajes(personaje) {
 		// enemigos
+		game.addVisualIn(trollDePiedra,game.at(15,9))
+		game.addVisualIn(trollDemonio,game.at(16,7))
+		game.addVisualIn(giganteDePiedra,game.at(3,4))
+		game.addVisualIn(giganteDeHielo,game.at(3,2))
+		game.addVisualIn(giganteVioleta,game.at(2,3))
+		game.addVisual(dragonVerde) //game.at(21,6)
+		game.onTick(700, "moverse", {=> dragonVerde.cambiarPosicionEnX(18.randomUpTo(24))})		
+		game.addVisual(dragonVioleta) //game.at(20,5)
+		game.onTick(700, "moverse", {=> dragonVioleta.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.addVisual(perroDeTresCabezasDeHielo) //game.at(18,4) 
+		game.onTick(700, "moverse", {=> perroDeTresCabezasDeHielo.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.addVisual(perroDeTresCabezasDeFuego) //game.at(23,3)
+		game.onTick(700, "moverse", {=> perroDeTresCabezasDeFuego.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.addVisual(mago) //game.at(18,7)
+		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.addVisual(gato) //game.at(19,8)
+		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
+		// personaje
+		game.addVisual(personaje)
+		//game.showAttributes(personaje)
+/*
 		game.addVisualIn(new Troll(vida = 300, velocidad = 5, image = "trollDePiedra.png"), game.at(16, 9))
 		game.addVisualIn(new Troll(vida = 450, velocidad = 5, image = "trollDemonio.png"), game.at(16, 5))
 		game.addVisualIn(new Gigante(vida = 550, velocidad = 2, image = "giganteDePiedra.png"), game.at(3, 4))
@@ -58,7 +91,8 @@ object nivel {
 		game.addVisualIn(gato, game.at(19, 8))
 			// personaje
 		game.addVisual(personaje)
-		game.showAttributes(personaje)
+		game.showAttributes(personaje)*/
+
 	}
 
 	method agregarVisualesExtras() {
@@ -127,10 +161,6 @@ object nivel {
 		posicionesInventario.forEach{ posicion => game.addVisualIn(new BloqueInventario(), posicion)}
 	}
 
-/* 	method configurarAcciones() {
- * 		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
- * 	}
- */
 }
 
 object config {
@@ -153,6 +183,7 @@ object config {
 	}
 
 	method configurarColisiones(personaje) {
+
 		// game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
 		// game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
 		game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo)})
@@ -160,38 +191,9 @@ object config {
 	}
 
 }
-
 /*
- * object nivel {
- * 
- * 	method iniciar() {
- * 		
- * 	}
- * 	
- * 	method ganar() {
- * 		game.clear()
- * 	}
- * }
-
- * object config {
- * 	var unItem = new Item(poder = 500)
- *     var unPersonaje = new Personaje(ataque = 100, vida = 100, dignidad = 100, velocidad = 150, item = unItem)
- * 	var unEnemigo = new Enemigo(ataque = 200, vida = 100, velocidad = 90, item = unItem)
- * 	
- * 	method configurarTeclas() {	
- * 		keyboard.left().onPressDo({ unPersonaje.irA(unPersonaje.position().left(1)) })
- * 		keyboard.right().onPressDo({ unPersonaje.irA(unPersonaje.position().right(1)) })
- * 		keyboard.up().onPressDo({ unPersonaje.irA(unPersonaje.position().up(1)) })
- * 		keyboard.down().onPressDo({ unPersonaje.irA(unPersonaje.position().down(1)) })
- * 	}
- * 	
- * 	method configurarColisiones() {
- * 		//game.whenCollideDo(unPersonaje, { enemigo => unPersonaje.atacar() })
- * 		//game.whenCollideDo(unEnemigo, { personaje => unEnemigo.atacar() })
- * 	}
-
- * 	method configurarAcciones() {
- * 		game.onTick(2 * 1000, "GAMEOVER", { if(unPersonaje.dignidad() == 0) game.stop() })
- * 	}
- * }
- */
+ method configurarAcciones(personaje) {
+    	game.onTick(2 * 1000, "GAMEOVER", { if(personaje.vida() == 0) game.stop() })
+ }
+}
+*/
