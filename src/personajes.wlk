@@ -5,7 +5,6 @@ import extras.*
 
 class Personaje {
 
-
 	var vida = 1000
 	var itemEnMano
 	var items = []
@@ -14,10 +13,10 @@ class Personaje {
 
 	method image()
 
-    method position() = position
+	method position() = position
 
 	method vida() = vida
-	
+
 	method moverse(nuevaPosicion, orientacion, personaje) {
 		if (self.puedeMoverse(orientacion, personaje)) {
 			position = nuevaPosicion
@@ -85,12 +84,8 @@ class Personaje {
 		}
 	}
 
-	method morir() 
-
-	method mejorarEstadisticas() {
-		itemEnMano.aumentarEstadistica(self)
-	}
-
+	method morir() = vida == 0
+	
 	method matar(enemigo) {
 		enemigo.morir()
 		killsCounter++
@@ -105,9 +100,8 @@ class Personaje {
 	}
 
 	method aumentarVida(valor) {
-		vida = 100.min(vida + valor)
+		vida = vida + valor
 	}
-
 
 	method pelear(enemigo) {
 		if (enemigo.esEnemigo()) {
@@ -127,20 +121,17 @@ object scorpion inherits Personaje {
 		return if(game.hasVisual(fondo)) "scorpionPelea.png" else "scorpion.png"
 	} 
 	
-	override method morir() = vida == 0 
-
-
-  method aumentarDanio(valor) {
+	method aumentarDanio(valor) {
 		danio = danio + valor
 	}
 
 }
 
 object gandalf inherits Personaje {
-  //var ataque = 120 esto estaba en la rama, probablemente haya que cambiar algo
-	var danio = 30
-	var velocidad = 30
-	var property mana = 500// no coincide con los ataques del enemigo porque los metodos atacar esperan el mensaje vida() no mana()
+
+	// var ataque = 120 esto estaba en la rama, probablemente haya que cambiar algo
+	var property danio = 30
+	var property mana = 500 // no coincide con los ataques del enemigo porque los metodos atacar esperan el mensaje vida() no mana()
 
 	override method image() = "gandalf.png"
 
@@ -148,7 +139,29 @@ object gandalf inherits Personaje {
 		danio = danio + valor
 	}
 
-    override method morir() = mana == 0 
+}
+
+object arriba {
+
+	method posicionEnEsaDireccion(personaje) = personaje.position().up(1)
+
+}
+
+object abajo {
+
+	method posicionEnEsaDireccion(personaje) = personaje.position().down(1)
+
+}
+
+object derecha {
+
+	method posicionEnEsaDireccion(personaje) = personaje.position().right(1)
+
+}
+
+object izquierda {
+
+	method posicionEnEsaDireccion(personaje) = personaje.position().left(1)
 
 }
 

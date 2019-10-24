@@ -7,7 +7,6 @@ import extras.*
 object seleccionDePersonaje {
 
 	method iniciar() {
-		game.ground("piso.jpg")
 		config.seleccionarPersonajes()
 		self.dibujarPersonajesEnSeleccion()
 		self.dibujarTextos()
@@ -27,6 +26,7 @@ object seleccionDePersonaje {
 }
 
 object nivel {
+
 	
 	var guardian = new Guardian(x = 23, y = 10, vida = 1000)
 	var troll1 = new Troll(x = 16, y = 10, vida = 300)
@@ -45,6 +45,7 @@ object nivel {
 		game.clear()
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
+		self.efectos()
 		config.configurarTeclas(personaje)
 		config.configurarColisiones(personaje)
 	}
@@ -54,11 +55,13 @@ object nivel {
 		self.generarMuroHorizontal()
 		self.generarSlotInventario()
 		self.agregarVisualesExtras()
+		self.posicionCalizDeFuego()
 	}
 
 	method agregarPersonajes(personaje) {
 		
 		//ENEMIGOS
+
 		game.addVisual(guardian) // descomentar cuando se haya modificado el metodo image() del resto, si no, no corre
 								// replicar la forma de hacerlo como la del guardian
 		game.addVisual(troll1)
@@ -74,30 +77,30 @@ object nivel {
 		game.onTick(700, "moverse", {=> perroDeTresCabezas1.cambiarPosicionEnX(18.randomUpTo(24))})
 		game.addVisual(perroDeTresCabezas2) //game.at(23,3)
 		game.onTick(700, "moverse", {=> perroDeTresCabezas2.cambiarPosicionEnX(18.randomUpTo(24))})
+
 		game.addVisual(mago) //game.at(18,7)
-		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
 		game.addVisual(gato) //game.at(19,8)
-		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
-		
-		//PERSONAJE
+
 		game.addVisual(personaje)
 		game.showAttributes(personaje)
+	}
 
+	method efectos() {
+		game.onTick(350, "movete", { arrow.moverArrow()})
+		game.onTick(250, "movete", { fireBall.moverFireball()})
+		game.onTick(150, "movete", { spike.moverSpike()})
+		game.onTick(700, "moverse", {=> dragon1.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> dragon2.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> perroDeTresCabezas1.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> perroDeTresCabezas2.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
 	}
 
 	method agregarVisualesExtras() {
-		// self.posicionPinchos()
-		self.posicionCalizDeFuego()
-		game.addVisualIn(botonTrampa, game.at(7, 2))
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta2), game.at(1, 8))
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta3), game.at(16, 11))
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta4), game.at(5, 3))
-		game.addVisualIn(puerta1, game.at(1, 5))
-		game.addVisualIn(puerta2, game.at(17, 2))
-		game.addVisualIn(puerta3, game.at(15, 9))
-		game.addVisualIn(puerta4, game.at(16, 7))
-		game.addVisualIn(puertaIzquierdaBoss, game.at(20,9))
-		game.addVisualIn(puertaDerechaBoss, game.at(21,9))
+		self.generarPuertasYBotones()
+		game.addVisualIn(puertaIzquierdaBoss, game.at(20, 9))
+		game.addVisualIn(puertaDerechaBoss, game.at(21, 9))
 		game.addVisualIn(trampaPinchos1, game.at(3, 8))
 		game.addVisualIn(trampaPinchos2, game.at(3, 9))
 		game.addVisualIn(trampaPinchos3, game.at(3, 10))
@@ -105,18 +108,26 @@ object nivel {
 		game.addVisualIn(new PocionSalud(), game.at(8, 5))
 		game.addVisualIn(new PocionMana(), game.at(8, 3))
 		game.addVisualIn(new PocionVeneno(), game.at(9, 4))
-		game.addVisualIn(new EspadaDiamante() ,game.at(9,5))
+		game.addVisualIn(new EspadaDiamante(), game.at(9, 5))
 		game.addVisual(fireBall)
 		game.addVisual(arrow)
 		game.addVisual(spike)
-		game.onTick(350, "movete", { arrow.moverArrow()})
-		game.onTick(250, "movete", { fireBall.moverFireball()})
-		game.onTick(150, "movete", { spike.moverSpike()})
 	}
 
-	method posicionPinchos() {
-		const posicionesParaGenerarPinchos = (8 .. 11).map({ n => game.at(3, n) })
-		posicionesParaGenerarPinchos.forEach{ posicion => game.addVisualIn(new TrampaPinchos(), posicion)}
+	method generarPuertasYBotones() {
+		const puerta1 = new PuertaHorizontal()
+		const puerta4 = new PuertaHorizontal()
+		const puerta3 = new PuertaVertical()
+		const puerta2 = new PuertaVertical()
+		game.addVisualIn(puerta1, game.at(1, 5))
+		game.addVisualIn(puerta2, game.at(17, 2))
+		game.addVisualIn(puerta3, game.at(15, 9))
+		game.addVisualIn(puerta4, game.at(16, 7))
+
+		game.addVisualIn(new BotonTrampa(puertaQueAcciona = puerta1), game.at(7, 2))
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta2), game.at(1, 8))
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta3), game.at(16, 11))
+		game.addVisualIn(new Boton(puertaQueAcciona = puerta4), game.at(5, 3))
 	}
 
 	method generarMuroVertical() {
@@ -127,22 +138,22 @@ object nivel {
 		const posicionesAMano = [ game.at(11,2), game.at(13,2), game.at(2,5), game.at(3,5), game.at(4,5), game.at(5,5), game.at(6,5), game.at(6,4), game.at(6,3), game.at(6,2) ]
 		posicionesAMano.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
 		const segundaEtapa = [ game.at(15,8), game.at(15,10), game.at(15,11) ]
-		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
 		const terceraEtapa = (3 .. 12).map({ n => game.at(17, n) })
-		terceraEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		terceraEtapa.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
 	}
 
 	method generarMuroHorizontal() {
 		const posicionesParaGenerarMuros = (1 .. 25).map({ n => game.at(n, 1) })
-		posicionesParaGenerarMuros.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		posicionesParaGenerarMuros.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
 		const posicionesParaGenerarMuros2 = (1 .. 25).map({ n => game.at(n, 12) })
-		posicionesParaGenerarMuros2.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		posicionesParaGenerarMuros2.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
 		const segundaEtapa = (1 .. 15).map({ n => game.at(n, 7) })
-		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroHorizontal(), posicion)}
+		segundaEtapa.forEach{ posicion => game.addVisualIn(new MuroVertical(), posicion)}
 	}
 
 	method posicionCalizDeFuego() {
-		const posicionCaliz = [ game.at(18,11), game.at(23,11), game.at(19,10), game.at(22,10),game.at(19,11), game.at(22,11),game.at(19,9), game.at(22,9) ]
+		const posicionCaliz = [ game.at(18,11), game.at(23,11), game.at(19,10), game.at(22,10), game.at(19,11), game.at(22,11), game.at(19,9), game.at(22,9) ]
 		posicionCaliz.forEach{ posicion => game.addVisualIn(new Caliz(), posicion)}
 	}
 
@@ -173,11 +184,13 @@ object config {
 	}
 
 	method configurarColisiones(personaje) {
-
 		// game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
 		// game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
 		game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo)})
-		game.whenCollideDo(fireBall, { personaje => fireBall.daniarPersonaje(personaje)})
+		game.whenCollideDo(fireBall, { extra => fireBall.efecto(extra)})
+		game.whenCollideDo(arrow, { extra => fireBall.efecto(extra)})
+		game.whenCollideDo(spike, { extra => fireBall.efecto(extra)})
+		
 	}
 
 }

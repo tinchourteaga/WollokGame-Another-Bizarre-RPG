@@ -2,6 +2,7 @@ import wollok.game.*
 import items.*
 import personajes.*
 import ataques.*
+import extras.*
 
 class Enemigo { 
 	var x
@@ -136,9 +137,9 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 	}
 	
 	override method morir() {
-		super()
 		puertaDerechaBoss.abreteSesamo()
 		puertaIzquierdaBoss.abreteSesamo()
+		super()
 	}
 	
 	override method atacar(personaje) {
