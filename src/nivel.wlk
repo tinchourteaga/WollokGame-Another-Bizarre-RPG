@@ -27,17 +27,18 @@ object seleccionDePersonaje {
 
 object nivel {
 
-	var trollDePiedra = new Troll(x = 15, y = 9, vida = 300, velocidad = 5, image = "trollDePiedra.png")
-	var trollDemonio = new Troll(x = 16, y = 7, vida = 450, velocidad = 35, image = "trollDemonio.png")
-	var giganteDePiedra = new Gigante(x = 3, y = 4, vida = 550, velocidad = 2, image = "giganteDePiedra.png")
-	var giganteDeHielo = new Gigante(x = 3, y = 2, vida = 500, velocidad = 2, image = "giganteDeHielo.png")
-	var giganteVioleta = new Gigante(x = 2, y = 3, vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png")
-	var dragonVerde = new Dragon(x = 21, y = 6, vida = 800, velocidad = 55, image = "dragonVerde.png")
-	var dragonVioleta = new Dragon(x = 20, y = 5, vida = 800, velocidad = 55, image = "dragonVioleta.png")
-	var perroDeTresCabezasDeHielo = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, velocidad = 40, image = "perroDe3CabezasDeHielo.png")
-	var perroDeTresCabezasDeFuego = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, velocidad = 45, image = "perroDe3CabezasDeFuego.png")
-	var mago = new Mago(x = 18, y = 7, vida = 500, velocidad = 25, image = "mago.png")
-	var gato = new Gato(x = 19, y = 8, vida = 500, velocidad = 50, image = "gato.png")
+	var guardian = new Guardian(x = 23, y = 10, vida = 1000, velocidad = 5, image = "guardianBoss.png")
+	var trollDePiedra = new Troll(x = 16, y = 10, vida = 300, velocidad = 5, image = "trollDePiedra.png")
+    var trollDemonio = new Troll(x = 16, y = 6, vida = 450, velocidad = 35, image = "trollDemonio.png")
+    var giganteDePiedra = new Gigante(x = 3, y = 4, vida = 550, velocidad = 2, image = "giganteDePiedra.png")
+    var giganteDeHielo = new Gigante(x = 3, y = 2, vida = 500, velocidad = 2, image = "giganteDeHielo.png")
+    var giganteVioleta = new Gigante(x = 2, y = 3, vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png")
+    var dragonVerde = new Dragon(x = 21, y = 6, vida = 800, velocidad = 55, image = "dragonVerde.png")
+    var dragonVioleta = new Dragon(x = 20, y = 5, vida = 800, velocidad = 55, image = "dragonVioleta.png")
+    var perroDeTresCabezasDeHielo = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, velocidad = 40, image = "perroDe3CabezasDeHielo.png")
+    var perroDeTresCabezasDeFuego = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, velocidad = 45, image = "perroDe3CabezasDeFuego.png")
+    var mago = new Mago(x = 18, y = 7, vida = 500, velocidad = 25, image = "mago.png")
+    var gato = new Gato(x = 19, y = 8, vida = 500, velocidad = 50, image = "gato.png")
 
 	method iniciar(personaje) {
 		game.clear()
@@ -57,19 +58,21 @@ object nivel {
 	}
 
 	method agregarPersonajes(personaje) {
-		// enemigos
-		game.addVisualIn(trollDePiedra, game.at(15, 9))
-		game.addVisualIn(trollDemonio, game.at(16, 7))
-		game.addVisualIn(giganteDePiedra, game.at(3, 4))
-		game.addVisualIn(giganteDeHielo, game.at(3, 2))
-		game.addVisualIn(giganteVioleta, game.at(2, 3))
-		game.addVisual(dragonVerde) // game.at(21,6)
-		game.addVisual(dragonVioleta) // game.at(20,5)
-		game.addVisual(perroDeTresCabezasDeHielo) // game.at(18,4) 
-		game.addVisual(perroDeTresCabezasDeFuego) // game.at(23,3)
-		game.addVisual(mago) // game.at(18,7)
-		game.addVisual(gato) // game.at(19,8)
-			// personaje
+		
+		//ENEMIGOS
+		game.addVisualIn(guardian,game.at(23,10))
+		game.addVisualIn(trollDePiedra,game.at(15,9))
+		game.addVisualIn(trollDemonio,game.at(16,7))
+		game.addVisualIn(giganteDePiedra,game.at(3,4))
+		game.addVisualIn(giganteDeHielo,game.at(3,2))
+		game.addVisualIn(giganteVioleta,game.at(2,3))
+		game.addVisual(dragonVerde) //game.at(21,6)}
+		game.addVisual(dragonVioleta) //game.at(20,5)
+		game.addVisual(perroDeTresCabezasDeHielo) //game.at(18,4) 
+		game.addVisual(perroDeTresCabezasDeFuego) //game.at(23,3)
+		game.addVisual(mago) //game.at(18,7)
+		game.addVisual(gato) //game.at(19,8)
+
 		game.addVisual(personaje)
 		game.showAttributes(personaje)
 	}
@@ -88,8 +91,8 @@ object nivel {
 
 	method agregarVisualesExtras() {
 		self.generarPuertasYBotones()
-		game.addVisualIn(puertaIzquierda, game.at(20, 9))
-		game.addVisualIn(puertaDerecha, game.at(21, 9))
+		game.addVisualIn(puertaIzquierdaBoss, game.at(20, 9))
+		game.addVisualIn(puertaDerechaBoss, game.at(21, 9))
 		game.addVisualIn(trampaPinchos1, game.at(3, 8))
 		game.addVisualIn(trampaPinchos2, game.at(3, 9))
 		game.addVisualIn(trampaPinchos3, game.at(3, 10))
@@ -112,7 +115,7 @@ object nivel {
 		game.addVisualIn(puerta2, game.at(17, 2))
 		game.addVisualIn(puerta3, game.at(15, 9))
 		game.addVisualIn(puerta4, game.at(16, 7))
-		//game.addVisualIn(botonTrampa, game.at(5, 8))
+
 		game.addVisualIn(new BotonTrampa(puertaQueAcciona = puerta1), game.at(7, 2))
 		game.addVisualIn(new Boton(puertaQueAcciona = puerta2), game.at(1, 8))
 		game.addVisualIn(new Boton(puertaQueAcciona = puerta3), game.at(16, 11))
@@ -166,9 +169,9 @@ object config {
 		keyboard.up().onPressDo({ personaje.moverse(personaje.position().up(1), arriba, personaje)})
 		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo, personaje)})
 		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano()})
-		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
-		keyboard.f().onPressDo({ personaje.agarrarItem()})
-		keyboard.g().onPressDo({ personaje.dejarItemEnMano()})
+		keyboard.e().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
+		keyboard.a().onPressDo({ personaje.agarrarItem()})
+		keyboard.d().onPressDo({ personaje.dejarItemEnMano()})
 		keyboard.r().onPressDo({ personaje.pelear(game.colliders(personaje).head())})
 	}
 

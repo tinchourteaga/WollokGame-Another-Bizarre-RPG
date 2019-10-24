@@ -6,8 +6,9 @@ import enemigos.*
 import extras.*
 
 program NombreDeSuJuego {
-	game.title("NombreDeSuJuego")
+
 	game.ground("piso.jpg")
+    game.title("Another Bizarre RPG")
 	game.height(13)
 	game.width(25)
 	seleccionDePersonaje.iniciar()

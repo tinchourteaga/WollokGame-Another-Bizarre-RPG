@@ -1,6 +1,8 @@
 import wollok.game.*
 import items.*
 import personajes.*
+import ataques.*
+import extras.*
 
 class Enemigo { 
 	var x
@@ -80,4 +82,24 @@ class PerroDeTresCabezas inherits Enemigo {
 		personaje.disminuirVida(4 * velocidad)
 	}
 }
+
+class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del boss
+
+	override method morir() {
+		puertaDerechaBoss.abreteSesamo()
+		puertaIzquierdaBoss.abreteSesamo()
+		super()
+	}
+	
+	override method atacar(personaje) {
+		absorberVida.efecto(self,personaje)
+	}
+}
+
+
+
+
+
+
+
 

@@ -26,3 +26,31 @@ object robarItemEnMano inherits Ataque {
 		personaje.ponerItemSiguienteEnMano()	
 	}
 }
+
+
+object absorberVida {
+	
+	method efecto(caster,target) {
+		target.disminuirVida(20)
+		caster.aumentarVida(20)
+	}
+}
+
+/* esto implicaria meter objects status que hagan los efectos -no se termina para mañana, va como DLC-
+object incinerar {
+	
+	method efecto(target) {
+		
+		target.status(incinerado)
+	}
+}
+*/
+
+
+
+
+
+
+
+
+
