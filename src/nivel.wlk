@@ -40,13 +40,20 @@ object nivel {
     var perroDeTresCabezasDeFuego = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, velocidad = 45, image = "perroDe3CabezasDeFuego.png")
     var mago = new Mago(x = 18, y = 7, vida = 500, velocidad = 25, image = "mago.png")
     var gato = new Gato(x = 19, y = 8, vida = 500, velocidad = 50, image = "gato.png")
+    // extras
+    var fireBall1 = new FireBall(position = game.at(12, 11))
+    var fireBall2 = new FireBall(position = game.at(13, 11))
+    var fireBall3 = new FireBall(position = game.at(14, 11))
+    var arrow1 = new Arrow(position = game.at(8,8))
+    var arrow2 = new Arrow(position = game.at(9,8))
+    var arrow3 = new Arrow(position = game.at(10,8))
  
 	method iniciar(personaje) {
 		game.clear()
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
 		config.configurarTeclas(personaje)
-		config.configurarColisiones(personaje)
+		self.configurarColisiones(personaje)
 	}
 
 	method disenioNivel() {
@@ -81,22 +88,6 @@ object nivel {
 		//PERSONAJE
 		game.addVisual(personaje)
 		game.showAttributes(personaje)
-/*
-		game.addVisualIn(new Troll(vida = 300, velocidad = 5, image = "trollDePiedra.png"), game.at(16, 9))
-		game.addVisualIn(new Troll(vida = 450, velocidad = 5, image = "trollDemonio.png"), game.at(16, 5))
-		game.addVisualIn(new Gigante(vida = 550, velocidad = 2, image = "giganteDePiedra.png"), game.at(3, 4))
-		game.addVisualIn(new Gigante(vida = 500, velocidad = 2, image = "giganteDeHielo.png"), game.at(3, 2))
-		game.addVisualIn(new Gigante(vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png"), game.at(2, 3))
-		game.addVisualIn(new Dragon(vida = 800, velocidad = 15, image = "dragonVerde.png"), game.at(21, 6))
-		game.addVisualIn(new Dragon(vida = 800, velocidad = 15, image = "dragonVioleta.png"), game.at(20, 5))
-		game.addVisualIn(new PerroDeTresCabezas(vida = 600, velocidad = 35, image = "perroDe3CabezasDeHielo.png"), game.at(18, 4))
-		game.addVisualIn(new PerroDeTresCabezas(vida = 600, velocidad = 35, image = "perroDe3CabezasDeFuego.png"), game.at(23, 3))
-		game.addVisualIn(mago, game.at(18, 7))
-		game.addVisualIn(gato, game.at(19, 8))
-			// personaje
-		game.addVisual(personaje)
-		game.showAttributes(personaje)*/
-
 	}
 
 	method agregarVisualesExtras() {
@@ -120,11 +111,21 @@ object nivel {
 		game.addVisualIn(new PocionMana(), game.at(8, 3))
 		game.addVisualIn(new PocionVeneno(), game.at(9, 4))
 		game.addVisualIn(new EspadaDiamante() ,game.at(9,5))
-		game.addVisual(fireBall)
-		game.addVisual(arrow)
+		game.addVisual(fireBall1)
+		game.onTick(400, "movete", { fireBall1.moverFireball(game.at(12, 11))})
+		game.addVisual(fireBall2)
+		game.onTick(400, "movete", { fireBall2.moverFireball(game.at(13, 11))})
+		game.addVisual(fireBall3)
+		game.onTick(400, "movete", { fireBall3.moverFireball(game.at(14, 11))})
+		game.addVisual(arrow1)
+		game.onTick(350, "movete", { arrow1.moverArrow(game.at(8,8))})
+		game.addVisual(arrow2)
+		game.onTick(350, "movete", { arrow2.moverArrow(game.at(9,8))})
+		game.addVisual(arrow3)
+		game.onTick(350, "movete", { arrow3.moverArrow(game.at(10,8))})
 		game.addVisual(spike)
-		game.onTick(350, "movete", { arrow.moverArrow()})
-		game.onTick(250, "movete", { fireBall.moverFireball()})
+		game.onTick(150, "movete", { spike.moverSpike()})
+		game.addVisual(spike)
 		game.onTick(150, "movete", { spike.moverSpike()})
 	}
 
@@ -164,6 +165,16 @@ object nivel {
 		const posicionesInventario = [ game.at(0,0), game.at(1,0), game.at(2,0), game.at(3,0), game.at(4,0) ]
 		posicionesInventario.forEach{ posicion => game.addVisualIn(new BloqueInventario(), posicion)}
 	}
+	
+	method configurarColisiones(personaje) {
+		// game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
+		// game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
+		// game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo)})
+		game.whenCollideDo(fireBall1, { => fireBall1.daniarPersonaje(personaje)})
+		game.whenCollideDo(fireBall2, { => fireBall2.daniarPersonaje(personaje)})
+		game.whenCollideDo(fireBall3, { => fireBall3.daniarPersonaje(personaje)})
+	}
+	
 
 }
 
@@ -185,7 +196,7 @@ object config {
 		keyboard.d().onPressDo({ personaje.dejarItemEnMano()})
 		keyboard.r().onPressDo({ personaje.pelear(game.colliders(personaje).head())})
 	}
-
+/*
 	method configurarColisiones(personaje) {
 
 		// game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
@@ -193,11 +204,10 @@ object config {
 		game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo)})
 		game.whenCollideDo(fireBall, { personaje => fireBall.daniarPersonaje(personaje)})
 	}
-
+*/
 }
 /*
  method configurarAcciones(personaje) {
     	game.onTick(2 * 1000, "GAMEOVER", { if(personaje.vida() == 0) game.stop() })
  }
-}
 */

@@ -75,9 +75,9 @@ class Extra {
 
 }
 
-object fireBall inherits Extra {
+class FireBall inherits Extra {
 
-	var property position = game.at(11, 11)
+	var property position
 
 	method image() = "fireball.png"
 
@@ -85,19 +85,19 @@ object fireBall inherits Extra {
 		personaje.disminuirVida(10)
 	}
 
-	method moverFireball() {
+	method moverFireball(nuevaPosicion) {
 		if (position.y() >= 9) {
 			position = position.down(1)
 		} else {
-			position = game.at(11, 11)
+			position = nuevaPosicion
 		}
 	}
 
 }
 
-object arrow inherits Extra {
+class Arrow inherits Extra {
 
-	var property position = game.at(8, 8)
+	var property position
 
 	method image() = "arrow.png"
 
@@ -105,11 +105,11 @@ object arrow inherits Extra {
 		personaje.disminuirVida(10)
 	}
 
-	method moverArrow() {
+	method moverArrow(nuevaPosicion) {
 		if (position.y() <= 10) {
 			position = position.up(1)
 		} else {
-			position = game.at(8, 8)
+			position = nuevaPosicion
 		}
 	}
 
