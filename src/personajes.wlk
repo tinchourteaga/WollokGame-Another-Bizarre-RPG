@@ -14,8 +14,10 @@ class Personaje {
 
 	method image()
 
-  method position() = position
- method vida() = vida
+    method position() = position
+
+	method vida() = vida
+	
 	method moverse(nuevaPosicion, orientacion, personaje) {
 		if (self.puedeMoverse(orientacion, personaje)) {
 			position = nuevaPosicion
@@ -109,7 +111,7 @@ class Personaje {
 
 	method pelear(enemigo) {
 		if (enemigo.esEnemigo()) {
-			game.say(self, "Estoy colisionando con un enemigo")
+			interfazPelea.iniciar(self,enemigo)
 		// aca triggereamos la interfaz de pelea
 		}
 	}
@@ -121,7 +123,9 @@ object scorpion inherits Personaje {
 	var danio = 40
 	var velocidad = 30
 
-	override method image() = "scorpion.png"
+	override method image() {
+		return if(game.hasVisual(fondo)) "scorpionPelea.png" else "scorpion.png"
+	} 
 	
 	override method morir() = vida == 0 
 

@@ -300,6 +300,8 @@ object trampaPinchos4 inherits TrampaPinchos {
 
 }
 
+// SELECCION DE PERSONAJE
+
 object scorpionSeleccion {
 
 	method image() = "scorpionSeleccion.png"
@@ -340,6 +342,26 @@ object scorpionTextBox {
 
 }
 
-object guardarNivel {
+// INTERFAZ PELEA
+
+object fondo {
 	
+	method image() = "fondoInterfazPelea.png"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
