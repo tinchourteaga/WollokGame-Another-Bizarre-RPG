@@ -200,20 +200,25 @@ class Puerta inherits Extra {
 
 }
 
-object puertaIzquierda {
-
-	method esAtravesable() = true
-
-	method image() = "puertaCortadaAbiertaIzquierda.png"
-
+class PuertaBoss inherits Puerta {
+	
+	method abreteSesamo() {
+		cerrada = false
+	}
 }
 
-object puertaDerecha {
+object puertaIzquierdaBoss inherits PuertaBoss {
+	
+	method image() {
+		return if (cerrada) "puertaCerradaCortadaIzquierda.png" else "puertaCortadaAbiertaIzquierda.png"
+	}
+}
 
-	method esAtravesable() = true
+object puertaDerechaBoss inherits PuertaBoss {
 
-	method image() = "puertaCortadaAbiertaDerecha.png"
-
+	method image() {
+		return if (cerrada) "puertaCerradaCortadaDerecha.png" else "puertaCortadaAbiertaDerecha.png"
+	}
 }
 
 class PuertaHorizontal inherits Puerta {
@@ -335,3 +340,6 @@ object scorpionTextBox {
 
 }
 
+object guardarNivel {
+	
+}

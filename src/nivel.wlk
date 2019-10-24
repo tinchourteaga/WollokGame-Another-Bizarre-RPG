@@ -28,8 +28,9 @@ object seleccionDePersonaje {
 
 object nivel {
 	
-	var trollDePiedra = new Troll(x = 15, y = 9, vida = 300, velocidad = 5, image = "trollDePiedra.png")
-    var trollDemonio = new Troll(x = 16, y = 7, vida = 450, velocidad = 35, image = "trollDemonio.png")
+	var guardian = new Guardian(x = 23, y = 10, vida = 1000, velocidad = 5, image = "guardianBoss.png")
+	var trollDePiedra = new Troll(x = 16, y = 10, vida = 300, velocidad = 5, image = "trollDePiedra.png")
+    var trollDemonio = new Troll(x = 16, y = 6, vida = 450, velocidad = 35, image = "trollDemonio.png")
     var giganteDePiedra = new Gigante(x = 3, y = 4, vida = 550, velocidad = 2, image = "giganteDePiedra.png")
     var giganteDeHielo = new Gigante(x = 3, y = 2, vida = 500, velocidad = 2, image = "giganteDeHielo.png")
     var giganteVioleta = new Gigante(x = 2, y = 3, vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png")
@@ -56,7 +57,9 @@ object nivel {
 	}
 
 	method agregarPersonajes(personaje) {
-		// enemigos
+		
+		//ENEMIGOS
+		game.addVisualIn(guardian,game.at(23,10))
 		game.addVisualIn(trollDePiedra,game.at(15,9))
 		game.addVisualIn(trollDemonio,game.at(16,7))
 		game.addVisualIn(giganteDePiedra,game.at(3,4))
@@ -74,9 +77,10 @@ object nivel {
 		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
 		game.addVisual(gato) //game.at(19,8)
 		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
-		// personaje
+		
+		//PERSONAJE
 		game.addVisual(personaje)
-		//game.showAttributes(personaje)
+		game.showAttributes(personaje)
 /*
 		game.addVisualIn(new Troll(vida = 300, velocidad = 5, image = "trollDePiedra.png"), game.at(16, 9))
 		game.addVisualIn(new Troll(vida = 450, velocidad = 5, image = "trollDemonio.png"), game.at(16, 5))
@@ -106,8 +110,8 @@ object nivel {
 		game.addVisualIn(puerta2, game.at(17, 2))
 		game.addVisualIn(puerta3, game.at(15, 9))
 		game.addVisualIn(puerta4, game.at(16, 7))
-		game.addVisualIn(puertaIzquierda, game.at(20,9))
-		game.addVisualIn(puertaDerecha, game.at(21,9))
+		game.addVisualIn(puertaIzquierdaBoss, game.at(20,9))
+		game.addVisualIn(puertaDerechaBoss, game.at(21,9))
 		game.addVisualIn(trampaPinchos1, game.at(3, 8))
 		game.addVisualIn(trampaPinchos2, game.at(3, 9))
 		game.addVisualIn(trampaPinchos3, game.at(3, 10))
@@ -176,9 +180,9 @@ object config {
 		keyboard.up().onPressDo({ personaje.moverse(personaje.position().up(1), arriba, personaje)})
 		keyboard.down().onPressDo({ personaje.moverse(personaje.position().down(1), abajo, personaje)})
 		keyboard.q().onPressDo({ personaje.ponerItemSiguienteEnMano()})
-		keyboard.k().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
-		keyboard.f().onPressDo({ personaje.agarrarItem()})
-		keyboard.g().onPressDo({ personaje.dejarItemEnMano()})
+		keyboard.e().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
+		keyboard.a().onPressDo({ personaje.agarrarItem()})
+		keyboard.d().onPressDo({ personaje.dejarItemEnMano()})
 		keyboard.r().onPressDo({ personaje.pelear(game.colliders(personaje).head())})
 	}
 
