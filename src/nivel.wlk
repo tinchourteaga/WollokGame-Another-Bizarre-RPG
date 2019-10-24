@@ -29,11 +29,11 @@ object nivel {
 
 	
 	var guardian = new Guardian(x = 23, y = 10, vida = 1000)
-	var troll1 = new Troll(x = 16, y = 10, vida = 300)
-    var troll2 = new Troll(x = 16, y = 6, vida = 450)
+	var troll1 = new Troll(x = 16, y = 4, vida = 300)
+    var troll2 = new Troll(x = 16, y = 3, vida = 450)
     var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
     var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
-    var giganteDePiedra3 = new Gigante(x = 2, y = 3, vida = 500)
+    var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
     var dragon1 = new Dragon(x = 21, y = 6, vida = 800)
     var dragon2 = new Dragon(x = 20, y = 5, vida = 800)
     var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600)
