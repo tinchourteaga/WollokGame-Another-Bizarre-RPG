@@ -31,7 +31,6 @@ class Espada inherits Arma {
 	override method image() = "magmaSword.png"
 
 	override method efecto(personaje) {
-		//personaje.velocidad(personaje.velocidad() * 1.1)
 	}
 
 }
@@ -56,7 +55,7 @@ class BastonMagico inherits Arma {
 	override method image() = "vara.png"
 
 	override method ataque(personaje) {
-		personaje.disminuirVida(personaje.danio())
+		personaje.disminuirVida(personaje.vida()/3)
 	}
 
 	override method efecto(personaje) {
@@ -74,7 +73,7 @@ class Arco inherits Arma {
 	}
 
 	override method efecto(personaje) {
-		personaje.aumentarDanio(10)
+		personaje.aumentarDanio(5)
 	}
 
 }

@@ -19,12 +19,6 @@ class Caliz inherits Muro {
 
 }
 
-class MuroHorizontal inherits Muro {
-
-	method image() = "muro.png" // Hay que achicar la img
-
-}
-
 class BloqueInventario {
 
 	var property slotOcupado = false
@@ -38,30 +32,6 @@ class BloqueInventario {
 	method liberarSlot() {
 		slotOcupado = false
 	}
-
-}
-
-object arriba {
-
-	method posicionEnEsaDireccion(personaje) = personaje.position().up(1)
-
-}
-
-object abajo {
-
-	method posicionEnEsaDireccion(personaje) = personaje.position().down(1)
-
-}
-
-object derecha {
-
-	method posicionEnEsaDireccion(personaje) = personaje.position().right(1)
-
-}
-
-object izquierda {
-
-	method posicionEnEsaDireccion(personaje) = personaje.position().left(1)
 
 }
 
@@ -81,7 +51,7 @@ object fireBall inherits Extra {
 
 	method image() = "fireball.png"
 
-	method daniarPersonaje(personaje) {
+	method efecto(personaje) {
 		personaje.disminuirVida(10)
 	}
 
@@ -101,8 +71,8 @@ object arrow inherits Extra {
 
 	method image() = "arrow.png"
 
-	method daniarPersonaje(personaje) {
-		personaje.disminuirVida(10)
+	method efecto(personaje) {
+		personaje.disminuirVida(20)
 	}
 
 	method moverArrow() {
@@ -121,8 +91,8 @@ object spike inherits Extra {
 
 	method image() = "spike.png"
 
-	method daniarPersonaje(personaje) {
-		personaje.disminuirVida(10)
+	method efecto(personaje) {
+		personaje.disminuirVida(60)
 	}
 
 	method moverSpike() {
@@ -160,19 +130,17 @@ class Boton inherits Extra {
 
 }
 
-object botonTrampa inherits Boton {
+class BotonTrampa inherits Boton {
 
 	var trampasQueActiva = [ trampaPinchos1, trampaPinchos2, trampaPinchos3, trampaPinchos4 ]
 
 	override method accionarBoton(personaje) {
 		if (estaEncendido) {
-			self.cambiarEncendido(false)
-			puerta1.abrirOCerrarPuerta()
 			trampasQueActiva.forEach({ trampa => trampa.armarODesarmarTrampa()})
+			super(estaEncendido)
 		} else {
-			self.cambiarEncendido(true)
-			puerta1.abrirOCerrarPuerta()
 			trampasQueActiva.forEach({ trampa => trampa.armarODesarmarTrampa()})
+			super(estaEncendido)
 		}
 	}
 
@@ -232,33 +200,12 @@ class PuertaVertical inherits Puerta {
 
 }
 
-// No se si es la mejor manera pero...funciona
-object puerta1 inherits PuertaHorizontal {
-
-}
-
-object puerta2 inherits PuertaVertical {
-
-}
-
-object puerta3 inherits PuertaVertical {
-
-}
-
-object puerta4 inherits PuertaHorizontal {
-
-}
-
-object puertaBoss inherits PuertaHorizontal {
-
-} // que se abre cuando todos los botones estan activados
-
 class TrampaPinchos inherits Extra {
 
 	var armada = false
 
 	method image() {
-		return if (armada) "trampaConPinchos.png" else "trampaSinPinchos.png"
+		return if (armada) "trampaSinPinchos.png" else "trampaConPinchos.png"
 	}
 
 	override method esAtravesable() {
