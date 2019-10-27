@@ -27,6 +27,14 @@ object robarItemEnMano inherits Ataque {
 	}
 }
 
+// ATAQUES
+
+object ataqueBasico {
+	
+	method efecto(caster,target) {
+		target.disminuirVida(caster.fuerza())
+	}
+}
 
 object absorberVida {
 	
@@ -36,15 +44,52 @@ object absorberVida {
 	}
 }
 
-/* esto implicaria meter objects status que hagan los efectos -no se termina para mañana, va como DLC-
 object incinerar {
 	
-	method efecto(target) {
-		
+	method efecto(caster,target) {
 		target.status(incinerado)
 	}
 }
-*/
+
+// STATUS EFFECTS
+
+class StatusEffect {
+	
+	var turnosConEfecto = 0
+	var duracion
+	
+	method efecto(target) {
+		turnosConEfecto++
+	}
+	
+	method efectoPorturno(target) {
+		if(turnosConEfecto < duracion)
+		{
+			self.efecto(target)
+		} else {
+			target.statusEffect(ninguno)
+			turnosConEfecto = 0
+		}
+	}
+}
+
+object ninguno inherits StatusEffect {
+	
+	override method efectoPorTurno(target) {
+		// No hace nada
+	}
+}
+
+object incinerado inherits StatusEffect { 
+	
+	var duracion = 3
+	
+	override method efecto(target) {
+		target.disminuirVida(25)
+		super()
+	}
+}
+
 
 
 

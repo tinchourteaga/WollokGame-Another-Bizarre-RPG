@@ -180,7 +180,14 @@ object config {
 		keyboard.e().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
 		keyboard.a().onPressDo({ personaje.agarrarItem()})
 		keyboard.d().onPressDo({ personaje.dejarItemEnMano()})
-		keyboard.r().onPressDo({ personaje.pelear(game.colliders(personaje).head())})
+	
+	}
+	
+	method configurarTeclasCombate(personaje,enemigo) {
+		keyboard.num1().onPressDo({ personaje.atacar(enemigo) }) //atacar
+		//keyboard.num2().onPressDo({  }) //defender
+		//keyboard.num3().onPressDo({  }) //especial (ataque del arma)
+		//keyboard.num4().onPressDo({  }) //cambiar de arma -> si no es mucho bardo lo hacemos			
 	}
 
 	method configurarColisiones(personaje) {
@@ -220,6 +227,7 @@ object interfazPelea {
 		guardarNivel.guardarEstadoActual()
 		game.clear()
 		self.dibujarInterfaz(personaje,enemigo)
+		config.configurarTeclasCombate(personaje,enemigo)
 		
 	}
 	
@@ -233,8 +241,14 @@ object interfazPelea {
 	method dibujarInterfaz(personaje,enemigo) {
 		game.addVisualIn(fondo,game.origin())
 		enemigo.modificarImagen()
-		game.addVisualIn(personaje,game.at(3,5))
-		game.addVisualIn(enemigo,game.at(10,5))
+		game.addVisualIn(personaje,game.at(7,4))
+		game.addVisualIn(enemigo,game.at(15,4))
+		game.addVisual(textAtacar)
+		game.addVisual(textDefender)
+		game.addVisual(textEspecial)
+		game.addVisual(textCambiarArma)
+		game.showAttributes(personaje)
+		game.showAttributes(enemigo)
 	}
 }
 

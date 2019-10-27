@@ -2,13 +2,16 @@ import wollok.game.*
 import items.*
 import nivel.*
 import extras.*
+import ataques.*
 
 class Personaje {
 
 	var vida = 1000
+	var fuerza = 10
+	var property defendiendo = false
+	var property statusEffect = ninguno
 	var itemEnMano
 	var items = []
-	var property killsCounter = 0
 	var position = game.at(12, 4)
 
 	method image()
@@ -16,6 +19,8 @@ class Personaje {
 	method position() = position
 
 	method vida() = vida
+	
+	method fuerza() = fuerza
 
 	method moverse(nuevaPosicion, orientacion, personaje) {
 		if (self.puedeMoverse(orientacion, personaje)) {
@@ -39,6 +44,8 @@ class Personaje {
 	method dejarItemEnMano() { // Lo destruye, no lo dropea
 		self.ponerItemSiguienteEnMano()
 		var item = items.last()
+		var slot = game.colliders(item).head()
+		slot.liberarSlot()
 		items.remove(item)
 		game.removeVisual(item)
 	}
@@ -109,21 +116,41 @@ class Personaje {
 		// aca triggereamos la interfaz de pelea
 		}
 	}
+	 
+	method atacar(enemigo) {
+		self.defendiendo(false)
+		self.sufrirStatusEffect()
+		ataqueBasico.efecto(self,enemigo)
+		enemigo.ocuparTurno(self)
+		//game.addVisual(attackHit) La idea de esto era visualizar el hit del ataque
+		//game.onTick(1500, "removerAtaque", { => game.removeVisual(attackHit) })
+
+	}
+	 
+	method defenderse() {
+		self.sufrirStatusEffect()
+		self.defendiendo(true)
+	}
+	/* 
+	method ataqueEspecial(enemigo) {
+		self.defendiendo(false)
+		self.sufrirStatusEffect()
+		itemEnMano.ataque(enemigo)
+	}
+	*/
+	method sufrirStatusEffect() {
+		statusEffect.efectoPorTurno(self)
+	}
+
 
 }
 
-object scorpion inherits Personaje {
 
-	var danio = 40
-	var velocidad = 30
+object scorpion inherits Personaje {
 
 	override method image() {
 		return if(game.hasVisual(fondo)) "scorpionPelea.png" else "scorpion.png"
 	} 
-	
-	method aumentarDanio(valor) {
-		danio = danio + valor
-	}
 
 }
 
@@ -133,7 +160,9 @@ object gandalf inherits Personaje {
 	var property danio = 30
 	var property mana = 500 // no coincide con los ataques del enemigo porque los metodos atacar esperan el mensaje vida() no mana()
 
-	override method image() = "gandalf.png"
+	override method image() {
+		return if(game.hasVisual(fondo)) "gandalfPelea.png" else "gandalf.png"
+	} 
 
 	method aumentarDanio(valor) {
 		danio = danio + valor

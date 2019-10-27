@@ -296,10 +296,41 @@ object fondo {
 	method image() = "fondoInterfazPelea.png"
 }
 
+object textAtacar {
+	
+	var property position = game.at(2,2)
+	
+	method image() = "textAtacar.png"
+	 
+}
 
+object textDefender {
+	
+	var property position = game.at(8,2)
+	
+	method image() = "textDefender.png"
+}
 
+object textEspecial {
+	
+	var property position = game.at(14,2)
+	
+	method image() = "textEspecial.png"
+}
 
+object textCambiarArma {
+	
+	var property position = game.at(20,2)
+	
+	method image() = "textCambiarArma.png"
+}
 
+object attackHit {
+	
+	var property position = game.at(18,6)
+	
+	method image() = "attackHit.png"
+}
 
 
 

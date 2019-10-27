@@ -8,6 +8,9 @@ class Enemigo {
 	var x
 	var y
 	var vida
+	var property fuerza
+	var tipoAtaque
+	var statusEffect = ninguno
 
     method position() = game.at(x,y)
 
@@ -25,23 +28,45 @@ class Enemigo {
 		x = posicion
 	}
 
-	method atacar(personaje)
+	method atacar(personaje) {
+		if(personaje.defendiendo()) {
+			self.noPuedeAtacar()
+		} else tipoAtaque.efecto(self,personaje)
+	}
+	
+	method noPuedeAtacar() {
+		self.sufrirStatusEffect()
+	}
+	
+	method sufrirStatusEffect() {
+		statusEffect.efectoPorTurno(self) 
+	}
 
+	method disminuirVida(valor) {
+		vida = vida - valor
+	}
+	
+	method aumentarVida(valor) {
+		vida = vida + valor
+	}
+	
+	method ocuparTurno(personaje) {
+		self.sufrirStatusEffect()
+		self.atacar(personaje)
+	}
 }
 
 class Troll inherits Enemigo {
 
-	var imagen = "troll.png" 
+	var tipoAtaque = ataqueBasico
+	var fuerza = 200 
 	
-	method image() = imagen 
+	method image() = "troll.png"
 	
 	method modificarImagen() {
 		imagen = "trollGrande.png"
 	}
 
-	override method atacar(personaje) {
-		personaje.disminuirVida(10 * 3)
-	}
 
 }
 
