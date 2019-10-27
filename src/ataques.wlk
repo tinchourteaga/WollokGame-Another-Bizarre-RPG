@@ -36,39 +36,58 @@ object ataqueBasico {
 	}
 }
 
+object garrotazo {
+	
+	method efecto(caster,target) {
+		target.disminuirVida(caster.fuerza() + caster.pesoGarrote())
+	}
+}
+
+object aplastar {
+	
+	method efecto(caster,target) {
+		target.disminuirVida(target.items().size() * 100)
+	}
+}
+
 object absorberVida {
 	
 	method efecto(caster,target) {
-		target.disminuirVida(20)
-		caster.aumentarVida(20)
+		target.disminuirVida(100)
+		caster.aumentarVida(150)
 	}
 }
 
 object incinerar {
 	
 	method efecto(caster,target) {
-		target.status(incinerado)
+		target.statusEffect(incinerado)
 	}
 }
+
+object evenenar {
+	
+}
+ 
 
 // STATUS EFFECTS
 
 class StatusEffect {
 	
 	var turnosConEfecto = 0
-	var duracion
 	
 	method efecto(target) {
 		turnosConEfecto++
 	}
 	
-	method efectoPorturno(target) {
-		if(turnosConEfecto < duracion)
+	method efectoPorTurno(target) {
+		if(turnosConEfecto == 3)
 		{
-			self.efecto(target)
-		} else {
-			target.statusEffect(ninguno)
 			turnosConEfecto = 0
+			target.statusEffect(ninguno)
+			
+		} else {
+			self.efecto(target)
 		}
 	}
 }
@@ -82,11 +101,9 @@ object ninguno inherits StatusEffect {
 
 object incinerado inherits StatusEffect { 
 	
-	var duracion = 3
-	
 	override method efecto(target) {
-		target.disminuirVida(25)
-		super()
+		super(target)
+		target.disminuirVida(50)
 	}
 }
 

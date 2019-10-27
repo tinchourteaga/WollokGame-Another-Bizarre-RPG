@@ -45,7 +45,7 @@ class EspadaDiamante inherits Arma {
 
 	override method efecto(personaje) {
 		personaje.aumentarVida(50)
-		personaje.aumentarDanio(20)
+		personaje.aumentarFuerza(90)
 	}
 
 }
@@ -109,7 +109,7 @@ class PocionMana inherits Pocion {
 	override method image() = "pocionMana.png"
 
 	override method efecto(personaje) {
-		personaje.mana(300.min(50)) // mana es un atributo de personaje? si lo es, hay que agregarlo -> Es un atributo solo de gandalf
+		personaje.mana(300.min(50)) // mana es un atributo solo de gandalf
 	}
 
 }

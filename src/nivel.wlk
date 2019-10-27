@@ -29,8 +29,8 @@ object nivel {
 
 	
 	var guardian = new Guardian(x = 23, y = 10, vida = 1000)
-	var troll1 = new Troll(x = 16, y = 4, vida = 300)
-    var troll2 = new Troll(x = 16, y = 3, vida = 450)
+	var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
+    var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)
     var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
     var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
     var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
@@ -185,7 +185,7 @@ object config {
 	
 	method configurarTeclasCombate(personaje,enemigo) {
 		keyboard.num1().onPressDo({ personaje.atacar(enemigo) }) //atacar
-		//keyboard.num2().onPressDo({  }) //defender
+		keyboard.num2().onPressDo({ personaje.defenderse(enemigo) }) //defender
 		//keyboard.num3().onPressDo({  }) //especial (ataque del arma)
 		//keyboard.num4().onPressDo({  }) //cambiar de arma -> si no es mucho bardo lo hacemos			
 	}

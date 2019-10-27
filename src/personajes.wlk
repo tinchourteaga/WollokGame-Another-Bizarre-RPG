@@ -11,7 +11,7 @@ class Personaje {
 	var property defendiendo = false
 	var property statusEffect = ninguno
 	var itemEnMano
-	var items = []
+	var property items = []
 	var position = game.at(12, 4)
 
 	method image()
@@ -127,15 +127,17 @@ class Personaje {
 
 	}
 	 
-	method defenderse() {
+	method defenderse(enemigo) {
 		self.sufrirStatusEffect()
 		self.defendiendo(true)
+		enemigo.ocuparTurno(self)
 	}
 	/* 
-	method ataqueEspecial(enemigo) {
+	method ataqueEspecial(enemigo) { // aca va el efecto del item en mano
 		self.defendiendo(false)
 		self.sufrirStatusEffect()
 		itemEnMano.ataque(enemigo)
+		enemigo.ocuparTurno(self)
 	}
 	*/
 	method sufrirStatusEffect() {

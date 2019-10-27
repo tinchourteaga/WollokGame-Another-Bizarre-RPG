@@ -7,10 +7,10 @@ import extras.*
 class Enemigo { 
 	var x
 	var y
-	var vida
 	var property fuerza
-	var tipoAtaque
+	var ataques
 	var statusEffect = ninguno
+	var vida
 
     method position() = game.at(x,y)
 
@@ -31,7 +31,11 @@ class Enemigo {
 	method atacar(personaje) {
 		if(personaje.defendiendo()) {
 			self.noPuedeAtacar()
-		} else tipoAtaque.efecto(self,personaje)
+		} else {
+			var tipoAtaque = ataques.get(0.randomUpTo(2).roundUp(0) - 1 ) // asi cubro la posicion 0 de enteros
+			tipoAtaque.efecto(self,personaje)
+			
+		}
 	}
 	
 	method noPuedeAtacar() {
@@ -58,10 +62,12 @@ class Enemigo {
 
 class Troll inherits Enemigo {
 
-	var tipoAtaque = ataqueBasico
-	var fuerza = 200 
+	var imagen = "troll.png"
+	var ataques = [ataqueBasico, garrotazo]
+	var property pesoGarrote
+	var fuerza = 100 
 	
-	method image() = "troll.png"
+	method image() = imagen
 	
 	method modificarImagen() {
 		imagen = "trollGrande.png"
@@ -73,16 +79,13 @@ class Troll inherits Enemigo {
 class Dragon inherits Enemigo {
 
 	var imagen = "dragonVioleta.png"
-
+	var ataques = [incinerar, ataqueBasico]
+	var fuerza = 200
 	
 	method image() = imagen
 
 	method modificarImagen() {
 		imagen = "dragonVioletaGrande.png"
-	}
-
-	override method atacar(personaje) {
-		personaje.disminuirVida(300)
 	}
 }
 
@@ -122,17 +125,14 @@ class Gato inherits Enemigo {
 
 class Gigante inherits Enemigo {
 
-	var peso = 1000
 	var imagen = "giganteDePiedra.png"
+	var ataques = [ataqueBasico, aplastar]
+	var fuerza = 250
 
 	method image() = imagen
 
 	method modificarImagen() {
 		imagen = "giganteDePiedraGrande.png"
-	}
-
-	override method atacar(personaje) {
-		personaje.disminuirVida(peso / 8)
 	}
 }
 
@@ -144,10 +144,6 @@ class PerroDeTresCabezas inherits Enemigo {
 	
 	method modificarImagen() {
 		imagen = "perroDe3CabezasDeFuegoGrande.png"
-	}
-
-	override method atacar(personaje) {
-		personaje.disminuirVida(4 * 5)
 	}
 }
 
