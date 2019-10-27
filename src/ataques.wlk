@@ -50,11 +50,19 @@ object aplastar {
 	}
 }
 
+object mordidaDeFuego {
+	
+	method efecto(caster,target) {
+		target.disminuirVida(100)
+		target.statusEffect(incinerado)
+	}
+}
+
 object absorberVida {
 	
 	method efecto(caster,target) {
 		target.disminuirVida(100)
-		caster.aumentarVida(150)
+		caster.aumentarVida(250)
 	}
 }
 
@@ -65,8 +73,40 @@ object incinerar {
 	}
 }
 
-object evenenar {
+object envenenar {
 	
+	method efecto(caster,target) {
+		target.statusEffect(envenenado)
+	}
+}
+
+object electrocutar {
+	
+	method efecto(caster,target) {
+		target.statusEffect(mareado)
+	}
+}
+
+object debilitar {
+	
+	method efecto(caster,target) {
+		target.disminuirFuerza(20)
+	}
+}
+
+object buffearse {
+	
+	method efecto(caster,target) {
+		caster.aumentarFuerza(50)
+	}
+}
+
+object festinDeSangre {
+	
+	method efecto(caster,target) {
+		caster.aumentarVida(500)
+		caster.aumentarFuerza(100)
+	}
 }
  
 
@@ -74,7 +114,7 @@ object evenenar {
 
 class StatusEffect {
 	
-	var turnosConEfecto = 0
+	var property turnosConEfecto = 0
 	
 	method efecto(target) {
 		turnosConEfecto++
@@ -107,6 +147,22 @@ object incinerado inherits StatusEffect {
 	}
 }
 
+object envenenado inherits StatusEffect {
+	
+	override method efecto(target) {
+		super(target)
+		target.disminuirVida(self.turnosConEfecto() * 20)
+		
+	}
+}
+
+object mareado inherits StatusEffect {
+	
+	override method efecto(target) {
+		super(target)
+		target.disminuirVida(target.fuerza())
+	}
+}
 
 
 

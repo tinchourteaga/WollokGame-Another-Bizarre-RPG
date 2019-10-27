@@ -7,7 +7,7 @@ import ataques.*
 class Personaje {
 
 	var vida = 1000
-	var fuerza = 10
+	var property fuerza = 10
 	var property defendiendo = false
 	var property statusEffect = ninguno
 	var itemEnMano
@@ -19,8 +19,6 @@ class Personaje {
 	method position() = position
 
 	method vida() = vida
-	
-	method fuerza() = fuerza
 
 	method moverse(nuevaPosicion, orientacion, personaje) {
 		if (self.puedeMoverse(orientacion, personaje)) {
@@ -87,7 +85,7 @@ class Personaje {
 			slot.ocuparSlot()
 		} else {
 			var nuevaPosicionEnX = posicionEnX + 1
-			self.posicionEnInventario(nuevoItem, nuevaPosicionEnX) // si explota todo a la mierda es por la recursividad (pero no lo hizo)
+			self.posicionEnInventario(nuevoItem, nuevaPosicionEnX)
 		}
 	}
 
@@ -108,6 +106,14 @@ class Personaje {
 
 	method aumentarVida(valor) {
 		vida = vida + valor
+	}
+	
+	method aumentarFuerza(valor) {
+		fuerza = fuerza + valor
+	}
+	
+	method disminuirFuerza(valor) {
+		fuerza = fuerza - valor
 	}
 
 	method pelear(enemigo) {

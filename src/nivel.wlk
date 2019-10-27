@@ -26,26 +26,12 @@ object seleccionDePersonaje {
 }
 
 object nivel {
-
-	
-	var guardian = new Guardian(x = 23, y = 10, vida = 1000)
-	var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
-    var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)
-    var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
-    var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
-    var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
-    var dragon1 = new Dragon(x = 21, y = 6, vida = 800)
-    var dragon2 = new Dragon(x = 20, y = 5, vida = 800)
-    var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600)
-    var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600)
-    var mago = new Mago(x = 18, y = 7, vida = 500)
-    var gato = new Gato(x = 19, y = 8, vida = 500)
  
 	method iniciar(personaje) {
 		game.clear()
 		self.disenioNivel()
 		self.agregarPersonajes(personaje)
-		self.efectos()
+		config.configurarAcciones(personaje)
 		config.configurarTeclas(personaje)
 		config.configurarColisiones(personaje)
 	}
@@ -62,8 +48,8 @@ object nivel {
 		
 		//ENEMIGOS
 
-		game.addVisual(guardian) // descomentar cuando se haya modificado el metodo image() del resto, si no, no corre
-								// replicar la forma de hacerlo como la del guardian
+		game.addVisual(boss)
+		game.addVisual(guardian) 
 		game.addVisual(troll1)
 		game.addVisual(troll2)
 		game.addVisual(giganteDePiedra1)
@@ -83,18 +69,6 @@ object nivel {
 
 		game.addVisual(personaje)
 		game.showAttributes(personaje)
-	}
-
-	method efectos() {
-		game.onTick(350, "movete", { arrow.moverArrow()})
-		game.onTick(250, "movete", { fireBall.moverFireball()})
-		game.onTick(150, "movete", { spike.moverSpike()})
-		game.onTick(700, "moverse", {=> dragon1.cambiarPosicionEnX(18.randomUpTo(24))})
-		game.onTick(700, "moverse", {=> dragon2.cambiarPosicionEnX(18.randomUpTo(24))})
-		game.onTick(700, "moverse", {=> perroDeTresCabezas1.cambiarPosicionEnX(18.randomUpTo(24))})
-		game.onTick(700, "moverse", {=> perroDeTresCabezas2.cambiarPosicionEnX(18.randomUpTo(24))})
-		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
-		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
 	}
 
 	method agregarVisualesExtras() {
@@ -191,13 +165,25 @@ object config {
 	}
 
 	method configurarColisiones(personaje) {
-		// game.whenCollideDo(enemigo, {personaje => enemigo.pelear(personaje)})
-		// game.whenCollideDo(personaje, { extra => personaje.morir(extra)})
 		game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo)})
 		game.whenCollideDo(fireBall, { extra => fireBall.efecto(extra)})
 		game.whenCollideDo(arrow, { extra => fireBall.efecto(extra)})
 		game.whenCollideDo(spike, { extra => fireBall.efecto(extra)})
 		
+	}
+	
+	method configurarAcciones(personaje) {
+		game.onTick(350, "movete", { arrow.moverArrow()})
+		game.onTick(250, "movete", { fireBall.moverFireball()})
+		game.onTick(150, "movete", { spike.moverSpike()})
+		game.onTick(700, "moverse", {=> dragon1.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> dragon2.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> perroDeTresCabezas1.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> perroDeTresCabezas2.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
+		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
+		
+		game.onTick(2 * 1000, "GAMEOVER", { if (personaje.morir()) game.stop() })
 	}
 
 }

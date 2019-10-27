@@ -21,6 +21,7 @@ class Enemigo {
 	method morir() {
 		if (vida <= 0) {
 			game.removeVisual(self)
+			// fin interfaz pelea. Restauro nivel
 		}
 	}
 	
@@ -32,13 +33,13 @@ class Enemigo {
 		if(personaje.defendiendo()) {
 			self.noPuedeAtacar()
 		} else {
-			var tipoAtaque = ataques.get(0.randomUpTo(2).roundUp(0) - 1 ) // asi cubro la posicion 0 de enteros
+			var tipoAtaque = ataques.get(0.randomUpTo(ataques.size()).roundUp(0) - 1 ) // asi cubro la posicion 0 de enteros
 			tipoAtaque.efecto(self,personaje)
 			
 		}
 	}
 	
-	method noPuedeAtacar() {
+	method noPuedeAtacar() { // Vendria a ser ataque bloqueado
 		self.sufrirStatusEffect()
 	}
 	
@@ -52,6 +53,14 @@ class Enemigo {
 	
 	method aumentarVida(valor) {
 		vida = vida + valor
+	}
+	
+	method disminuirFuerza(valor) {
+		fuerza = fuerza - valor
+	}
+	
+	method aumentarFuerza(valor) {
+		fuerza = fuerza + valor
 	}
 	
 	method ocuparTurno(personaje) {
@@ -80,7 +89,7 @@ class Dragon inherits Enemigo {
 
 	var imagen = "dragonVioleta.png"
 	var ataques = [incinerar, ataqueBasico]
-	var fuerza = 200
+	var fuerza = 250
 	
 	method image() = imagen
 
@@ -138,7 +147,9 @@ class Gigante inherits Enemigo {
 
 class PerroDeTresCabezas inherits Enemigo {
 
-	var imagen = "perroDe3CabezasDeFuego.png" 
+	var imagen = "perroDe3CabezasDeFuego.png"
+	var ataques = [ataqueBasico, mordidaDeFuego]
+	var fuerza = 150 
 
 	method image() = imagen 
 	
@@ -150,6 +161,8 @@ class PerroDeTresCabezas inherits Enemigo {
 class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del boss
 
 	var imagen = "guardianBoss.png"
+	var ataques = [ataqueBasico, absorberVida, incinerar, envenenar]
+	var fuerza = 175
 	
 	method image() = imagen
 	
@@ -158,17 +171,39 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 	}
 	
 	override method morir() {
-		puertaDerechaBoss.abreteSesamo()
-		puertaIzquierdaBoss.abreteSesamo()
+		[puertaDerechaBoss, puertaIzquierdaBoss].forEach({ puerta => puerta.abreteSesamo() })
 		super()
-	}
-	
-	override method atacar(personaje) {
-		absorberVida.efecto(self,personaje)
 	}
 }
 
+object boss inherits Enemigo {
 
+	var imagen = "boss.png"
+	var ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre]
+	var fuerza = 300
+	var vida = 3000
+	
+	override method position() = game.at(20,10)
+	
+	method image() = imagen
+	
+	method modificarImagen() {
+		imagen = "bossGrande.png"
+	}
+}
+
+var guardian = new Guardian(x = 23, y = 10, vida = 1000)
+var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
+var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)
+var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
+var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
+var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
+var dragon1 = new Dragon(x = 21, y = 6, vida = 800)
+var dragon2 = new Dragon(x = 20, y = 5, vida = 800)
+var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600)
+var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600)
+var mago = new Mago(x = 18, y = 7, vida = 500)
+var gato = new Gato(x = 19, y = 8, vida = 500)
 
 
 
