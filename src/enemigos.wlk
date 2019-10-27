@@ -4,6 +4,8 @@ import personajes.*
 import ataques.*
 import extras.*
 
+// TODO: aunque marque errores funciona igual, pasa que es una putita
+
 class Enemigo { 
 	var x
 	var y
@@ -48,7 +50,7 @@ class Enemigo {
 	}
 
 	method disminuirVida(valor) {
-		vida = vida - valor
+		vida = 0.max(vida - valor)
 	}
 	
 	method aumentarVida(valor) {
@@ -56,7 +58,7 @@ class Enemigo {
 	}
 	
 	method disminuirFuerza(valor) {
-		fuerza = fuerza - valor
+		fuerza = 0.max(fuerza - valor)
 	}
 	
 	method aumentarFuerza(valor) {
@@ -176,14 +178,14 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 	}
 }
 
-object boss inherits Enemigo {
+class Boss inherits Enemigo {
 
 	var imagen = "boss.png"
 	var ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre]
 	var fuerza = 300
-	var vida = 3000
+	//var vida = 3000
 	
-	override method position() = game.at(20,10)
+	//override method position() = game.at(14,4) // 20,10
 	
 	method image() = imagen
 	
@@ -192,6 +194,7 @@ object boss inherits Enemigo {
 	}
 }
 
+var bossVampiro = new Boss(x = 14, y = 4, vida = 3000)
 var guardian = new Guardian(x = 23, y = 10, vida = 1000)
 var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
 var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)

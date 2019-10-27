@@ -332,7 +332,12 @@ object attackHit {
 	method image() = "attackHit.png"
 }
 
+// PANTALLA GAMEOVER
 
+object fondoGameOver {
+	
+	method image() = "fondoGameOver.jpg"
+}
 
 
 

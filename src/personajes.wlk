@@ -90,11 +90,6 @@ class Personaje {
 	}
 
 	method morir() = vida == 0
-	
-	method matar(enemigo) {
-		enemigo.morir()
-		killsCounter++
-	}
 
 	method llevarItemEnMano() { // para que muestre el item en el personaje y se mueva a la par
 		itemEnMano.position(self.position())
@@ -113,7 +108,7 @@ class Personaje {
 	}
 	
 	method disminuirFuerza(valor) {
-		fuerza = fuerza - valor
+		fuerza = 0.max(fuerza - valor)
 	}
 
 	method pelear(enemigo) {

@@ -48,7 +48,7 @@ object nivel {
 		
 		//ENEMIGOS
 
-		game.addVisual(boss)
+		game.addVisual(bossVampiro)
 		game.addVisual(guardian) 
 		game.addVisual(troll1)
 		game.addVisual(troll2)
@@ -183,7 +183,7 @@ object config {
 		game.onTick(700, "moverse", {=> mago.cambiarPosicionEnX(18.randomUpTo(24))})
 		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
 		
-		game.onTick(2 * 1000, "GAMEOVER", { if (personaje.morir()) game.stop() })
+		game.onTick(1000, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
 	}
 
 }
@@ -215,6 +215,8 @@ object interfazPelea {
 		self.dibujarInterfaz(personaje,enemigo)
 		config.configurarTeclasCombate(personaje,enemigo)
 		
+		game.onTick(1000, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
+		
 	}
 	
 	method finalizar(personaje,enemigo) {
@@ -225,10 +227,10 @@ object interfazPelea {
 	}
 	
 	method dibujarInterfaz(personaje,enemigo) {
-		game.addVisualIn(fondo,game.origin())
+		game.addVisualIn(fondo, game.origin())
 		enemigo.modificarImagen()
-		game.addVisualIn(personaje,game.at(7,4))
-		game.addVisualIn(enemigo,game.at(15,4))
+		game.addVisualIn(personaje, game.at(7,4))
+		game.addVisualIn(enemigo, game.at(15,4))
 		game.addVisual(textAtacar)
 		game.addVisual(textDefender)
 		game.addVisual(textEspecial)
@@ -238,6 +240,14 @@ object interfazPelea {
 	}
 }
 
+object gameOver {
+	
+	method mostrarPantallaGameOver() {
+		game.clear()
+		game.addVisualIn(fondoGameOver, game.origin())
+		
+	}
+}
 
 
 
