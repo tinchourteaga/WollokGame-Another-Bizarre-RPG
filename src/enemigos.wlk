@@ -3,6 +3,7 @@ import items.*
 import personajes.*
 import ataques.*
 import extras.*
+import nivel.*
 
 // TODO: aunque marque errores funciona igual, pasa que es una putita
 
@@ -20,12 +21,7 @@ class Enemigo {
 	
 	method esAtravesable() = true
 	
-	method morir() {
-		if (vida <= 0) {
-			game.removeVisual(self)
-			// fin interfaz pelea. Restauro nivel
-		}
-	}
+	method morir() = vida <= 0
 	
 	method cambiarPosicionEnX(posicion) {
 		x = posicion

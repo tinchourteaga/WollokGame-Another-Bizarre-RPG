@@ -189,23 +189,18 @@ object config {
 
 }
 
-object guardarNivel {
+object restauradorNivel {
 	
-	var elementosActuales = []
+	var enemigosEliminados = []
 	
-	method guardarEstadoActual() {
-		elementosActuales.addAll(game.allVisuals())
+	method removerEnemigosEliminados() {
+		enemigosEliminados.forEach({ enemigo => game.removeVisual(enemigo) })
 	}
 	
-	method dibujarNuevoEstado(enemigo) {
-		game.clear()
-		elementosActuales.remove(enemigo)
-		self.dibujarVisuals()
+	method agregarEnemigoEliminado(enemigo) {
+		enemigosEliminados.add(enemigo)
 	}
 	
-	method dibujarVisuals() {
-		elementosActuales.forEach({ visual => game.addVisual(visual) })
-	}
 }
 
 object interfazPelea {
@@ -216,13 +211,18 @@ object interfazPelea {
 		self.dibujarInterfaz(personaje,enemigo)
 		config.configurarTeclasCombate(personaje,enemigo)
 		
+		game.onTick(1000, "BATTLE WON", { if (enemigo.morir()) self.finalizar(personaje, enemigo) })
 		game.onTick(1000, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
 		
 	}
 	
 	method finalizar(personaje,enemigo) {
 		game.clear()
-		guardarNivel.dibujarNuevoEstado(enemigo)
+		nivel.disenioNivel()
+		nivel.agregarPersonajes(personaje)
+		restauradorNivel.agregarEnemigoEliminado(enemigo)
+		restauradorNivel.removerEnemigosEliminados()
+		config.configurarAcciones(personaje)
 		config.configurarTeclas(personaje)
 		config.configurarColisiones(personaje)
 	}

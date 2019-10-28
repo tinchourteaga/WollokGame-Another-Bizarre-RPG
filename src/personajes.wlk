@@ -7,7 +7,7 @@ import ataques.*
 class Personaje {
 
 	var vida = 1000
-	var property fuerza = 10
+	var property fuerza = 1000
 	var property defendiendo = false
 	var property statusEffect = ninguno
 	var itemEnMano
@@ -33,7 +33,10 @@ class Personaje {
 	method ponerItemSiguienteEnMano() {
 		if (!items.isEmpty()) {
 			self.moverInventario()
+			var itemEnManoAnterior = items.last()
+			itemEnManoAnterior.disminuirStats(self)
 			itemEnMano = items.head()
+			itemEnMano.modificarStats(self)
 		} else {
 			game.say(self, "Inventario Vacio!")
 		}
@@ -44,6 +47,7 @@ class Personaje {
 		var item = items.last()
 		var slot = game.colliders(item).head()
 		slot.liberarSlot()
+		if(items.size() == 1) item.disminuirStats(owner)
 		items.remove(item)
 		game.removeVisual(item)
 	}
@@ -64,6 +68,7 @@ class Personaje {
 			} else {
 				self.agregarAInventario()
 				itemEnMano = items.head()
+				itemEnMano.modificarStats(self)
 			}
 		} else {
 			game.say(self, "Inventario Lleno!")
@@ -118,8 +123,8 @@ class Personaje {
 		self.sufrirStatusEffect()
 		ataqueBasico.efecto(self,enemigo)
 		enemigo.ocuparTurno(self)
-		//game.addVisual(attackHit) La idea de esto era visualizar el hit del ataque
-		//game.onTick(1500, "removerAtaque", { => game.removeVisual(attackHit) })
+		//game.addVisual(attackHit) La idea de esto es visualizar el hit del ataque (Ver si con el if funciona ahora)
+		//game.onTick(1500, "removerAtaque", { => if(game.hasVisual(attackHit)) game.removeVisual(attackHit) })
 
 	}
 	 
