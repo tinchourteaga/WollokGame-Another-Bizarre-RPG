@@ -6,13 +6,19 @@ import ataques.*
 // armas
 class Arma {
 
-	var property danio
-
 	method image()
 
-	method ataque(personaje)
+	method ataque(owner, target)
+	
+	method efectoDelAtaque(efectoAtaque, owner, target) {
+		if(!target.tieneStatusEffect()) {
+			efectoAtaque.efecto(owner, target)
+		}
+	}
 
-	method efecto(personaje)
+	method modificarStats(owner)
+	
+	method disminuirStats(owner)
 
 	method esAgarrable() = true
 
@@ -22,58 +28,90 @@ class Arma {
 
 }
 
-class Espada inherits Arma {
-
-	override method ataque(personaje) {
-		personaje.disminuirVida(100)
-	}
-
+class EspadaDeMagma inherits Arma { // Para evitar repeticion de codigo habria que hacer una clase Arma con Efecto y otra Sin efecto
+									// Pero no tengo tiempo ni ganas
+	var efectoAtaque = incinerar
+	var fuerza = 60
+	
 	override method image() = "magmaSword.png"
-
-	override method efecto(personaje) {
+	
+	override method ataque(owner, target) {
+		target.disminuirVida(100)
+		self.efectoDelAtaque(efectoAtaque, owner, target)
 	}
+	
+	override method modificarStats(owner) {
+		owner.aumentarFuerza(fuerza)
+	}
+	
+	override method disminuirStats(owner) { 
+		owner.disminuirFuerza(fuerza)
+	}
+	
 
 }
 
 class EspadaDiamante inherits Arma {
 
+	var vida = 50
+	var fuerza = 90
+
 	override method image() = "espadaDiamante.png"
 
-	override method ataque(personaje) {
-		personaje.disminuirVida(personaje.vida() * 0.3)
+	override method ataque(owner, target) {
+		target.disminuirVida(target.vida() * 0.3)
 	}
 
-	override method efecto(personaje) {
-		personaje.aumentarVida(50)
-		personaje.aumentarFuerza(90)
+	override method modificarStats(owner) { // Cuando se equipa el item en mano
+		owner.aumentarVida(vida)
+		owner.aumentarFuerza(fuerza)
+	}
+	
+	override method disminuirStats(owner) { // Cuando se desequipa el item en mano
+		owner.disminuirVida(vida)
+		owner.disminuirFuerza(fuerza)
 	}
 
 }
 
-class BastonMagico inherits Arma {
+class BastonMagico inherits Arma { // Sigan este ejemplo para agregar ataques especiales a las armas (fijarse los ataques en Ataques.wlk)
+
+	var vida = 150
+	var efectoAtaque = electrocutar
 
 	override method image() = "vara.png"
 
-	override method ataque(personaje) {
-		personaje.disminuirVida(personaje.vida()/3)
+	override method ataque(owner,target) {
+		target.disminuirVida(target.vida()/3)
+		self.efectoDelAtaque(efectoAtaque, owner, target)
 	}
 
-	override method efecto(personaje) {
-		personaje.aumentarVida(150)
+	override method modificarStats(owner) {
+		owner.aumentarVida(vida)
+	}
+	
+	override method disminuirStats(owner) {
+		owner.disminuirVida(vida)
 	}
 
 }
 
 class Arco inherits Arma {
 
+	var fuerza = 50
+
 	override method image() = "arco.png"
 
-	override method ataque(personaje) {
-		personaje.disminuirVida(personaje.danio())
+	override method ataque(owner,target) {
+		owner.disminuirVida(owner.fuerza())
 	}
 
-	override method efecto(personaje) {
-		personaje.aumentarDanio(5)
+	override method modificarStats(owner) {
+		owner.aumentarFuerza(fuerza)
+	}
+	
+	override method disminuirStats(owner) {
+		owner.disminuirFuerza(fuerza)
 	}
 
 }

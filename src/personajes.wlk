@@ -74,8 +74,7 @@ class Personaje {
 		var nuevoItem = game.colliders(self).head()
 		items.add(nuevoItem)
 		game.removeVisual(nuevoItem)
-		self.posicionEnInventario(nuevoItem, 0)
-		nuevoItem.efecto(self)
+		self.posicionEnInventario(nuevoItem, 0)		
 	}
 
 	method posicionEnInventario(nuevoItem, posicionEnX) {
@@ -90,10 +89,6 @@ class Personaje {
 	}
 
 	method morir() = vida == 0
-
-	method llevarItemEnMano() { // para que muestre el item en el personaje y se mueva a la par
-		itemEnMano.position(self.position())
-	}
 
 	method disminuirVida(valor) {
 		vida = 0.max(vida - valor)
@@ -133,14 +128,24 @@ class Personaje {
 		self.defendiendo(true)
 		enemigo.ocuparTurno(self)
 	}
-	/* 
+	 
 	method ataqueEspecial(enemigo) { // aca va el efecto del item en mano
 		self.defendiendo(false)
 		self.sufrirStatusEffect()
-		itemEnMano.ataque(enemigo)
+		itemEnMano.ataque(self, enemigo)
 		enemigo.ocuparTurno(self)
 	}
-	*/
+	
+	method cambiarArma() {
+		if(items.size() > 1) {
+			var armaActual = items.head()
+			items.remove(armaActual)
+			items.add(armaActual)
+			itemEnMano = items.head()	
+		} else game.say(self, "Solo tenes un arma")
+		
+	}
+	
 	method sufrirStatusEffect() {
 		statusEffect.efectoPorTurno(self)
 	}

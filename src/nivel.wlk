@@ -83,6 +83,7 @@ object nivel {
 		game.addVisualIn(new PocionMana(), game.at(8, 3))
 		game.addVisualIn(new PocionVeneno(), game.at(9, 4))
 		game.addVisualIn(new EspadaDiamante(), game.at(9, 5))
+		game.addVisualIn(new BastonMagico(), game.at(9, 6))
 		game.addVisual(fireBall)
 		game.addVisual(arrow)
 		game.addVisual(spike)
@@ -160,8 +161,8 @@ object config {
 	method configurarTeclasCombate(personaje,enemigo) {
 		keyboard.num1().onPressDo({ personaje.atacar(enemigo) }) //atacar
 		keyboard.num2().onPressDo({ personaje.defenderse(enemigo) }) //defender
-		//keyboard.num3().onPressDo({  }) //especial (ataque del arma)
-		//keyboard.num4().onPressDo({  }) //cambiar de arma -> si no es mucho bardo lo hacemos			
+		keyboard.num3().onPressDo({ personaje.ataqueEspecial(enemigo) }) //especial (ataque del arma)
+		keyboard.num4().onPressDo({ personaje.cambiarArma() }) //cambiar de arma		
 	}
 
 	method configurarColisiones(personaje) {
@@ -230,7 +231,7 @@ object interfazPelea {
 		game.addVisualIn(fondo, game.origin())
 		enemigo.modificarImagen()
 		game.addVisualIn(personaje, game.at(7,4))
-		game.addVisualIn(enemigo, game.at(15,4))
+		game.addVisualIn(enemigo, game.at(15,0)) // 15,4
 		game.addVisual(textAtacar)
 		game.addVisual(textDefender)
 		game.addVisual(textEspecial)

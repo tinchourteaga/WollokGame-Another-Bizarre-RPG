@@ -9,10 +9,10 @@ import extras.*
 class Enemigo { 
 	var x
 	var y
-	var property fuerza
 	var ataques
-	var statusEffect = ninguno
-	var vida
+	var property fuerza
+	var property statusEffect = ninguno
+	var property vida
 
     method position() = game.at(x,y)
 
@@ -42,11 +42,15 @@ class Enemigo {
 	}
 	
 	method noPuedeAtacar() { // Vendria a ser ataque bloqueado
-		self.sufrirStatusEffect()
+
 	}
 	
 	method sufrirStatusEffect() {
 		statusEffect.efectoPorTurno(self) 
+	}
+
+	method tieneStatusEffect() {
+		return not (self.statusEffect() == ninguno)
 	}
 
 	method disminuirVida(valor) {
