@@ -90,19 +90,17 @@ object nivel {
 	}
 
 	method generarPuertasYBotones() {
-		const puerta1 = new PuertaHorizontal()
-		const puerta4 = new PuertaHorizontal()
-		const puerta3 = new PuertaVertical()
-		const puerta2 = new PuertaVertical()
+		
 		game.addVisualIn(puerta1, game.at(1, 5))
 		game.addVisualIn(puerta2, game.at(17, 2))
 		game.addVisualIn(puerta3, game.at(15, 9))
 		game.addVisualIn(puerta4, game.at(16, 7))
 
-		game.addVisualIn(new BotonTrampa(puertaQueAcciona = puerta1), game.at(7, 2))
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta2), game.at(1, 8))
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta3), game.at(16, 11))
-		game.addVisualIn(new Boton(puertaQueAcciona = puerta4), game.at(5, 3))
+		game.addVisualIn(botonTrampa, game.at(7, 2))
+		game.addVisualIn(boton1, game.at(1, 8))
+		game.addVisualIn(boton2, game.at(16, 11))
+		game.addVisualIn(boton3, game.at(5, 3))
+	
 	}
 
 	method generarMuroVertical() {
@@ -185,6 +183,7 @@ object config {
 		game.onTick(700, "moverse", {=> gato.cambiarPosicionEnX(18.randomUpTo(24))})
 		
 		game.onTick(1000, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
+		game.onTick(1000, "GANAR JUEGO", {if (!game.hasVisual(bossVampiro)) victoria.mostrarPantallaVictoria() })
 	}
 
 }
@@ -206,7 +205,6 @@ object restauradorNivel {
 object interfazPelea {
 	
 	method iniciar(personaje,enemigo) {
-		guardarNivel.guardarEstadoActual()
 		game.clear()
 		self.dibujarInterfaz(personaje,enemigo)
 		config.configurarTeclasCombate(personaje,enemigo)
@@ -247,6 +245,15 @@ object gameOver {
 		game.clear()
 		game.addVisualIn(fondoGameOver, game.origin())
 		
+	}
+}
+
+object victoria {
+	
+	method mostrarPantallaVictoria() {
+		game.clear()
+		game.addVisualIn(fondoVictoria, game.origin())
+		game.addVisualIn(poro, game.at(15,1))
 	}
 }
 

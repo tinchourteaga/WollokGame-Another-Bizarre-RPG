@@ -7,6 +7,24 @@ import nivel.*
 
 // TODO: aunque marque errores funciona igual, pasa que es una putita
 
+///////////////////////////////////////////////
+
+var bossVampiro = new Boss(x = 14, y = 4, vida = 3000) // x=20 y=10
+var guardian = new Guardian(x = 23, y = 10, vida = 1000)
+var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
+var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)
+var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
+var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
+var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
+var dragon1 = new Dragon(x = 21, y = 6, vida = 800)
+var dragon2 = new Dragon(x = 20, y = 5, vida = 800)
+var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600)
+var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600)
+var mago = new Mago(x = 18, y = 7, vida = 500)
+var gato = new Gato(x = 19, y = 8, vida = 500)
+
+///////////////////////////////////////////////
+
 class Enemigo { 
 	var x
 	var y
@@ -102,6 +120,8 @@ class Dragon inherits Enemigo {
 
 // TANTO EL MAGO COMO EL GATO PODRIAN MOVERSE ALEATORIAMENTE EN UN DETERMINADO ESPACIO, SI COLISIONA CON NOSOTROS (HAY QUE EVTARLO)
 // NOS ROBA UN ITEM
+
+// FALTA HACER AL MAGO Y AL GATO
 class Mago inherits Enemigo {
 	
 	var imagen = "mago.png"
@@ -168,7 +188,7 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 	
 	method image() = imagen
 	
-	method modificarImagen() {  // DE ESTA FORMA FUNCIONA EL CAMBIO DE IMAGEN, SI LO HAGO COMO EN PERSONAJE NO
+	method modificarImagen() { 
 		imagen = "guardianBossGrande.png"
 	}
 	
@@ -183,9 +203,6 @@ class Boss inherits Enemigo {
 	var imagen = "boss.png"
 	var ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre]
 	var fuerza = 300
-	//var vida = 3000
-	
-	//override method position() = game.at(14,4) // 20,10
 	
 	method image() = imagen
 	
@@ -194,19 +211,7 @@ class Boss inherits Enemigo {
 	}
 }
 
-var bossVampiro = new Boss(x = 14, y = 4, vida = 3000)
-var guardian = new Guardian(x = 23, y = 10, vida = 1000)
-var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
-var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)
-var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
-var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
-var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
-var dragon1 = new Dragon(x = 21, y = 6, vida = 800)
-var dragon2 = new Dragon(x = 20, y = 5, vida = 800)
-var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600)
-var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600)
-var mago = new Mago(x = 18, y = 7, vida = 500)
-var gato = new Gato(x = 19, y = 8, vida = 500)
+
 
 
 

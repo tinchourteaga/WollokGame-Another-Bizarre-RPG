@@ -1,6 +1,25 @@
 import wollok.game.*
 import personajes.*
 
+///////////////////////////////////////////////
+
+const botonTrampa = new BotonTrampa(puertaQueAcciona = puerta1)
+const boton1 = new Boton(puertaQueAcciona = puerta2)
+const boton2 = new Boton(puertaQueAcciona = puerta3)
+const boton3 = new Boton(puertaQueAcciona = puerta4)
+
+const puerta1 = new PuertaHorizontal()
+const puerta4 = new PuertaHorizontal()
+const puerta3 = new PuertaVertical()
+const puerta2 = new PuertaVertical()
+
+const trampaPinchos1 = new TrampaPinchos()
+const trampaPinchos2 = new TrampaPinchos()
+const trampaPinchos3 = new TrampaPinchos()
+const trampaPinchos4 = new TrampaPinchos()
+
+///////////////////////////////////////////////
+
 class Muro {
 
 	method esAtravesable() = false
@@ -231,22 +250,6 @@ class TrampaPinchos inherits Extra {
 
 }
 
-object trampaPinchos1 inherits TrampaPinchos {
-
-}
-
-object trampaPinchos2 inherits TrampaPinchos {
-
-}
-
-object trampaPinchos3 inherits TrampaPinchos {
-
-}
-
-object trampaPinchos4 inherits TrampaPinchos {
-
-}
-
 // SELECCION DE PERSONAJE
 
 object scorpionSeleccion {
@@ -339,9 +342,17 @@ object fondoGameOver {
 	method image() = "fondoGameOver.jpg"
 }
 
+// PANTALLA VICTORIA
 
+object fondoVictoria {
+	
+	method image() = "fondoVictoria.jpg"
+}
 
-
+object poro {
+	
+	method image() = "poro.png"
+}
 
 
 
