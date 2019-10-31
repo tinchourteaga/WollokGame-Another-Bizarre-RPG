@@ -184,6 +184,8 @@ object config {
 		
 		game.onTick(1000, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
 		game.onTick(1000, "GANAR JUEGO", {if (!game.hasVisual(bossVampiro)) victoria.mostrarPantallaVictoria() })
+		game.onTick(1000, "ABRIR PUERTAS BOSS", {if (!game.hasVisual(guardian)) [puertaDerechaBoss, puertaIzquierdaBoss].forEach({ puerta => puerta.abreteSesamo() })})
+		
 	}
 
 }
@@ -198,6 +200,21 @@ object restauradorNivel {
 	
 	method agregarEnemigoEliminado(enemigo) {
 		enemigosEliminados.add(enemigo)
+	}
+	
+	method restaurarInventario(personaje) {
+		personaje.items().forEach({ item => personaje.posicionEnInventario(item, 0) })
+	}
+	
+	method restaurarNivel(personaje, enemigo) {
+		nivel.disenioNivel()
+		nivel.agregarPersonajes(personaje)
+		self.restaurarInventario(personaje)
+		self.agregarEnemigoEliminado(enemigo)
+		self.removerEnemigosEliminados()
+		config.configurarAcciones(personaje)
+		config.configurarTeclas(personaje)
+		config.configurarColisiones(personaje)
 	}
 	
 }
@@ -216,13 +233,8 @@ object interfazPelea {
 	
 	method finalizar(personaje,enemigo) {
 		game.clear()
-		nivel.disenioNivel()
-		nivel.agregarPersonajes(personaje)
-		restauradorNivel.agregarEnemigoEliminado(enemigo)
-		restauradorNivel.removerEnemigosEliminados()
-		config.configurarAcciones(personaje)
-		config.configurarTeclas(personaje)
-		config.configurarColisiones(personaje)
+		restauradorNivel.restaurarNivel(personaje,enemigo)
+
 	}
 	
 	method dibujarInterfaz(personaje,enemigo) {

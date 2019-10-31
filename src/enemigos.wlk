@@ -191,11 +191,6 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 	method modificarImagen() { 
 		imagen = "guardianBossGrande.png"
 	}
-	
-	override method morir() {
-		[puertaDerechaBoss, puertaIzquierdaBoss].forEach({ puerta => puerta.abreteSesamo() })
-		super()
-	}
 }
 
 class Boss inherits Enemigo {

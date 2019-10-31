@@ -3,6 +3,12 @@ import personajes.*
 import enemigos.*
 import ataques.*
 
+///////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////
+
 // armas
 class Arma {
 
@@ -128,6 +134,10 @@ class Pocion {
 	method image()
 
 	method efecto(personaje)
+	
+	method disminuirStats(personaje) {}
+	
+	method modificarStats(personaje) {}
 
 }
 

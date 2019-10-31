@@ -4,6 +4,8 @@ import nivel.*
 import extras.*
 import ataques.*
 
+// TODO: dividir el inventario en 2: armas y pociones
+
 class Personaje {
 
 	var vida = 1000
