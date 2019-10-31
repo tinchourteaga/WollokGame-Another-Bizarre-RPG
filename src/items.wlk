@@ -80,6 +80,7 @@ class Arco inherits Arma {
 
 // pociones 
 class Pocion {
+	var position
 
 	method esAtravesable() = true
 
@@ -154,3 +155,10 @@ object pocionInmortalidad inherits Pocion {
 
 }
 
+// Declaracion de variables
+
+const pocionSalud = new PocionSalud(position = game.at(8,5))
+const pocionMana = new PocionMana(position = game.at(8,3))
+const pocionVeneno = new PocionVeneno(position = game.at(9,4))
+
+var pociones = [pocionSalud,pocionMana,pocionVeneno]

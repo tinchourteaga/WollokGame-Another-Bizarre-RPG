@@ -9,7 +9,7 @@ import extras.*
 class Enemigo { 
 	var x
 	var y
-	var property fuerza
+	var property fuerza 
 	var ataques
 	var statusEffect = ninguno
 	var vida
@@ -74,9 +74,7 @@ class Enemigo {
 class Troll inherits Enemigo {
 
 	var imagen = "troll.png"
-	var ataques = [ataqueBasico, garrotazo]
-	var property pesoGarrote
-	var fuerza = 100 
+	var property pesoGarrote 
 	
 	method image() = imagen
 	
@@ -90,8 +88,6 @@ class Troll inherits Enemigo {
 class Dragon inherits Enemigo {
 
 	var imagen = "dragonVioleta.png"
-	var ataques = [incinerar, ataqueBasico]
-	var fuerza = 250
 	
 	method image() = imagen
 
@@ -137,8 +133,6 @@ class Gato inherits Enemigo {
 class Gigante inherits Enemigo {
 
 	var imagen = "giganteDePiedra.png"
-	var ataques = [ataqueBasico, aplastar]
-	var fuerza = 250
 
 	method image() = imagen
 
@@ -149,9 +143,7 @@ class Gigante inherits Enemigo {
 
 class PerroDeTresCabezas inherits Enemigo {
 
-	var imagen = "perroDe3CabezasDeFuego.png"
-	var ataques = [ataqueBasico, mordidaDeFuego]
-	var fuerza = 150 
+	var imagen = "perroDe3CabezasDeFuego.png" 
 
 	method image() = imagen 
 	
@@ -163,8 +155,6 @@ class PerroDeTresCabezas inherits Enemigo {
 class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del boss
 
 	var imagen = "guardianBoss.png"
-	var ataques = [ataqueBasico, absorberVida, incinerar, envenenar]
-	var fuerza = 175
 	
 	method image() = imagen
 	
@@ -181,8 +171,6 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 class Boss inherits Enemigo {
 
 	var imagen = "boss.png"
-	var ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre]
-	var fuerza = 300
 	//var vida = 3000
 	
 	//override method position() = game.at(14,4) // 20,10
@@ -194,22 +182,18 @@ class Boss inherits Enemigo {
 	}
 }
 
-var bossVampiro = new Boss(x = 14, y = 4, vida = 3000)
-var guardian = new Guardian(x = 23, y = 10, vida = 1000)
-var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200)
-var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100)
-var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550)
-var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500)
-var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500)
-var dragon1 = new Dragon(x = 21, y = 6, vida = 800)
-var dragon2 = new Dragon(x = 20, y = 5, vida = 800)
-var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600)
-var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600)
-var mago = new Mago(x = 18, y = 7, vida = 500)
-var gato = new Gato(x = 19, y = 8, vida = 500)
+// Declaracion de Enemigos
 
-
-
-
-
-
+var bossVampiro = new Boss(x = 14, y = 4, vida = 3000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 300)
+var guardian = new Guardian(x = 23, y = 10, vida = 1000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 175)
+var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 100)
+var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 100)
+var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550, ataques = [ataqueBasico, aplastar], fuerza = 250)
+var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
+var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
+var dragon1 = new Dragon(x = 21, y = 6, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
+var dragon2 = new Dragon(x = 20, y = 5, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
+var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
+var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
+var mago = new Mago(x = 18, y = 7, vida = 500, ataques = [], fuerza = 50)
+var gato = new Gato(x = 19, y = 8, vida = 500, ataques = [], fuerza = 65)
