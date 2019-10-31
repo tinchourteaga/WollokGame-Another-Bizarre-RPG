@@ -4,10 +4,12 @@ import nivel.*
 import extras.*
 import ataques.*
 
+// TODO: dividir el inventario en 2: armas y pociones
+
 class Personaje {
 
 	var vida = 1000
-	var property fuerza = 10
+	var property fuerza = 1000
 	var property defendiendo = false
 	var property statusEffect = ninguno
 	var itemEnMano
@@ -33,7 +35,10 @@ class Personaje {
 	method ponerItemSiguienteEnMano() {
 		if (!items.isEmpty()) {
 			self.moverInventario()
+			var itemEnManoAnterior = items.last()
+			itemEnManoAnterior.disminuirStats(self)
 			itemEnMano = items.head()
+			itemEnMano.modificarStats(self)
 		} else {
 			game.say(self, "Inventario Vacio!")
 		}
@@ -44,6 +49,7 @@ class Personaje {
 		var item = items.last()
 		var slot = game.colliders(item).head()
 		slot.liberarSlot()
+		if(items.size() == 1) item.disminuirStats(owner)
 		items.remove(item)
 		game.removeVisual(item)
 	}
@@ -64,6 +70,7 @@ class Personaje {
 			} else {
 				self.agregarAInventario()
 				itemEnMano = items.head()
+				itemEnMano.modificarStats(self)
 			}
 		} else {
 			game.say(self, "Inventario Lleno!")
@@ -74,8 +81,7 @@ class Personaje {
 		var nuevoItem = game.colliders(self).head()
 		items.add(nuevoItem)
 		game.removeVisual(nuevoItem)
-		self.posicionEnInventario(nuevoItem, 0)
-		nuevoItem.efecto(self)
+		self.posicionEnInventario(nuevoItem, 0)		
 	}
 
 	method posicionEnInventario(nuevoItem, posicionEnX) {
@@ -90,10 +96,6 @@ class Personaje {
 	}
 
 	method morir() = vida == 0
-
-	method llevarItemEnMano() { // para que muestre el item en el personaje y se mueva a la par
-		itemEnMano.position(self.position())
-	}
 
 	method disminuirVida(valor) {
 		vida = 0.max(vida - valor)
@@ -123,8 +125,8 @@ class Personaje {
 		self.sufrirStatusEffect()
 		ataqueBasico.efecto(self,enemigo)
 		enemigo.ocuparTurno(self)
-		//game.addVisual(attackHit) La idea de esto era visualizar el hit del ataque
-		//game.onTick(1500, "removerAtaque", { => game.removeVisual(attackHit) })
+		//game.addVisual(attackHit) La idea de esto es visualizar el hit del ataque (Ver si con el if funciona ahora)
+		//game.onTick(1500, "removerAtaque", { => if(game.hasVisual(attackHit)) game.removeVisual(attackHit) })
 
 	}
 	 
@@ -133,14 +135,24 @@ class Personaje {
 		self.defendiendo(true)
 		enemigo.ocuparTurno(self)
 	}
-	/* 
+	 
 	method ataqueEspecial(enemigo) { // aca va el efecto del item en mano
 		self.defendiendo(false)
 		self.sufrirStatusEffect()
-		itemEnMano.ataque(enemigo)
+		itemEnMano.ataque(self, enemigo)
 		enemigo.ocuparTurno(self)
 	}
-	*/
+	
+	method cambiarArma() {
+		if(items.size() > 1) {
+			var armaActual = items.head()
+			items.remove(armaActual)
+			items.add(armaActual)
+			itemEnMano = items.head()	
+		} else game.say(self, "Solo tenes un arma")
+		
+	}
+	
 	method sufrirStatusEffect() {
 		statusEffect.efectoPorTurno(self)
 	}

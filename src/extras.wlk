@@ -1,7 +1,59 @@
 import wollok.game.*
 import personajes.*
 
-// Elementos para el diseño del nivel
+///////////////////////////////////////////////
+
+const botonTrampa = new BotonTrampa(puertaQueAcciona = puerta1)
+const boton1 = new Boton(puertaQueAcciona = puerta2)
+const boton2 = new Boton(puertaQueAcciona = puerta3)
+const boton3 = new Boton(puertaQueAcciona = puerta4)
+
+const puerta1 = new PuertaHorizontal()
+const puerta4 = new PuertaHorizontal()
+const puerta3 = new PuertaVertical()
+const puerta2 = new PuertaVertical()
+
+const trampaPinchos1 = new TrampaPinchos()
+const trampaPinchos2 = new TrampaPinchos()
+const trampaPinchos3 = new TrampaPinchos()
+const trampaPinchos4 = new TrampaPinchos()
+
+///////////////////////////////////////////////
+
+class Muro {
+
+	method esAtravesable() = false
+
+}
+
+class MuroVertical inherits Muro {
+
+	method image() = "muro.png" // Hay que achicar la img
+
+}
+
+class Caliz inherits Muro {
+
+	method image() = "caliz_de_fuego.png"
+
+}
+
+class BloqueInventario {
+
+	var property slotOcupado = false
+
+	method image() = "minecraftSlot.png"
+
+	method ocuparSlot() {
+		slotOcupado = true
+	}
+
+	method liberarSlot() {
+		slotOcupado = false
+	}
+
+}
+
 class Extra {
 	var property position
 
@@ -136,21 +188,6 @@ class TrampaPinchos inherits Extra {
 
 }
 
-object trampaPinchos1 inherits TrampaPinchos {
-
-}
-
-object trampaPinchos2 inherits TrampaPinchos {
-
-}
-
-object trampaPinchos3 inherits TrampaPinchos {
-
-}
-
-object trampaPinchos4 inherits TrampaPinchos {
-
-}
 
 class Muro {
 
@@ -332,6 +369,17 @@ var arrow3 = new Arrow(position = game.at(9,8), posicionInicial = game.at(9,8), 
 var fireBalls = [fireBall1,fireBall2,fireBall3]
 var arrows = [arrow1,arrow2,arrow3]
 
+// PANTALLA VICTORIA
+
+object fondoVictoria {
+	
+	method image() = "fondoVictoria.jpg"
+}
+
+object poro {
+	
+	method image() = "poro.png"
+}
 // Declaracion de elementos para el disenio del nivel 
 
 const botonTrampa = new BotonTrampa(puertaQueAcciona = puerta1, position = game.at(7,2))
