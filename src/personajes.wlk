@@ -14,7 +14,7 @@ class Personaje {
 	var property statusEffect = ninguno
 	var itemEnMano
 	var property items = []
-	var position = game.at(12, 4)
+	var position = game.at(12, 2)
 
 	method image()
 

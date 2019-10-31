@@ -55,6 +55,7 @@ class BloqueInventario {
 }
 
 class Extra {
+	var property position
 
 	method esAtravesable() = true
 
@@ -64,68 +65,7 @@ class Extra {
 
 }
 
-object fireBall inherits Extra {
-
-	var property position = game.at(11, 11)
-
-	method image() = "fireball.png"
-
-	method efecto(personaje) {
-		personaje.disminuirVida(10)
-	}
-
-	method moverFireball() {
-		if (position.y() >= 9) {
-			position = position.down(1)
-		} else {
-			position = game.at(11, 11)
-		}
-	}
-
-}
-
-object arrow inherits Extra {
-
-	var property position = game.at(8, 8)
-
-	method image() = "arrow.png"
-
-	method efecto(personaje) {
-		personaje.disminuirVida(20)
-	}
-
-	method moverArrow() {
-		if (position.y() <= 10) {
-			position = position.up(1)
-		} else {
-			position = game.at(8, 8)
-		}
-	}
-
-}
-
-object spike inherits Extra {
-
-	var property position = game.at(5, 8)
-
-	method image() = "spike.png"
-
-	method efecto(personaje) {
-		personaje.disminuirVida(60)
-	}
-
-	method moverSpike() {
-		if (position.y() <= 10) {
-			position = position.up(1)
-		} else {
-			position = game.at(5, 8)
-		}
-	}
-
-}
-
 class Boton inherits Extra {
-
 	var estaEncendido = false
 	var puertaQueAcciona // cuando creamos el boton le ponemos que puerta maneja
 
@@ -166,7 +106,6 @@ class BotonTrampa inherits Boton {
 }
 
 class Puerta inherits Extra {
-
 	var cerrada = true
 
 	override method esAtravesable() {
@@ -225,7 +164,6 @@ class PuertaVertical inherits Puerta {
 }
 
 class TrampaPinchos inherits Extra {
-
 	var armada = false
 
 	method image() {
@@ -245,6 +183,83 @@ class TrampaPinchos inherits Extra {
 			self.cambiarEstadoTrampa(false)
 		} else {
 			self.cambiarEstadoTrampa(true)
+		}
+	}
+
+}
+
+
+class Muro {
+
+	method esAtravesable() = false
+
+}
+
+class MuroVertical inherits Muro {
+
+	method image() = "muro.png"
+
+}
+
+class Caliz inherits Muro {
+
+ 	method image() = "caliz_de_fuego.png"
+
+}
+
+class BloqueInventario {
+
+	var property slotOcupado = false
+
+	method image() = "minecraftSlot.png"
+
+	method ocuparSlot() {
+		slotOcupado = true
+	}
+
+	method liberarSlot() {
+		slotOcupado = false
+	}
+
+}
+
+// Obstaculos
+
+class FireBall inherits Extra {
+    const posicionInicial
+    var property velocidad
+
+	method image() = "fireball.png"
+
+	method efecto(personaje) {
+		personaje.disminuirVida(10)
+	}
+
+	method moverFireBall() {
+		if (position.y() >= 9) {
+			position = position.down(1)
+		} else {
+			position = posicionInicial
+		}
+	}
+
+}
+
+class Arrow inherits Extra {
+    const posicionInicial
+    var property velocidad
+
+	method image() = "arrow.png"
+
+	method efecto(personaje) {
+		personaje.disminuirVida(20)
+	}
+
+	method moverArrow() {
+		if (position.y() <= 10) {
+			position = position.up(1)
+		} else {
+			position = posicionInicial
 		}
 	}
 
@@ -342,6 +357,18 @@ object fondoGameOver {
 	method image() = "fondoGameOver.jpg"
 }
 
+// Declaracion de FireBalss y Arrows
+
+var fireBall1 = new FireBall(position = game.at(11,11), posicionInicial = game.at(11,11), velocidad = 1250)
+var fireBall2 = new FireBall(position = game.at(12,11), posicionInicial = game.at(12,11), velocidad = 1000)
+var fireBall3 = new FireBall(position = game.at(13, 11), posicionInicial = game.at(13,11), velocidad = 800)
+var arrow1 = new Arrow(position = game.at(7,8), posicionInicial = game.at(7,8), velocidad = 1250)
+var arrow2 = new Arrow(position = game.at(8,8), posicionInicial = game.at(8,8), velocidad = 1000)
+var arrow3 = new Arrow(position = game.at(9,8), posicionInicial = game.at(9,8), velocidad = 800)
+
+var fireBalls = [fireBall1,fireBall2,fireBall3]
+var arrows = [arrow1,arrow2,arrow3]
+
 // PANTALLA VICTORIA
 
 object fondoVictoria {
@@ -353,9 +380,16 @@ object poro {
 	
 	method image() = "poro.png"
 }
+// Declaracion de elementos para el disenio del nivel 
 
+const botonTrampa = new BotonTrampa(puertaQueAcciona = puerta1, position = game.at(7,2))
+const boton1 = new Boton(puertaQueAcciona = puerta2, position = game.at(1,8))
+const boton2 = new Boton(puertaQueAcciona = puerta3, position = game.at(16,11))
+const boton3 = new Boton(puertaQueAcciona = puerta4, position = game.at(5,3))
+const puerta1 = new PuertaHorizontal(position = game.at(1, 5))
+const puerta4 = new PuertaHorizontal(position = game.at(16, 7))
+const puerta3 = new PuertaVertical(position = game.at(15, 9))
+const puerta2 = new PuertaVertical(position = game.at(17, 2))
 
-
-
-
-
+var puertas = [puerta1,puerta2,puerta3,puerta4]
+var botones = [botonTrampa,boton1,boton2,boton3]
