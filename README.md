@@ -1,16 +1,21 @@
-### Nombre del Juego
+### Another Bizarre RPG
 
 ![capturaJuego](assets/capturaJuego.png)
 
-#### Grupo: Nombre del Grupo
+#### Grupo: TranquiloNediPiensaEnObjetos
 
 Integrantes:
 
-- Juana Azurduy
-- Alicia Moreau
-- Joe Balachi
-- Benedict Arnold
+- Martín Urteaga
+- Antonella Bevilacqua
+- Matías Balboa
 
 #### Descripción e instrucciones
 
-(completar)
+Descripcion:
+
+Instrucciones:
+
+Teclas:
+
+
