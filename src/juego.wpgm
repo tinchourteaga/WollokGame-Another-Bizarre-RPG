@@ -11,6 +11,6 @@ program NombreDeSuJuego {
     game.title("Another Bizarre RPG")
 	game.height(13)
 	game.width(25)
-	seleccionDePersonaje.iniciar()
+	startMenu.iniciar()
 	game.start()
 }

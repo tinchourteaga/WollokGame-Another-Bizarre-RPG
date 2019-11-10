@@ -9,13 +9,13 @@ import nivel.*
 
 ///////////////////////////////////////////////
 
-var bossVampiro = new Boss(x = 14, y = 4, vida = 3000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 300)
+var bossVampiro = new Boss(x = 20, y = 10, vida = 3000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 300)
 var guardian = new Guardian(x = 23, y = 10, vida = 1000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 175)
-var troll1 = new Troll(x = 16, y = 4, vida = 300, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 100)
-var troll2 = new Troll(x = 16, y = 3, vida = 450, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 100)
+var troll1 = new Troll(x = 16, y = 6, vida = 300, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 100)
+var troll2 = new Troll(x = 16, y = 10, vida = 450, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 100)
 var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550, ataques = [ataqueBasico, aplastar], fuerza = 250)
 var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
-var giganteDePiedra3 = new Gigante(x = 1, y = 3, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
+var giganteDePiedra3 = new Gigante(x = 2, y = 3, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
 var dragon1 = new Dragon(x = 21, y = 6, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
 var dragon2 = new Dragon(x = 20, y = 5, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
 var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
@@ -50,6 +50,7 @@ class Enemigo {
 	var x
 	var y
 	var ataques
+	var itemsQueDropea = [new PocionSalud(), new PocionVeneno()] //TODO: terminar de poner todos los items
 	var property fuerza
 	var property statusEffect = ninguno
 	var property vida
@@ -70,8 +71,10 @@ class Enemigo {
 		if(personaje.defendiendo()) {
 			self.noPuedeAtacar()
 		} else {
-			var tipoAtaque = ataques.get(0.randomUpTo(ataques.size()).roundUp(0) - 1 ) // asi cubro la posicion 0 de enteros
+			var tipoAtaque = self.getAleatorioDeLista(ataques)
 			tipoAtaque.efecto(self,personaje)
+			game.addVisual(monsterAttackHit)
+			game.onTick(600, "removerAtaqueEnemigo", { => if(game.hasVisual(monsterAttackHit)) game.removeVisual(monsterAttackHit) })
 			
 		}
 	}
@@ -107,6 +110,15 @@ class Enemigo {
 	method ocuparTurno(personaje) {
 		self.sufrirStatusEffect()
 		self.atacar(personaje)
+	}
+	
+	method dropear(posicion) {
+		var itemDropeado = self.getAleatorioDeLista(itemsQueDropea)
+		 game.addVisualIn(itemDropeado, posicion)
+	}
+	
+	method getAleatorioDeLista(lista) {
+		return lista.get(0.randomUpTo(lista.size()).roundUp(0) - 1 )  // asi cubro la posicion 0 de enteros
 	}
 }
 

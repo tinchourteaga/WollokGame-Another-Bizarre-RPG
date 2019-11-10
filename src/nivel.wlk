@@ -4,10 +4,20 @@ import enemigos.*
 import items.*
 import extras.*
 
+object startMenu {
+	method iniciar() {
+		config.startAndExit()
+		game.addVisualIn(pantallaMenu, game.origin())
+		
+	}	
+}
+
 object seleccionDePersonaje {
 
 	method iniciar() {
+		game.clear()
 		config.seleccionarPersonajes()
+		game.addVisualIn(pantallaSeleccion, game.origin())
 		self.dibujarPersonajesEnSeleccion()
 		self.dibujarTextos()
 	}
@@ -67,7 +77,7 @@ object nivel {
 		game.addVisualIn(new PocionMana(), game.at(8, 3))
 		game.addVisualIn(new PocionVeneno(), game.at(9, 4))
 		game.addVisualIn(new EspadaDiamante(), game.at(9, 5))
-		game.addVisualIn(new BastonMagico(), game.at(9, 6))
+		//game.addVisualIn(new BastonMagico(), game.at(9, 6)) TODO: fixear img
 		
         game.addVisual(fireBall1)
         game.addVisual(fireBall2)
@@ -135,6 +145,11 @@ object config {
 		keyboard.num0().onPressDo({ nivel.iniciar(scorpion)})
 		keyboard.num1().onPressDo({ nivel.iniciar(gandalf)})
 	}
+	
+	method startAndExit() {
+		keyboard.enter().onPressDo({ seleccionDePersonaje.iniciar() })
+		keyboard.e().onPressDo({ game.stop() })
+	}
 
 	method configurarTeclas(personaje) {
 		keyboard.left().onPressDo({ personaje.moverse(personaje.position().left(1), izquierda, personaje)})
@@ -193,6 +208,7 @@ object restauradorNivel {
 	
 	method restaurarNivel(personaje, enemigo) {
 		nivel.disenioNivel()
+		enemigo.dropear(personaje.position())
 		nivel.agregarPersonajes(personaje)
 		self.restaurarInventario(personaje)
 		self.agregarEnemigoEliminado(enemigo)
@@ -226,7 +242,7 @@ object interfazPelea {
 		game.addVisualIn(fondo, game.origin())
 		enemigo.modificarImagen()
 		game.addVisualIn(personaje, game.at(7,4))
-		game.addVisualIn(enemigo, game.at(15,0)) // 15,4
+		game.addVisualIn(enemigo, game.at(15,4))
 		game.addVisual(textAtacar)
 		game.addVisual(textDefender)
 		game.addVisual(textEspecial)

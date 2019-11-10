@@ -8,7 +8,7 @@ import ataques.*
 
 class Personaje {
 
-	var vida = 1000
+	var vida = 5000
 	var property fuerza = 1000
 	var property defendiendo = false
 	var property statusEffect = ninguno
@@ -125,8 +125,8 @@ class Personaje {
 		self.sufrirStatusEffect()
 		ataqueBasico.efecto(self,enemigo)
 		enemigo.ocuparTurno(self)
-		//game.addVisual(attackHit) La idea de esto es visualizar el hit del ataque (Ver si con el if funciona ahora)
-		//game.onTick(1500, "removerAtaque", { => if(game.hasVisual(attackHit)) game.removeVisual(attackHit) })
+		game.addVisual(attackHit)
+		game.onTick(600, "removerAtaque", { => if(game.hasVisual(attackHit)) game.removeVisual(attackHit) })
 
 	}
 	 

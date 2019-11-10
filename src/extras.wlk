@@ -332,6 +332,13 @@ object attackHit {
 	method image() = "attackHit.png"
 }
 
+object monsterAttackHit {
+	
+	var property position = game.at(7,6)
+	
+	method image() = "monsterAttackHit.png"
+}
+
 // PANTALLA GAMEOVER
 
 object fondoGameOver {
@@ -349,4 +356,18 @@ object fondoVictoria {
 object poro {
 	
 	method image() = "poro.png"
+}
+
+// PANTALLA MENU
+
+object pantallaMenu {
+	
+	method image() = "startScreen.jpg"
+}
+
+// PANTALLA SELECCION
+
+object pantallaSeleccion {
+	
+	method image() = "fondoSeleccion.jpg"
 }
