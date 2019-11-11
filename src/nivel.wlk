@@ -73,12 +73,6 @@ object nivel {
 		game.addVisualIn(trampaPinchos3, game.at(3, 10))
 		game.addVisualIn(trampaPinchos4, game.at(3, 11))
 		
-		game.addVisualIn(new PocionSalud(), game.at(8, 5))
-		game.addVisualIn(new PocionMana(), game.at(8, 3))
-		game.addVisualIn(new PocionVeneno(), game.at(9, 4))
-		game.addVisualIn(new EspadaDiamante(), game.at(9, 5))
-		//game.addVisualIn(new BastonMagico(), game.at(9, 6)) TODO: fixear img
-		
         game.addVisual(fireBall1)
         game.addVisual(fireBall2)
         game.addVisual(fireBall3)
@@ -171,7 +165,7 @@ object config {
 	}
 
 	method configurarColisiones(personaje) {
-		game.whenCollideDo(personaje, { enemigo => personaje.pelear(enemigo)})
+		enemigos.forEach({ enemigo => game.whenCollideDo(enemigo, { alguien => enemigo.pelear(alguien)})})
 		fireBalls.forEach({ fireBall => game.whenCollideDo(fireBall, { extra => fireBall.efecto(extra)})})
 		arrows.forEach({ arrow => game.whenCollideDo(arrow, { extra => arrow.efecto(extra)})})
 		
@@ -191,17 +185,7 @@ object config {
 }
 
 object restauradorNivel {
-	
-	var enemigosEliminados = []
-	
-	method removerEnemigosEliminados() {
-		enemigosEliminados.forEach({ enemigo => game.removeVisual(enemigo) })
-	}
-	
-	method agregarEnemigoEliminado(enemigo) {
-		enemigosEliminados.add(enemigo)
-	}
-	
+
 	method restaurarInventario(personaje) {
 		personaje.items().forEach({ item => personaje.posicionEnInventario(item, 0) })
 	}
@@ -209,10 +193,9 @@ object restauradorNivel {
 	method restaurarNivel(personaje, enemigo) {
 		nivel.disenioNivel()
 		enemigo.dropear(personaje.position())
+		enemigos.remove(enemigo)
 		nivel.agregarPersonajes(personaje)
 		self.restaurarInventario(personaje)
-		self.agregarEnemigoEliminado(enemigo)
-		self.removerEnemigosEliminados()
 		config.configurarAcciones(personaje)
 		config.configurarTeclas(personaje)
 		config.configurarColisiones(personaje)

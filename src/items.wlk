@@ -30,8 +30,6 @@ class Arma {
 
 	method esAtravesable() = true
 
-	method esEnemigo() = false
-
 }
 
 class EspadaDeMagma inherits Arma { // Para evitar repeticion de codigo habria que hacer una clase Arma con Efecto y otra Sin efecto
@@ -129,8 +127,6 @@ class Pocion {
 	method esAtravesable() = true
 
 	method esAgarrable() = true
-
-	method esEnemigo() = false
 
 	method image()
 

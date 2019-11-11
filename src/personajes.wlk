@@ -4,8 +4,6 @@ import nivel.*
 import extras.*
 import ataques.*
 
-// TODO: dividir el inventario en 2: armas y pociones
-
 class Personaje {
 
 	var vida = 5000
@@ -49,7 +47,7 @@ class Personaje {
 		var item = items.last()
 		var slot = game.colliders(item).head()
 		slot.liberarSlot()
-		if(items.size() == 1) item.disminuirStats(owner)
+		if(items.size() == 1) item.disminuirStats(self)
 		items.remove(item)
 		game.removeVisual(item)
 	}
@@ -111,13 +109,6 @@ class Personaje {
 	
 	method disminuirFuerza(valor) {
 		fuerza = 0.max(fuerza - valor)
-	}
-
-	method pelear(enemigo) {
-		if (enemigo.esEnemigo()) {
-			interfazPelea.iniciar(self,enemigo)
-		// aca triggereamos la interfaz de pelea
-		}
 	}
 	 
 	method atacar(enemigo) {

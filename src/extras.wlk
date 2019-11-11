@@ -77,7 +77,6 @@ class Extra {
 
 	method esAgarrable() = false
 
-	method esEnemigo() = false
 
 }
 
