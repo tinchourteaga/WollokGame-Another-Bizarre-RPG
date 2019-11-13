@@ -3,6 +3,7 @@ import personajes.*
 import enemigos.*
 import items.*
 import extras.*
+import ataques.*
 
 object startMenu {
 	method iniciar() {
@@ -36,6 +37,26 @@ object seleccionDePersonaje {
 }
 
 object nivel {
+
+	/* ENEMIGOS */
+	var property bossVampiro = new Boss(x = 20, y = 10, vida = 3000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 300)
+	var property guardian = new Guardian(x = 23, y = 10, vida = 1000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 175)
+	var troll1 = new Troll(x = 16, y = 6, vida = 300, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 100)
+	var troll2 = new Troll(x = 16, y = 10, vida = 450, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 100)
+	var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550, ataques = [ataqueBasico, aplastar], fuerza = 250)
+	var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
+	var giganteDePiedra3 = new Gigante(x = 2, y = 3, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
+	var dragon1 = new Dragon(x = 21, y = 6, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
+	var dragon2 = new Dragon(x = 20, y = 5, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
+	var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
+	var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
+	var mago = new Mago(x = 18, y = 7, vida = 500, ataques = [], fuerza = 50)
+	var gato = new Gato(x = 19, y = 8, vida = 500, ataques = [], fuerza = 65)
+
+	var property enemigos = [ bossVampiro, guardian, troll1, troll2, giganteDePiedra1, giganteDePiedra2, giganteDePiedra3,
+ 		dragon1, dragon2, perroDeTresCabezas1, perroDeTresCabezas2, mago, gato]
+ 		
+ 	var property enemigosMovimiento = [dragon1, dragon2, perroDeTresCabezas1, perroDeTresCabezas2, mago, gato]
 
 	method iniciar(personaje) {
 		game.clear()
@@ -132,8 +153,6 @@ object nivel {
 }
 
 object config {
-	
-	var enemigosMovimiento = [ dragon1, dragon2, perroDeTresCabezas1, perroDeTresCabezas2, mago, gato ]
 
 	method seleccionarPersonajes() {
 		keyboard.num0().onPressDo({ nivel.iniciar(scorpion)})
@@ -165,20 +184,20 @@ object config {
 	}
 
 	method configurarColisiones(personaje) {
-		enemigos.forEach({ enemigo => game.whenCollideDo(enemigo, { alguien => enemigo.pelear(alguien)})})
+		nivel.enemigos().forEach({ enemigo => game.whenCollideDo(enemigo, { alguien => enemigo.pelear(alguien)})})
 		fireBalls.forEach({ fireBall => game.whenCollideDo(fireBall, { extra => fireBall.efecto(extra)})})
 		arrows.forEach({ arrow => game.whenCollideDo(arrow, { extra => arrow.efecto(extra)})})
 		
 	}
 	
 	method configurarAcciones(personaje) {
-		enemigosMovimiento.forEach({ enemigo => game.onTick(1000, "Enemigo Moviendose", { enemigo.cambiarPosicionEnX(18.randomUpTo(24))})})
+		nivel.enemigosMovimiento().forEach({ enemigo => game.onTick(1000, "Enemigo Moviendose", { enemigo.cambiarPosicionEnX(18.randomUpTo(24))})})
 		fireBalls.forEach({ fireBall => game.onTick(fireBall.velocidad(), "FireBall Moviendose", { fireBall.moverFireBall()})})
 		arrows.forEach({ arrow => game.onTick(arrow.velocidad(), "Arrow Moviendose", { arrow.moverArrow()})})
 				
 		game.onTick(500, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
-		game.onTick(500, "GANAR JUEGO", {if (!game.hasVisual(bossVampiro)) victoria.mostrarPantallaVictoria() })
-		game.onTick(500, "ABRIR PUERTAS BOSS", {if (!game.hasVisual(guardian)) [puertaDerechaBoss, puertaIzquierdaBoss].forEach({ puerta => puerta.abreteSesamo() })})
+		game.onTick(500, "GANAR JUEGO", {if (!game.hasVisual(nivel.bossVampiro())) victoria.mostrarPantallaVictoria() })
+		game.onTick(500, "ABRIR PUERTAS BOSS", {if (!game.hasVisual(nivel.guardian())) [puertaDerechaBoss, puertaIzquierdaBoss].forEach({ puerta => puerta.abreteSesamo() })})
 		
 	}
 
@@ -193,7 +212,7 @@ object restauradorNivel {
 	method restaurarNivel(personaje, enemigo) {
 		nivel.disenioNivel()
 		enemigo.dropear(personaje.position())
-		enemigos.remove(enemigo)
+		nivel.enemigos().remove(enemigo)
 		nivel.agregarPersonajes(personaje)
 		self.restaurarInventario(personaje)
 		config.configurarAcciones(personaje)

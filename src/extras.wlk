@@ -20,18 +20,18 @@ const trampaPinchos2 = new TrampaPinchos()
 const trampaPinchos3 = new TrampaPinchos()
 const trampaPinchos4 = new TrampaPinchos()
 
-var puertas = [puerta1,puerta2,puerta3,puerta4, puertaIzquierdaBoss, puertaIzquierdaBoss]
-var botones = [botonTrampa,boton1,boton2,boton3]
+const puertas = [puerta1,puerta2,puerta3,puerta4, puertaIzquierdaBoss, puertaIzquierdaBoss]
+const botones = [botonTrampa,boton1,boton2,boton3]
 
-var fireBall1 = new FireBall(position = game.at(11,11), posicionInicial = game.at(11,11), velocidad = 1250)
-var fireBall2 = new FireBall(position = game.at(12,11), posicionInicial = game.at(12,11), velocidad = 1000)
-var fireBall3 = new FireBall(position = game.at(13, 11), posicionInicial = game.at(13,11), velocidad = 800)
-var arrow1 = new Arrow(position = game.at(7,8), posicionInicial = game.at(7,8), velocidad = 1250)
-var arrow2 = new Arrow(position = game.at(8,8), posicionInicial = game.at(8,8), velocidad = 1000)
-var arrow3 = new Arrow(position = game.at(9,8), posicionInicial = game.at(9,8), velocidad = 800)
+const fireBall1 = new FireBall(position = game.at(11,11), posicionInicial = game.at(11,11), velocidad = 1250)
+const fireBall2 = new FireBall(position = game.at(12,11), posicionInicial = game.at(12,11), velocidad = 1000)
+const fireBall3 = new FireBall(position = game.at(13, 11), posicionInicial = game.at(13,11), velocidad = 800)
+const arrow1 = new Arrow(position = game.at(7,8), posicionInicial = game.at(7,8), velocidad = 1250)
+const arrow2 = new Arrow(position = game.at(8,8), posicionInicial = game.at(8,8), velocidad = 1000)
+const arrow3 = new Arrow(position = game.at(9,8), posicionInicial = game.at(9,8), velocidad = 800)
 
-var fireBalls = [fireBall1,fireBall2,fireBall3]
-var arrows = [arrow1,arrow2,arrow3]
+const fireBalls = [fireBall1,fireBall2,fireBall3]
+const arrows = [arrow1,arrow2,arrow3]
 
 ///////////////////////////////////////////////
 

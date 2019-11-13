@@ -5,7 +5,7 @@ import items.*
 import extras.*
 import ataques.*
 import nivel.*
-
+/* 
 describe "Tests del juego" {
 	
 	var trollDePiedra = new Troll(x = 15, y = 9, vida = 300, velocidad = 5, image = "trollDePiedra.png")
@@ -60,7 +60,7 @@ describe "Tests del juego" {
 	test "El mago ataca a Scorpion" {
 		mago.atacar(scorpion)
 		assert.equals(???,scorpion.vida())
-	} */ 
+	} 
 	test "El gato ataca a Scorpion" {
 		gato.atacar(scorpion)
 		assert.equals(860,scorpion.vida())
@@ -70,4 +70,4 @@ describe "Tests del juego" {
 		gandalf.matar(mago)
 		assert.equals(1,gandalf.killsCounter())
 	}
-}
+} */
