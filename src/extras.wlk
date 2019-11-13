@@ -326,14 +326,12 @@ object textCambiarArma {
 
 object attackHit {
 	
-	var property position = game.at(19,6)
-	
 	method image() = "attackHit.png"
 }
 
 object monsterAttackHit {
 	
-	var property position = game.at(8,6)
+	var property position = game.at(7,6)
 	
 	method image() = "monsterAttackHit.png"
 }

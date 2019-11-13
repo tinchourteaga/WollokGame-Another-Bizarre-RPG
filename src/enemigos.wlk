@@ -98,6 +98,10 @@ class Troll inherits Enemigo {
 	method modificarImagen() {
 		imagen = "trollGrande.png"
 	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(18,6))
+	}
 
 
 }
@@ -111,6 +115,11 @@ class Dragon inherits Enemigo {
 	method modificarImagen() {
 		imagen = "dragonVioletaGrande.png"
 	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(17,6))
+	}
+	
 }
 
 // TANTO EL MAGO COMO EL GATO PODRIAN MOVERSE ALEATORIAMENTE EN UN DETERMINADO ESPACIO, SI COLISIONA CON NOSOTROS (HAY QUE EVTARLO)
@@ -130,6 +139,10 @@ class Mago inherits Enemigo {
 	override method atacar(personaje) {
 	// robarItemConMasPoder.ataque(personaje)
 	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(16,5))
+	}
 }
 
 class Gato inherits Enemigo {
@@ -147,6 +160,10 @@ class Gato inherits Enemigo {
 		// robarItemEnMano.ataque(personaje)
 		personaje.disminuirVida(2 * poderEspada)
 	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(16,5))
+	}
 }
 
 class Gigante inherits Enemigo {
@@ -157,6 +174,10 @@ class Gigante inherits Enemigo {
 
 	method modificarImagen() {
 		imagen = "giganteDePiedraGrande.png"
+	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(18,6))
 	}
 }
 
@@ -169,6 +190,10 @@ class PerroDeTresCabezas inherits Enemigo {
 	method modificarImagen() {
 		imagen = "perroDe3CabezasDeFuegoGrande.png"
 	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(17,6))
+	}
 }
 
 class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del boss
@@ -180,6 +205,10 @@ class Guardian inherits Enemigo { //Cuando lo matas se abren las puertas del bos
 	method modificarImagen() { 
 		imagen = "guardianBossGrande.png"
 	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(16,5))
+	}
 }
 
 class Boss inherits Enemigo {
@@ -190,5 +219,9 @@ class Boss inherits Enemigo {
 	
 	method modificarImagen() {
 		imagen = "bossGrande.png"
+	}
+	
+	method posicionAttackHit() {
+		game.addVisualIn(attackHit,game.at(19,8))
 	}
 }

@@ -117,7 +117,7 @@ class Personaje {
 		self.sufrirStatusEffect()
 		ataqueBasico.efecto(self,enemigo)
 		enemigo.ocuparTurno(self)
-		game.addVisual(attackHit)
+		enemigo.posicionAttackHit()
 		game.onTick(600, "removerAtaque", { => if(game.hasVisual(attackHit)) game.removeVisual(attackHit) })
 
 	}
