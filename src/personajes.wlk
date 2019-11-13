@@ -6,11 +6,12 @@ import ataques.*
 
 class Personaje {
 
+	var vidaMax = 5000 // valor fijo de vida max (no se modifica, solo con la pocion de inmortalidad)
 	var vida = 5000
 	var property fuerza = 1000
 	var property defendiendo = false
 	var property statusEffect = ninguno
-	var itemEnMano
+	var property itemEnMano
 	var property items = []
 	var position = game.at(12, 2)
 
@@ -100,7 +101,7 @@ class Personaje {
 	}
 
 	method aumentarVida(valor) {
-		vida = vida + valor
+		vida = vidaMax.min(vida + valor)
 	}
 	
 	method aumentarFuerza(valor) {
@@ -151,6 +152,8 @@ class Personaje {
 
 }
 
+//TODO: Agregar stats distintos a ambos que sean acordes. Que no maten ni mueran de un golpe 
+//(hagamos que gandalf no tenga mana porque hay que modificar varias cosas)
 
 object scorpion inherits Personaje {
 
@@ -162,18 +165,9 @@ object scorpion inherits Personaje {
 
 object gandalf inherits Personaje {
 
-	// var ataque = 120 esto estaba en la rama, probablemente haya que cambiar algo
-	var property danio = 30
-	var property mana = 500 // no coincide con los ataques del enemigo porque los metodos atacar esperan el mensaje vida() no mana()
-
 	override method image() {
 		return if(game.hasVisual(fondo)) "gandalfPelea.png" else "gandalf.png"
 	} 
-
-	method aumentarDanio(valor) {
-		danio = danio + valor
-	}
-
 }
 
 object arriba {

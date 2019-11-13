@@ -173,6 +173,7 @@ object config {
 		keyboard.e().onPressDo({ game.colliders(personaje).head().accionarBoton(personaje)})
 		keyboard.a().onPressDo({ personaje.agarrarItem()})
 		keyboard.d().onPressDo({ personaje.dejarItemEnMano()})
+		keyboard.s().onPressDo({ personaje.itemEnMano().usar(personaje) })
 	
 	}
 	

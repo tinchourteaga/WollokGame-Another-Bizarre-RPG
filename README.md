@@ -32,6 +32,7 @@ Teclas:
 - Dejar item (lo destruye): D
 - Cambiar item en mano: Q
 - Accionar boton: E
+- Usar item en mano: S
 
 
 

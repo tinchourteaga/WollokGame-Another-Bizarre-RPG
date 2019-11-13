@@ -23,6 +23,8 @@ class Arma {
 	method esAgarrable() = true
 
 	method esAtravesable() = true
+	
+	method usar(personaje) {}
 
 }
 
@@ -72,7 +74,7 @@ class EspadaDiamante inherits Arma {
 
 }
 
-class BastonMagico inherits Arma { // Sigan este ejemplo para agregar ataques especiales a las armas (fijarse los ataques en Ataques.wlk)
+class BastonMagico inherits Arma { // TODO: Sigan este ejemplo para agregar ataques especiales a las armas (fijarse los ataques en Ataques.wlk)
 
 	var vida = 150
 	var efectoAtaque = electrocutar
@@ -129,6 +131,11 @@ class Pocion {
 	method disminuirStats(personaje) {}
 	
 	method modificarStats(personaje) {}
+	
+	method usar(personaje) {
+		self.efecto(personaje)
+		personaje.dejarItemEnMano()
+	}
 
 }
 
@@ -142,6 +149,8 @@ class PocionSalud inherits Pocion {
 	}
 
 }
+
+/* Vamos a omitirlas porque no se llega
 
 class PocionMana inherits Pocion {
 
@@ -163,6 +172,7 @@ class PocionVeneno inherits Pocion {
 
 }
 
+
 class PocionDefensa inherits Pocion {
 
 	override method image() = ""
@@ -173,22 +183,26 @@ class PocionDefensa inherits Pocion {
 
 }
 
+*/
+
 class PocionFuerza inherits Pocion {
 
-	override method image() = ""
+	override method image() = "pocionFuerza.png"
 
 	override method efecto(personaje) {
-	// aumenta el ataque 
+		personaje.aumentarFuerza(100)
 	}
 
 }
 
 object pocionInmortalidad inherits Pocion {
 
-	override method image() = ""
+	override method image() = "pocionInmortalidad.png"
 
 	override method efecto(personaje) {
-		personaje.vida(10000)
+		personaje.vidaMax(9999)
+		personaje.vida(9999)
+		
 	}
 
 }

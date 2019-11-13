@@ -5,12 +5,14 @@ import ataques.*
 import extras.*
 import nivel.*
 
+//TODO: Modificar los stats de los enemigos para que sean acordes y no maten o mueran de un golpe (fuerza y vida)
+
 class Enemigo { 
 	var x
 	var y
 	var ataques
-	var itemsQueDropea = [new PocionSalud(), new PocionVeneno()] //TODO: terminar de poner todos los items
-	var property fuerza
+	var itemsQueDropea = [new PocionSalud(), new PocionFuerza(), pocionInmortalidad] //TODO: terminar de poner todos los items
+	var property fuerza																//Si agrego mas de un mismo item aumento la chances de drop
 	var property statusEffect = ninguno
 	var property vida
 
