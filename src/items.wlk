@@ -32,7 +32,7 @@ class Arma {
 class EspadaDeMagma inherits Arma { 
 	
 	var efectoAtaque = incinerar
-	var fuerza = 60
+	var fuerza = 300
 
 	override method image() = "magmaSword.png"
 
@@ -54,8 +54,8 @@ class EspadaDeMagma inherits Arma {
 class Daga inherits Arma { 
 	
 	var efectoAtaque = envenenado
-	var fuerza = 20
-	var vida = 30
+	var fuerza = 100
+	var vida = 100
 
 	override method image() = "daga.png"
 
@@ -77,8 +77,8 @@ class Daga inherits Arma {
 }
 class EspadaDiamante inherits Arma {
 
-	var vida = 50
-    var fuerza = 90
+	var vida = 500
+    var fuerza = 100
 
 	override method image() = "espadaDiamante.png"
 
@@ -99,7 +99,7 @@ class EspadaDiamante inherits Arma {
 }
 class Espada inherits Arma {
 
-	var fuerza = 20
+	var fuerza = 200
 
 	override method image() = "espada.png"
 
@@ -118,7 +118,7 @@ class Espada inherits Arma {
 }
 class Kunai inherits Arma {
 
-	var fuerza = 25
+	var fuerza = 60
 
 	override method image() = "kunai.png"
 
@@ -138,7 +138,7 @@ class Kunai inherits Arma {
 
 class Guantelete inherits Arma {
 
-	var vida = 100
+	var vida = 1000
 	const efectoAtaque = electrocutar
 
 	override method image() = "guantelete.png"
@@ -160,8 +160,8 @@ class Guantelete inherits Arma {
 
 class MasterSword inherits Arma {
 
-	var vida = 0
-	var fuerza = 50
+	var vida = 200
+	var fuerza = 500
 
 	override method image() = "masterSword.png"
 
@@ -183,14 +183,14 @@ class MasterSword inherits Arma {
 
 class EspadasDelCaos inherits Arma {
 
-	var vida = 50
-	var fuerza = 90
+	var vida = 500
+	var fuerza = 500
 	const efectoAtaque = incinerar
 
 	override method image() = "espadasDelCaos.png"
 
 	override method ataque(owner, target) {
-		target.disminuirVida(50)
+		target.disminuirVida(owner.fuerza()*0.5)
 		self.efectoDelAtaque(efectoAtaque, owner, target)
 	}
 
@@ -208,8 +208,8 @@ class EspadasDelCaos inherits Arma {
 
 class EspadaAzul inherits Arma {
 
-	var vida = 50
-	var fuerza = 50
+	var vida = 500
+	var fuerza = 100
 	
 	const efectoAtaque = electrocutar
 
@@ -233,7 +233,7 @@ class EspadaAzul inherits Arma {
 }
 class BastonMagico inherits Arma { // TODO: Sigan este ejemplo para agregar ataques especiales a las armas (fijarse los ataques en Ataques.wlk)
 
-	var vida = 150
+	var vida = 600
 	var efectoAtaque = electrocutar
 	var fuerza = 110
 
@@ -256,7 +256,7 @@ class BastonMagico inherits Arma { // TODO: Sigan este ejemplo para agregar ataq
 
 class Arco inherits Arma {
 
-	var fuerza = 50
+	var fuerza = 500
 
 	override method image() = "arco.png"
 

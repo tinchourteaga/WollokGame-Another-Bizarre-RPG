@@ -40,8 +40,8 @@ object nivel {
 
 	/* ENEMIGOS */
 	
-	var property bossVampiro = new Boss(x = 20, y = 10, vida = 4000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 1500)
-	var property guardian = new Guardian(x = 23, y = 10, vida = 3000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 1000)
+	var property bossVampiro = new Boss(x = 20, y = 10, vida = 4000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 1200)
+	var property guardian = new Guardian(x = 23, y = 10, vida = 3000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 800)
 	var troll1 = new Troll(x = 16, y = 6, vida = 1550, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 350)
 	var troll2 = new Troll(x = 16, y = 10, vida = 1550, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 350)
 	var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 550)

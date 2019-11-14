@@ -6,9 +6,9 @@ import ataques.*
 
 class Personaje {
 
-	var vidaMax = 5000 // valor fijo de vida max (no se modifica, solo con la pocion de inmortalidad)
-	var vida = 5000
-	var property fuerza = 1000
+	var vidaMax = 6000 // valor fijo de vida max (no se modifica, solo con la pocion de inmortalidad)
+	var vida = 6000
+	var property fuerza = 800
 	var property defendiendo = false
 	var property statusEffect = ninguno
 	var property itemEnMano
