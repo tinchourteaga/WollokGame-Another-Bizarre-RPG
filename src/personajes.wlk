@@ -13,7 +13,7 @@ class Personaje {
 	var property statusEffect = ninguno
 	var property itemEnMano
 	var property items = []
-	var property position = game.at(12, 2)
+	var property position = game.at(12,2)
 
 	method vida() = vida
 	
@@ -151,9 +151,6 @@ class Personaje {
 
 
 }
-
-//TODO: Agregar stats distintos a ambos que sean acordes. Que no maten ni mueran de un golpe 
-//(hagamos que gandalf no tenga mana porque hay que modificar varias cosas)
 
 object scorpion inherits Personaje {
 

@@ -22,6 +22,7 @@ describe "Tests del personaje" {
     fixture {
     	scorpion.agregarItemALaLista(espadaDeMagma)
     	scorpion.agregarItemALaLista(espadaDeDiamante)
+        
         gandalf.agregarItemALaLista(bastonMagico)
     	gandalf.agregarItemALaLista(arco)	
     }    

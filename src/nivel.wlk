@@ -39,17 +39,18 @@ object seleccionDePersonaje {
 object nivel {
 
 	/* ENEMIGOS */
+	
 	var property bossVampiro = new Boss(x = 20, y = 10, vida = 4000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 1500)
 	var property guardian = new Guardian(x = 23, y = 10, vida = 3000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 1000)
-	var troll1 = new Troll(x = 16, y = 6, vida = 1000, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 600)
-	var troll2 = new Troll(x = 16, y = 10, vida = 1000, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 600)
+	var troll1 = new Troll(x = 16, y = 6, vida = 1550, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 600)
+	var troll2 = new Troll(x = 16, y = 10, vida = 1550, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 600)
 	var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 750)
 	var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 750)
 	var giganteDePiedra3 = new Gigante(x = 2, y = 3, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 750)
 	var dragon1 = new Dragon(x = 21, y = 6, vida = 2600, ataques = [incinerar, ataqueBasico], fuerza = 800)
 	var dragon2 = new Dragon(x = 20, y = 5, vida = 2600, ataques = [incinerar, ataqueBasico], fuerza = 800)
-	var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 1500, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 500)
-	var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 1500, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 500)
+	var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 1700, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 500)
+	var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 1700, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 500)
 	var mago = new Mago(x = 18, y = 7, vida = 3500, ataques = [ataqueBasico,robarArmaConMasFuerza,absorberVida], fuerza = 555)
 	var gato = new Gato(x = 19, y = 8, vida = 1800, ataques = [ataqueBasico,electrocutar,buffearse,envenenar], fuerza = 450)
 

@@ -3,7 +3,6 @@ import personajes.*
 import enemigos.*
 import ataques.*
 
-// armas
 class Arma {
 	const property esUnArma = true // creo esta variable aca y en pociones para el ataque robarItemConMasFuerza
 
@@ -118,7 +117,8 @@ class Arco inherits Arma {
 
 }
 
-// pociones 
+// -------------------------------------------------------------------------------------------------------
+
 class Pocion {
 	var position
 	const property esUnArma = false

@@ -5,8 +5,6 @@ import ataques.*
 import extras.*
 import nivel.*
 
-//TODO: Modificar los stats de los enemigos para que sean acordes y no maten o mueran de un golpe (fuerza y vida)
-
 class Enemigo { 
 	var x
 	var y

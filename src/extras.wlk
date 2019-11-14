@@ -33,7 +33,7 @@ const arrow3 = new Arrow(position = game.at(9,8), posicionInicial = game.at(9,8)
 const fireBalls = [fireBall1,fireBall2,fireBall3]
 const arrows = [arrow1,arrow2,arrow3]
 
-///////////////////////////////////////////////
+// -------------------------------------------------------------------------------------------------------
 
 class Muro {
 

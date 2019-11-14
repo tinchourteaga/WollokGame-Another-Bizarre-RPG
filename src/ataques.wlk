@@ -5,7 +5,7 @@ import enemigos.*
 class Ataque {
 	var property danio = 0
 	
-	method efecto(caster,target) {}
+	method efecto(caster,target) {} // para que no tire error
 }
 
 object robarArmaConMasFuerza inherits Ataque {
