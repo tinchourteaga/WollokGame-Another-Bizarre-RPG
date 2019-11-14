@@ -11,7 +11,7 @@ class Enemigo {
 	var x
 	var y
 	var ataques
-	var itemsQueDropea = [new PocionSalud(), new PocionFuerza(), pocionInmortalidad] //TODO: terminar de poner todos los items
+	var itemsQueDropea = [new PocionSalud(), new PocionFuerza(), pocionInmortalidad,new EspadaDeMagma(), new Arco(),new Daga(),new EspadaDiamante(), new EspadasDelCaos(),new EspadaAzul(),new Espada(),new Espada(),new Espada(),new Espada(),new Kunai(),new Guantelete(),new MasterSword()] //TODO: terminar de poner todos los items
 	var property fuerza																//Si agrego mas de un mismo item aumento la chances de drop
 	var property statusEffect = ninguno
 	var property vida
