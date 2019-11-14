@@ -5,69 +5,83 @@ import items.*
 import extras.*
 import ataques.*
 import nivel.*
-/* 
-describe "Tests del juego" {
+
+describe "Tests del personaje" {
+	var espadaDeMagma = new EspadaDeMagma()
+	var espadaDeDiamante = new EspadaDiamante()
+	var bastonMagico = new BastonMagico()
+	var arco = new Arco()
 	
-	var trollDePiedra = new Troll(x = 15, y = 9, vida = 300, velocidad = 5, image = "trollDePiedra.png")
-    var trollDemonio = new Troll(x = 16, y = 7, vida = 450, velocidad = 35, image = "trollDemonio.png")
-    var giganteDePiedra = new Gigante(x = 3, y = 4, vida = 550, velocidad = 2, image = "giganteDePiedra.png")
-    var giganteDeHielo = new Gigante(x = 3, y = 2, vida = 500, velocidad = 2, image = "giganteDeHielo.png")
-    var giganteVioleta = new Gigante(x = 2, y = 3, vida = 500, velocidad = 2, image = "giganteDeManaosDeUva.png")
-    var dragonVerde = new Dragon(x = 21, y = 6, vida = 800, velocidad = 55, image = "dragonVerde.png")
-    var dragonVioleta = new Dragon(x = 20, y = 5, vida = 800, velocidad = 55, image = "dragonVioleta.png")
-    var perroDeTresCabezasDeHielo = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, velocidad = 40, image = "perroDe3CabezasDeHielo.png")
-    var perroDeTresCabezasDeFuego = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, velocidad = 45, image = "perroDe3CabezasDeFuego.png")
-    var mago = new Mago(x = 18, y = 7, vida = 500, velocidad = 25, image = "mago.png")
-    var gato = new Gato(x = 19, y = 8, vida = 500, velocidad = 50, image = "gato.png")
-	// tests
-	test "El troll de piedra ataca a Scorpion" {
-		trollDePiedra.atacar(scorpion)
-		assert.equals(950,scorpion.vida())
-	}
-	test "El troll demonio ataca a Scorpion" {
-		trollDemonio.atacar(scorpion)
-		assert.equals(650,scorpion.vida())
-	}
-	test "El gigante de piedra ataca a Scorpion" {
-		giganteDePiedra.atacar(scorpion)
-		assert.equals(875,scorpion.vida())
-	}
-	test "El gigante de hielo ataca a Scorpion" {
-		giganteDeHielo.atacar(scorpion)
-		assert.equals(875,scorpion.vida())
-	}
-	test "El gigante violeta ataca a Scorpion" {
-		giganteVioleta.atacar(scorpion)
-		assert.equals(875,scorpion.vida())
-	}
-	test "El dragon verde ataca a Scorpion" {
-		dragonVerde.atacar(scorpion)
-		assert.equals(700,scorpion.vida())
-	}
-	test "El dragon violeta ataca a Scorpion" {
-		dragonVioleta.atacar(scorpion)
-		assert.equals(700,scorpion.vida())
-	}
-	test "El perro de 3 cabezas de hielo ataca a Scorpion" {
-		perroDeTresCabezasDeHielo.atacar(scorpion)
-		assert.equals(840,scorpion.vida())
-	}
-	test "El perro de 3 cabezas de fuego ataca a Scorpion" {
-		perroDeTresCabezasDeFuego.atacar(scorpion)
-		assert.equals(820,scorpion.vida())
-	}
-	/*                                    Al comentar el ataque de robar item no puedo probar nada
-	test "El mago ataca a Scorpion" {
-		mago.atacar(scorpion)
-		assert.equals(???,scorpion.vida())
-	} 
-	test "El gato ataca a Scorpion" {
-		gato.atacar(scorpion)
-		assert.equals(860,scorpion.vida())
+	var pocionFuerza = new PocionFuerza()
+	var pocionSalud = new PocionSalud()
+	
+	var dragon = new Dragon(x = 21, y = 6, vida = 2600, ataques = [incinerar, ataqueBasico], fuerza = 1550)
+	var mago = new Mago(x = 18, y = 7, vida = 3500, ataques = [ataqueBasico,robarArmaConMasFuerza,absorberVida], fuerza = 900)
+	var troll = new Troll(x = 16, y = 6, vida = 300, pesoGarrote = 200, ataques = [ataqueBasico], fuerza = 100)
+	    
+    fixture {
+    	scorpion.agregarItemALaLista(espadaDeMagma)
+    	scorpion.agregarItemALaLista(espadaDeDiamante)
+        
+        gandalf.agregarItemALaLista(bastonMagico)
+    	gandalf.agregarItemALaLista(arco)	
+    }    
+
+	// Tests
+	test "Scorpion cambia de arma" {
+		scorpion.cambiarArma()
+		assert.equals(espadaDeDiamante,scorpion.itemEnMano())
 	}
 	
-	test "gandalf al matar al mago aumenta su kills counter" {
-		gandalf.matar(mago)
-		assert.equals(1,gandalf.killsCounter())
+	test "Cuando gandalf ataca a un troll1 " {
+		gandalf.atacar(troll)
+		assert.equals(0, troll.vida())
 	}
-} */
+	
+	test "El troll ataca a scorpion" {
+		troll.atacar(scorpion)
+		assert.equals(4900,scorpion.vida())
+	}
+	
+	test "Cuando Gandalf toma la pocion de salud aumenta su vida en 1000" {
+		pocionSalud.efecto(gandalf)
+		assert.equals(5000,gandalf.vida()) // porque no puede tener mas vida que 5000
+	}
+	
+	test "Cuando scorpion toma la pocion de fuerza su fuerza queda en 1100" {
+		pocionFuerza.efecto(scorpion)
+		assert.equals(1100,scorpion.fuerza())
+	}
+	
+	test "Scorpion ataca al mago con una espada de diamante" {
+		espadaDeDiamante.ataque(scorpion,mago)
+		assert.equals(2450,mago.vida())
+	}
+	
+	test "Gandalf ataca a un dragon con el baston magico" {
+		bastonMagico.ataque(gandalf,dragon)
+		assert.equals(1733.33333,dragon.vida())
+	}
+	
+	test "Cuando Scorpion es envenenado por el mago cambia su status effect" {
+			envenenar.efecto(mago,scorpion)
+			assert.equals(envenenado,scorpion.statusEffect())
+	}
+	
+	test "Cuando el troll realiza el ataque buffearse con gandalf, su fuerza aumenta" {
+		buffearse.efecto(troll,gandalf)
+		assert.equals(150,troll.fuerza())
+	}
+	
+	test "Scorpion al moverse cambia de posicion" {
+		scorpion.moverse(scorpion.position().right(1), derecha, scorpion)
+		scorpion.moverse(scorpion.position().down(1), derecha, scorpion)
+		assert.equals(game.at(13,1),scorpion.position())
+	}
+	
+	test "Gandalf al moverse cambia de posicion" {
+		gandalf.moverse(gandalf.position().up(1), arriba, gandalf)
+		gandalf.moverse(gandalf.position().left(1), arriba, gandalf)
+		assert.equals(game.at(11,3),gandalf.position())
+	}
+}

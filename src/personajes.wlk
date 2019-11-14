@@ -13,13 +13,13 @@ class Personaje {
 	var property statusEffect = ninguno
 	var property itemEnMano
 	var property items = []
-	var position = game.at(12, 2)
-
-	method image()
-
-	method position() = position
+	var property position = game.at(12,2)
 
 	method vida() = vida
+	
+	method agregarItemALaLista(item) { // este metodo me sirve para los tests
+		items.add(item)
+	}
 
 	method moverse(nuevaPosicion, orientacion, personaje) {
 		if (self.puedeMoverse(orientacion, personaje)) {
@@ -152,12 +152,9 @@ class Personaje {
 
 }
 
-//TODO: Agregar stats distintos a ambos que sean acordes. Que no maten ni mueran de un golpe 
-//(hagamos que gandalf no tenga mana porque hay que modificar varias cosas)
-
 object scorpion inherits Personaje {
 
-	override method image() {
+	method image() {
 		return if(game.hasVisual(fondo)) "scorpionPelea.png" else "scorpion.png"
 	} 
 
@@ -165,7 +162,7 @@ object scorpion inherits Personaje {
 
 object gandalf inherits Personaje {
 
-	override method image() {
+	method image() {
 		return if(game.hasVisual(fondo)) "gandalfPelea.png" else "gandalf.png"
 	} 
 }
@@ -193,4 +190,3 @@ object izquierda {
 	method posicionEnEsaDireccion(personaje) = personaje.position().left(1)
 
 }
-

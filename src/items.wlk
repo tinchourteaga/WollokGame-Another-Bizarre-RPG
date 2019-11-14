@@ -3,8 +3,8 @@ import personajes.*
 import enemigos.*
 import ataques.*
 
-// armas
 class Arma {
+	const property esUnArma = true // creo esta variable aca y en pociones para el ataque robarItemConMasFuerza
 
 	method image()
 
@@ -78,7 +78,7 @@ class Daga inherits Arma {
 class EspadaDiamante inherits Arma {
 
 	var vida = 50
-	var fuerza = 90
+    var fuerza = 90
 
 	override method image() = "espadaDiamante.png"
 
@@ -235,6 +235,7 @@ class BastonMagico inherits Arma { // TODO: Sigan este ejemplo para agregar ataq
 
 	var vida = 150
 	var efectoAtaque = electrocutar
+	var fuerza = 110
 
 	override method image() = "vara.png"
 
@@ -273,10 +274,12 @@ class Arco inherits Arma {
 
 }
 
-// pociones 
+// -------------------------------------------------------------------------------------------------------
+
 class Pocion {
 
 	var position
+	const property esUnArma = false
 
 	method esAtravesable() = true
 
