@@ -101,7 +101,7 @@ class Espada inherits Arma {
 
 	var fuerza = 20
 
-	override method image() = "espadaDiamante.png"
+	override method image() = "espada.png"
 
 	override method ataque(owner, target) {
 		target.disminuirVida(owner.fuerza() * 0.1)
@@ -120,7 +120,7 @@ class Kunai inherits Arma {
 
 	var fuerza = 25
 
-	override method image() = "espadaDiamante.png"
+	override method image() = "kunai.png"
 
 	override method ataque(owner, target) {
 		target.disminuirVida(owner.fuerza())
