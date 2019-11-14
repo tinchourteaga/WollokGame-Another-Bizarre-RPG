@@ -39,19 +39,19 @@ object seleccionDePersonaje {
 object nivel {
 
 	/* ENEMIGOS */
-	var property bossVampiro = new Boss(x = 20, y = 10, vida = 3000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 300)
-	var property guardian = new Guardian(x = 23, y = 10, vida = 1000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 175)
-	var troll1 = new Troll(x = 16, y = 6, vida = 300, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 100)
-	var troll2 = new Troll(x = 16, y = 10, vida = 450, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 100)
-	var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 550, ataques = [ataqueBasico, aplastar], fuerza = 250)
-	var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
-	var giganteDePiedra3 = new Gigante(x = 2, y = 3, vida = 500, ataques = [ataqueBasico, aplastar], fuerza = 250)
-	var dragon1 = new Dragon(x = 21, y = 6, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
-	var dragon2 = new Dragon(x = 20, y = 5, vida = 800, ataques = [incinerar, ataqueBasico], fuerza = 250)
-	var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
-	var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 600, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 150)
-	var mago = new Mago(x = 18, y = 7, vida = 500, ataques = [], fuerza = 50)
-	var gato = new Gato(x = 19, y = 8, vida = 500, ataques = [], fuerza = 65)
+	var property bossVampiro = new Boss(x = 20, y = 10, vida = 4000, ataques = [ataqueBasico, envenenar, electrocutar, debilitar, absorberVida, buffearse, festinDeSangre], fuerza = 1500)
+	var property guardian = new Guardian(x = 23, y = 10, vida = 3000, ataques = [ataqueBasico, absorberVida, incinerar, envenenar], fuerza = 1000)
+	var troll1 = new Troll(x = 16, y = 6, vida = 1000, pesoGarrote = 200, ataques = [ataqueBasico, garrotazo], fuerza = 600)
+	var troll2 = new Troll(x = 16, y = 10, vida = 1000, pesoGarrote = 100, ataques = [ataqueBasico, garrotazo], fuerza = 600)
+	var giganteDePiedra1 = new Gigante(x = 3, y = 4, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 750)
+	var giganteDePiedra2 = new Gigante(x = 3, y = 2, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 750)
+	var giganteDePiedra3 = new Gigante(x = 2, y = 3, vida = 2500, ataques = [ataqueBasico, aplastar], fuerza = 750)
+	var dragon1 = new Dragon(x = 21, y = 6, vida = 2600, ataques = [incinerar, ataqueBasico], fuerza = 800)
+	var dragon2 = new Dragon(x = 20, y = 5, vida = 2600, ataques = [incinerar, ataqueBasico], fuerza = 800)
+	var perroDeTresCabezas1 = new PerroDeTresCabezas(x = 18, y = 4, vida = 1500, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 500)
+	var perroDeTresCabezas2 = new PerroDeTresCabezas(x = 23, y = 3, vida = 1500, ataques = [ataqueBasico, mordidaDeFuego], fuerza = 500)
+	var mago = new Mago(x = 18, y = 7, vida = 3500, ataques = [ataqueBasico,robarArmaConMasFuerza,absorberVida], fuerza = 555)
+	var gato = new Gato(x = 19, y = 8, vida = 1800, ataques = [ataqueBasico,electrocutar,buffearse,envenenar], fuerza = 450)
 
 	var property enemigos = [ bossVampiro, guardian, troll1, troll2, giganteDePiedra1, giganteDePiedra2, giganteDePiedra3,
  		dragon1, dragon2, perroDeTresCabezas1, perroDeTresCabezas2, mago, gato]
@@ -78,7 +78,7 @@ object nivel {
 	method agregarPersonajes(personaje) {
 		
 		// Enemigos
-		enemigos.forEach({ enemigo => game.addVisual(enemigo)})
+		enemigos.forEach({enemigo => game.addVisual(enemigo)})
 		
 		// Personaje seleccionado
 		game.addVisual(personaje)
@@ -88,7 +88,11 @@ object nivel {
 	method agregarVisualesExtras() {
 		
 		self.generarPuertasYBotones()
-		
+		/* NO ANDA
+		pinchos.forEach({trampa => game.addVisual(trampa)})
+		fireBalls.forEach({fireBall => game.addVisual(fireBall)})
+		arrows.forEach({arrow => game.addVisual(arrow)})
+		*/
 		game.addVisualIn(trampaPinchos1, game.at(3, 8))
 		game.addVisualIn(trampaPinchos2, game.at(3, 9))
 		game.addVisualIn(trampaPinchos3, game.at(3, 10))
@@ -181,20 +185,20 @@ object config {
 		keyboard.num1().onPressDo({ personaje.atacar(enemigo) }) //atacar
 		keyboard.num2().onPressDo({ personaje.defenderse(enemigo) }) //defender
 		keyboard.num3().onPressDo({ personaje.ataqueEspecial(enemigo) }) //especial (ataque del arma)
-		keyboard.num4().onPressDo({ personaje.cambiarArma() }) //cambiar de arma	TODO: testear si funciona	
+		keyboard.num4().onPressDo({ personaje.cambiarArma() }) //cambiar de arma
 	}
 
 	method configurarColisiones(personaje) {
-		nivel.enemigos().forEach({ enemigo => game.whenCollideDo(enemigo, { alguien => enemigo.pelear(alguien)})})
-		fireBalls.forEach({ fireBall => game.whenCollideDo(fireBall, { extra => fireBall.efecto(extra)})})
-		arrows.forEach({ arrow => game.whenCollideDo(arrow, { extra => arrow.efecto(extra)})})
+		nivel.enemigos().forEach({enemigo => game.whenCollideDo(enemigo,{alguien => enemigo.pelear(alguien)})})
+		fireBalls.forEach({fireBall => game.whenCollideDo(fireBall,{extra => fireBall.efecto(extra)})})
+		arrows.forEach({arrow => game.whenCollideDo(arrow,{extra => arrow.efecto(extra)})})
 		
 	}
 	
 	method configurarAcciones(personaje) {
-		nivel.enemigosMovimiento().forEach({ enemigo => game.onTick(1000, "Enemigo Moviendose", { enemigo.cambiarPosicionEnX(18.randomUpTo(24))})})
-		fireBalls.forEach({ fireBall => game.onTick(fireBall.velocidad(), "FireBall Moviendose", { fireBall.moverFireBall()})})
-		arrows.forEach({ arrow => game.onTick(arrow.velocidad(), "Arrow Moviendose", { arrow.moverArrow()})})
+		nivel.enemigosMovimiento().forEach({enemigo => game.onTick(1000, "Enemigo Moviendose", { enemigo.cambiarPosicionEnX(18.randomUpTo(24))})})
+		fireBalls.forEach({fireBall => game.onTick(fireBall.velocidad(), "FireBall Moviendose", { fireBall.moverFireBall()})})
+		arrows.forEach({arrow => game.onTick(arrow.velocidad(), "Arrow Moviendose", { arrow.moverArrow()})})
 				
 		game.onTick(500, "GAMEOVER", { if (personaje.morir()) gameOver.mostrarPantallaGameOver() })
 		game.onTick(500, "GANAR JUEGO", {if (!game.hasVisual(nivel.bossVampiro())) victoria.mostrarPantallaVictoria() })

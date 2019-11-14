@@ -5,25 +5,26 @@ import enemigos.*
 class Ataque {
 	var property danio = 0
 	
-	method ataque(personaje)
+	method efecto(caster,target) {}
 }
 
-object robarItemConMasPoder inherits Ataque {
+object robarArmaConMasFuerza inherits Ataque {
 	
-	override method ataque(personajeAfectado) {
-		personajeAfectado.items().remove(self.itemConMasPoder(personajeAfectado))
+	override method efecto(caster,target) {
+		target.items().remove(self.armaConMasFuerza(target))
 	}
 	
-	method itemConMasPoder(personaje) {
-		return personaje.items().max({item => item.poder()})
+	method armaConMasFuerza(personaje) {
+		return personaje.items().filter({item => item.esUnArma()}).max({item => item.fuerza()})
 	}
 }
 
-object robarItemEnMano inherits Ataque {
+object robarArmaEnMano inherits Ataque {
 	
-	override method ataque(personaje) {
-		
-		personaje.ponerItemSiguienteEnMano()	
+	override method efecto(caster,target) {
+		if(target.itemEnMano().esUnArma()) {
+			target.ponerItemSiguienteEnMano()
+		}	
 	}
 }
 
@@ -163,12 +164,3 @@ object mareado inherits StatusEffect {
 		target.disminuirVida(target.fuerza())
 	}
 }
-
-
-
-
-
-
-
-
-

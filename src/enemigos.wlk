@@ -10,11 +10,13 @@ import nivel.*
 class Enemigo { 
 	var x
 	var y
-	var ataques
+	var ataques = []
 	var itemsQueDropea = [new PocionSalud(), new PocionFuerza(), pocionInmortalidad] //TODO: terminar de poner todos los items
 	var property fuerza																//Si agrego mas de un mismo item aumento la chances de drop
 	var property statusEffect = ninguno
 	var property vida
+
+    method ataques() = ataques
 
     method position() = game.at(x,y)
 
@@ -102,8 +104,6 @@ class Troll inherits Enemigo {
 	method posicionAttackHit() {
 		game.addVisualIn(attackHit,game.at(18,6))
 	}
-
-
 }
 
 class Dragon inherits Enemigo {
@@ -122,22 +122,15 @@ class Dragon inherits Enemigo {
 	
 }
 
-// TANTO EL MAGO COMO EL GATO PODRIAN MOVERSE ALEATORIAMENTE EN UN DETERMINADO ESPACIO, SI COLISIONA CON NOSOTROS (HAY QUE EVTARLO)
-// NOS ROBA UN ITEM
 
-// FALTA HACER AL MAGO Y AL GATO
 class Mago inherits Enemigo {
-	
+	var poderBaston = 100
 	var imagen = "mago.png"
 
 	method image() = imagen
 	
 	method modificarImagen() {
 		imagen = "magoGrande.png"
-	}
-
-	override method atacar(personaje) {
-	// robarItemConMasPoder.ataque(personaje)
 	}
 	
 	method posicionAttackHit() {
@@ -150,15 +143,10 @@ class Gato inherits Enemigo {
 	var poderEspada = 70
 	var imagen = "gato.png"
 	
-	method image() = imagen 
+	method image() = imagen
 
 	method modificarImagen() {
 		imagen = "gatoGrande.png"
-	}
-
-	override method atacar(personaje) {
-		// robarItemEnMano.ataque(personaje)
-		personaje.disminuirVida(2 * poderEspada)
 	}
 	
 	method posicionAttackHit() {
